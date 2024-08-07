@@ -1,0 +1,19 @@
+.sider {
+    background-color: #001529;
+}
+
+.sider .ant-menu-dark {
+    background-color: #001529;
+}
+
+.sider .ant-menu-dark .ant-menu-item {
+    color: #fff;
+}
+
+.sider .ant-menu-dark .ant-menu-item-selected {
+    background-color: #1890ff;
+}
+
+.sider .ant-menu-dark .ant-menu-item:hover {
+    background-color: #40a9ff;
+}

@@ -1,33 +1,26 @@
-import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
+import React from 'react';
+import {Input, Space} from 'antd';
 
-export default function FreeSolo() {
-    return (
-        <Stack spacing={2} sx={{ width: 300 }}>
-            <Autocomplete
-                id="free-solo-demo"
-                freeSolo
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => <TextField {...params} label="freeSolo" />}
-            />
-            <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                disableClearable
-                options={top100Films.map((option) => option.title)}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label="Search input"
-                        InputProps={{
-                            ...params.InputProps,
-                            type: 'search',
-                        }}
-                    />
-                )}
-            />
-        </Stack>
-    );
-}
+const {Search} = Input;
+const onSearch = (value, _e, info) => {
+    console.log(info?.source, value);
+};
+
+const SearchItems = () => (
+    <Space
+        direction="vertical"
+        style={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100%'
+        }}
+    >
+        <Search
+            placeholder=""
+            onSearch={onSearch}
+            style={{width: 200}}
+        />
+    </Space>
+);
+
+export default SearchItems;
