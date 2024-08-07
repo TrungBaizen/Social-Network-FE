@@ -1,8 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useDispatch} from "react-redux";
+import {successNotification} from "../../../redux/services/userService";
 
 function SuccessNotification() {
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const token = query.get("token");
+    useEffect(() => {
+        console.log(token)
+        dispatch(successNotification(token))
+    }, [dispatch,token]);
     return (
         <div className="main-content bg-white ps-0 pe-0">
             <div className="container">

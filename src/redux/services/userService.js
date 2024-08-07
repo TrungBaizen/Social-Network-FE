@@ -43,3 +43,29 @@ export const signup = createAsyncThunk(
         }
     }
 );
+
+export const changePassword = createAsyncThunk(
+    'user/changePassword',
+    async (user, { rejectWithValue }) => {
+        try {
+            const response = await getAxios().post('users/change-password', user);
+            return response.data;
+        } catch (error) {
+            // Trả về thông tin lỗi nếu có
+            return rejectWithValue(error.response.data.message || 'Đã xảy ra lỗi.');
+        }
+    }
+);
+
+export const successNotification = createAsyncThunk(
+    'user/successNotification',
+    async (token, { rejectWithValue }) => {
+        try {
+            const response = await getAxios().get(`/verify?token=${token}`);
+            return response.data;
+        } catch (error) {
+            // Trả về thông tin lỗi nếu có
+            return rejectWithValue(error.response.data.message || 'Đã xảy ra lỗi.');
+        }
+    }
+);
