@@ -15,6 +15,7 @@ import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "@mui/material/Link";
+import {useDispatch} from "react-redux";
 
 const defaultTheme = createTheme();
 
@@ -26,6 +27,7 @@ const validationSchema = Yup.object({
 
 export default function ForgotPassword() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = (values, { setSubmitting }) => {
         // Simulate an API call

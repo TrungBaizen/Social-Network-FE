@@ -11,12 +11,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "@mui/material/Link";
+import { useDispatch } from "react-redux";
+import { login } from "../../../redux/services/userService";
+import { useEffect } from 'react';
 
 const defaultTheme = createTheme();
 
@@ -25,26 +28,46 @@ const validationSchema = Yup.object({
         .email('Invalid email address')
         .required('Required'),
     password: Yup.string()
-        .min(8, 'Password must be at least 8 characters')
-        .matches(/[A-Z]/, 'Password must contain an uppercase letter')
-        .matches(/[a-z]/, 'Password must contain a lowercase letter')
-        .matches(/[0-9]/, 'Password must contain a number')
-        .required('Required'),
+        .min(6, 'Password must be at least 6 characters')
+        // .matches(/[A-Z]/, 'Password must contain an uppercase letter')
+        // .matches(/[a-z]/, 'Password must contain a lowercase letter')
+        // .matches(/[0-9]/, 'Password must contain a number')
+        // .required('Required'),
 });
 
 export default function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const handleSubmit = (values, { setSubmitting }) => {
-        // Simulate an API call
-        if (values.email === 'admin@gmail.com' && values.password === '12345678Aa') {
-            toast.success('Login successful!');
-            navigate('/'); // Redirect to Home
-        } else {
-            toast.error('Invalid credentials');
+    const handleSubmit = async (values, { setSubmitting }) => {
+        try {
+            const action = await dispatch(login(values));
+
+            if (login.fulfilled.match(action)) {
+                // Điều hướng sau khi đăng nhập thành công
+                navigate("/");
+            } else {
+                // Nếu yêu cầu không thành công, lỗi sẽ được lưu trong action.payload
+                toast.error(action.payload || 'Login failed, please try again.');
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+            toast.error("Login failed, please try again.");
+        } finally {
+            setSubmitting(false);
         }
-        setSubmitting(false);
     };
+
+
+
+    useEffect(() => {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        if (currentUser) {
+            // Nếu có thông tin người dùng, điều hướng đến trang chủ
+            navigate("/");
+        }
+    }, [navigate]);
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -65,7 +88,11 @@ export default function Login() {
                         Sign in
                     </Typography>
                     <Formik
-                        initialValues={{ email: '', password: '' }}
+                        initialValues={{
+                            email: '',
+                            password: '',
+                            remember: false
+                        }}
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
                     >
@@ -82,6 +109,7 @@ export default function Login() {
                                     autoComplete="email"
                                     autoFocus
                                 />
+                                <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
                                 <Field
                                     as={TextField}
                                     margin="normal"
@@ -93,6 +121,7 @@ export default function Login() {
                                     id="password"
                                     autoComplete="current-password"
                                 />
+                                <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
                                 <FormControlLabel
                                     control={<Field as={Checkbox} name="remember" color="primary" />}
                                     label="Remember me"
@@ -108,17 +137,12 @@ export default function Login() {
                                 </Button>
                                 <Grid container>
                                     <Grid item xs>
-                                        <Link component={RouterLink}
-                                              to="/forgot-password" variant="body2">
+                                        <Link component={RouterLink} to="/forgot-password" variant="body2">
                                             Forgot password?
                                         </Link>
                                     </Grid>
                                     <Grid item>
-                                        <Link
-                                            component={RouterLink}
-                                            to="/register"
-                                            variant="body2"
-                                        >
+                                        <Link component={RouterLink} to="/register" variant="body2">
                                             {"Don't have an account? Sign Up"}
                                         </Link>
                                     </Grid>
