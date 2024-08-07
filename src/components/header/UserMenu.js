@@ -14,7 +14,7 @@ const settings = [
     { title: 'Profile', link: '/profile' },
     { title: 'Account', link: '/account' },
     { title: 'Dashboard', link: '/dashboard' },
-    { title: 'Change Password', link: '/changpassword' }
+    { title: 'Change Password', link: '/changepassword' }
 ];
 
 function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
