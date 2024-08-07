@@ -1,10 +1,23 @@
-import React from 'react';
-import { Layout, Typography } from 'antd';
+// PostsPage.js
+import React, { useState } from 'react';
+import { Layout, Typography, Button } from 'antd';
 import Post from './Post';
+import CreatePostModal from './CreatePostModal';
+
 const { Content } = Layout;
 const { Title } = Typography;
 
 const PostsPage = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showCreatePostModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     const posts = [
         {
             user: {
@@ -35,9 +48,16 @@ const PostsPage = () => {
         <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
             <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
                 <Title level={2}>Các Bài Viết</Title>
+                <Button type="primary" onClick={showCreatePostModal} style={{ marginBottom: 20 }}>
+                    Tạo bài viết
+                </Button>
                 {posts.map((post, index) => (
                     <Post key={index} post={post} />
                 ))}
+                <CreatePostModal
+                    visible={isModalVisible}
+                    onCancel={handleCancel}
+                />
             </Content>
         </Layout>
     );
