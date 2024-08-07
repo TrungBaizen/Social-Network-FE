@@ -24,3 +24,11 @@ export const forgotPassword = createAsyncThunk(
         return res.data;
     }
 )
+
+export const signup = createAsyncThunk(
+    "user/signup",
+    async (user) => {
+        let res = await getAxios().post(`register`,user)
+        return res.data;
+    }
+)
