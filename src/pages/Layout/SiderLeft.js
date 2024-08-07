@@ -1,8 +1,9 @@
 import React from 'react';
 import { UserOutlined, TeamOutlined, ProfileOutlined, StarOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd'; // Import Layout from 'antd'
+import { Layout, Menu } from 'antd';
+import './HomeLayout.css';
 
-const { Sider } = Layout; // Destructure Sider from Layout
+const { Sider } = Layout;
 
 const items2 = [
     {
@@ -30,14 +31,19 @@ const items2 = [
 
 const SiderLeft = ({ colorBgContainer }) => (
     <Sider
+        className="sider"
         style={{
-            background: colorBgContainer,
+            position: 'sticky',
+            top: 0,
+            height: '100vh',
+            overflow: 'auto',
         }}
         width={200}
     >
         <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
+            theme="dark"
             style={{
                 height: '100%',
                 borderRight: 0,
