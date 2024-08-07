@@ -51,14 +51,26 @@ export default function SignUp() {
     const dispatch = useDispatch();
 
     const handleSubmit = async (values, { setSubmitting }) => {
+        const birthDate = `${values.year}-${String(values.month).padStart(2, '0')}-${String(values.day).padStart(2, '0')}`;
+        const user = {
+            gender: values.gender,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            birthDate: birthDate,
+            email: values.email,
+            password: values.password,
+            confirmPassword: values.confirmPassword
+        };
+        console.log(user)
         try {
-            await dispatch(signup())
-            navigate('/register-success'); // Điều hướng đến trang đăng nhập
+            await dispatch(signup(user)).unwrap();
+            navigate('/register-success');
         } catch (error) {
-            toast.error('An error occurred. Please try again.');
+            toast.error('Đăng ký không thành công');
         }
         setSubmitting(false);
     };
+
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -168,9 +180,9 @@ export default function SignUp() {
                                         <FormControl fullWidth required error={Boolean(errors.gender && touched.gender)}>
                                             <InputLabel id="gender-label">Gender</InputLabel>
                                             <Field as={Select} labelId="gender-label" id="gender" name="gender" label="Gender">
-                                                <MenuItem value="male">Male</MenuItem>
-                                                <MenuItem value="female">Female</MenuItem>
-                                                <MenuItem value="other">Other</MenuItem>
+                                                <MenuItem value="MALE">Male</MenuItem>
+                                                <MenuItem value="FEMALE">Female</MenuItem>
+                                                <MenuItem value="OTHER">Other</MenuItem>
                                             </Field>
                                             <ErrorMessage name="gender" component="div" style={{ color: 'red' }} />
                                         </FormControl>
@@ -208,12 +220,12 @@ export default function SignUp() {
                                             <ErrorMessage name="year" component="div" style={{ color: 'red' }} />
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControlLabel
-                                            control={<Field as={Checkbox} name="allowExtraEmails" color="primary" />}
-                                            label="I want to receive inspiration, marketing promotions and updates via email."
-                                        />
-                                    </Grid>
+                                    {/*<Grid item xs={12}>*/}
+                                    {/*    <FormControlLabel*/}
+                                    {/*        control={<Field as={Checkbox} name="allowExtraEmails" color="primary" />}*/}
+                                    {/*        label="I want to receive inspiration, marketing promotions and updates via email."*/}
+                                    {/*    />*/}
+                                    {/*</Grid>*/}
                                 </Grid>
                                 <Button
                                     type="submit"
