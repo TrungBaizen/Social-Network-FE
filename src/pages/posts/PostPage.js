@@ -14,9 +14,10 @@ const PostsPage = () => {
             image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
             status: 'Had a great day at the beach!',
             likes: 120,
+            likedBy: ['Alice', 'Bob', 'Charlie'],
             comments: 34
         },
-        // Giữ lại một số bài viết khác để ví dụ
+        // Thêm các bài viết khác nếu cần
         {
             user: {
                 name: 'Jane Smith',
@@ -24,10 +25,10 @@ const PostsPage = () => {
             },
             image: 'https://example.com/post-image2.jpg',
             likes: 85,
+            likedBy: ['Dave', 'Eva'],
             comments: 12,
             status: 'Enjoyed a fantastic dinner!'
         }
-        // Thêm các bài viết khác nếu cần
     ];
 
     return (
