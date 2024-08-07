@@ -78,10 +78,6 @@ const Post = ({ post }) => {
                         <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
                     </div>
                     <Text>{post.status}</Text>
-                    <div className="post-actions">
-                        <Button className="post-action-button" icon={<LikeOutlined />}>Thích</Button>
-                        <Button className="post-action-button" icon={<CommentOutlined />}>Bình luận</Button>
-                    </div>
                     <div className="post-comments">
                         <Title level={4}>Bình luận:</Title>
                         <List

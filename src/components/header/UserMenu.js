@@ -13,7 +13,8 @@ import {logout} from "../../redux/services/userService";
 const settings = [
     { title: 'Profile', link: '/profile' },
     { title: 'Account', link: '/account' },
-    { title: 'Dashboard', link: '/dashboard' }
+    { title: 'Dashboard', link: '/dashboard' },
+    { title: 'Change Password', link: '/changpassword' }
 ];
 
 function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
