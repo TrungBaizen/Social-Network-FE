@@ -43,7 +43,6 @@ const SiderLeft = ({ colorBgContainer }) => (
         <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
-            theme="dark"
             style={{
                 height: '100%',
                 borderRight: 0,
