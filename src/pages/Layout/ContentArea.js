@@ -2,6 +2,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import PostPage from "../posts/PostPage";
+import ChangePassword from "../users/Login/ChangePassword";
 
 const { Content } = Layout;
 
