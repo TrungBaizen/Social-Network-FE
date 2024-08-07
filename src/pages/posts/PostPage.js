@@ -1,4 +1,3 @@
-// PostsPage.js
 import React, { useState } from 'react';
 import { Layout, Typography, Button } from 'antd';
 import Post from './Post';
