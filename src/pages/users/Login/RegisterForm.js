@@ -220,12 +220,6 @@ export default function SignUp() {
                                             <ErrorMessage name="year" component="div" style={{ color: 'red' }} />
                                         </FormControl>
                                     </Grid>
-                                    {/*<Grid item xs={12}>*/}
-                                    {/*    <FormControlLabel*/}
-                                    {/*        control={<Field as={Checkbox} name="allowExtraEmails" color="primary" />}*/}
-                                    {/*        label="I want to receive inspiration, marketing promotions and updates via email."*/}
-                                    {/*    />*/}
-                                    {/*</Grid>*/}
                                 </Grid>
                                 <Button
                                     type="submit"
