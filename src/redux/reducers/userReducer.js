@@ -19,6 +19,7 @@ const userSlice = createSlice({
             builder.addCase(forgotPassword.fulfilled,(state, {payload})=>{
             })
             builder.addCase(signup.fulfilled,(state,{payload})=>{
+                console.log(payload)
             })
         }
     }

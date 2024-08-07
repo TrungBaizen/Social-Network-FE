@@ -1,5 +1,6 @@
 import getAxios from "./customAxios";
 import {createAsyncThunk} from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const login = createAsyncThunk(
     "user/login",
@@ -27,8 +28,18 @@ export const forgotPassword = createAsyncThunk(
 
 export const signup = createAsyncThunk(
     "user/signup",
-    async (user) => {
-        let res = await getAxios().post(`register`,user)
-        return res.data;
+    async (user, { rejectWithValue }) => {
+        try {
+            const res = await getAxios().post('register', user);
+            return res.data;
+        } catch (error) {
+            // Kiểm tra nếu có lỗi từ phản hồi API
+            if (error.response && error.response.data) {
+                return rejectWithValue(error.response.data);
+            } else {
+                // Nếu không có phản hồi từ API, ném ra lỗi chung
+                throw error;
+            }
+        }
     }
-)
+);
