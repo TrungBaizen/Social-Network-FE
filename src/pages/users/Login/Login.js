@@ -10,16 +10,18 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import {useNavigate, Link as RouterLink} from 'react-router-dom';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "@mui/material/Link";
-import { useDispatch } from "react-redux";
-import { login } from "../../../redux/services/userService";
-import { useEffect } from 'react';
+import {useDispatch} from "react-redux";
+import {login} from "../../../redux/services/userService";
+import {useEffect} from 'react';
+import {GoogleLogin} from "@react-oauth/google";
+import {jwtDecode} from "jwt-decode";
 
 const defaultTheme = createTheme();
 
@@ -29,17 +31,17 @@ const validationSchema = Yup.object({
         .required('Required'),
     password: Yup.string()
         .min(6, 'Password must be at least 6 characters')
-        // .matches(/[A-Z]/, 'Password must contain an uppercase letter')
-        // .matches(/[a-z]/, 'Password must contain a lowercase letter')
-        // .matches(/[0-9]/, 'Password must contain a number')
-        // .required('Required'),
+    // .matches(/[A-Z]/, 'Password must contain an uppercase letter')
+    // .matches(/[a-z]/, 'Password must contain a lowercase letter')
+    // .matches(/[0-9]/, 'Password must contain a number')
+    // .required('Required'),
 });
 
 export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const handleSubmit = async (values, {setSubmitting}) => {
         try {
             const action = await dispatch(login(values));
 
@@ -59,7 +61,6 @@ export default function Login() {
     };
 
 
-
     useEffect(() => {
         const currentUser = JSON.parse(localStorage.getItem("currentUser"));
         if (currentUser) {
@@ -72,7 +73,7 @@ export default function Login() {
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -81,8 +82,8 @@ export default function Login() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
@@ -96,7 +97,7 @@ export default function Login() {
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
                     >
-                        {({ isSubmitting }) => (
+                        {({isSubmitting}) => (
                             <Form>
                                 <Field
                                     as={TextField}
@@ -109,7 +110,7 @@ export default function Login() {
                                     autoComplete="email"
                                     autoFocus
                                 />
-                                <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
+                                <ErrorMessage name="email" component="div" style={{color: 'red'}}/>
                                 <Field
                                     as={TextField}
                                     margin="normal"
@@ -121,20 +122,30 @@ export default function Login() {
                                     id="password"
                                     autoComplete="current-password"
                                 />
-                                <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
+                                <ErrorMessage name="password" component="div" style={{color: 'red'}}/>
                                 <FormControlLabel
-                                    control={<Field as={Checkbox} name="remember" color="primary" />}
+                                    control={<Field as={Checkbox} name="remember" color="primary"/>}
                                     label="Remember me"
                                 />
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
+                                    sx={{mt: 3, mb: 2}}
                                     disabled={isSubmitting}
                                 >
                                     Sign In
                                 </Button>
+                                <GoogleLogin
+                                    onSuccess={credentialResponse => {
+                                        const credentialDecode = jwtDecode(credentialResponse.credential);
+                                        console.log(credentialDecode);
+                                    }}
+                                    onError={() => {
+                                        console.log('Login Failed');
+                                    }}
+                                    auto_select={false}
+                                />
                                 <Grid container>
                                     <Grid item xs>
                                         <Link component={RouterLink} to="/forgot-password" variant="body2">
@@ -147,11 +158,12 @@ export default function Login() {
                                         </Link>
                                     </Grid>
                                 </Grid>
+
                             </Form>
                         )}
                     </Formik>
                 </Box>
-                <ToastContainer />
+                <ToastContainer/>
             </Container>
         </ThemeProvider>
     );
