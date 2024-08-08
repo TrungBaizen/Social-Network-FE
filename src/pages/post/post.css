@@ -1,42 +1,45 @@
-@import "../../style.css";
-
+/* post.css */
 .post {
     -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
     -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
     box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-    border-radius: 20px;
-    background-color: var(--bg); /* Thay đổi này yêu cầu bạn định nghĩa biến CSS tương ứng */
-    color: var(--textColor); /* Thay đổi này yêu cầu bạn định nghĩa biến CSS tương ứng */
+    border-radius: 8px; /* More subtle border-radius */
+    background-color: #fff; /* Facebook's white background */
+    color: #1c1e21; /* Facebook's main text color */
 
-    /* Thay đổi cho các theme */
+    /* Ensure text color is consistent with Facebook's theme */
+    /* Uncomment and set variables if using theme-based styling */
     /* .theme-light & .post { */
     /*   --bg: white; */
-    /*   --textColor: #000; */
+    /*   --textColor: #1c1e21; */
     /* } */
     /* .theme-dark & .post { */
     /*   --bg: #222; */
     /*   --textColor: whitesmoke; */
     /* } */
 
-    /* Các phần tử con */
+    /* Padding for content */
     .container {
-        padding: 20px;
+        padding: 16px; /* Adjusted padding for consistency */
     }
 
+    /* User information section */
     .user {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 12px; /* Space below user info */
     }
 
     .userInfo {
         display: flex;
-        gap: 20px;
+        align-items: center;
+        gap: 12px; /* Reduced gap */
     }
 
     .userInfo img {
-        width: 40px;
-        height: 40px;
+        width: 36px; /* Slightly smaller profile picture */
+        height: 36px;
         border-radius: 50%;
         object-fit: cover;
     }
@@ -47,35 +50,52 @@
     }
 
     .details .name {
-        font-weight: 500;
+        font-weight: 600; /* Bolder text for name */
+        font-size: 14px; /* Slightly smaller font size */
+        color: #1c1e21; /* Main text color */
     }
 
     .details .date {
-        font-size: 12px;
+        font-size: 12px; /* Smaller font size for date */
+        color: #65676b; /* Facebook's secondary text color */
     }
 
+    /* Post content styling */
     .content {
-        margin: 20px 0px;
+        margin: 12px 0; /* Margin above and below content */
+    }
+
+    .content p {
+        font-size: 14px; /* Font size for post text */
+        line-height: 1.5; /* Line height for readability */
     }
 
     .content img {
         width: 100%;
         max-height: 500px;
         object-fit: cover;
-        margin-top: 20px;
+        margin-top: 12px; /* Margin above image */
+        border-radius: 8px; /* Rounded corners for images */
     }
 
+    /* Information section for likes, comments */
     .info {
         display: flex;
         align-items: center;
         gap: 20px;
+        font-size: 14px;
+        color: #1c1e21; /* Main text color */
     }
 
     .info .item {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px; /* Reduced gap between icon and text */
         cursor: pointer;
-        font-size: 14px;
+    }
+
+    /* Adjust icon size */
+    .info .item .MuiSvgIcon-root {
+        font-size: 20px; /* Facebook-like icon size */
     }
 }
