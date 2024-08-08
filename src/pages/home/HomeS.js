@@ -6,7 +6,6 @@ import ContentArea from '../Layout/ContentArea';
 import FooterComponent from '../Layout/FooterComponent';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 
-// const { Header } = Layout;
 
 const HomeS = () => {
     const {
