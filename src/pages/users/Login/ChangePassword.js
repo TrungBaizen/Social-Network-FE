@@ -1,9 +1,11 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
-import { Container, Typography, Button, Grid, Box } from '@mui/material';
+import { Container, Box, Typography, Grid, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { changePassword } from '../../../redux/services/userService';
+import { toast } from 'react-toastify';
 
 const ChangePasswordSchema = Yup.object().shape({
     oldPassword: Yup.string()
@@ -17,6 +19,30 @@ const ChangePasswordSchema = Yup.object().shape({
 });
 
 function ChangePassword() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleSubmit = async (values, { setSubmitting }) => {
+        const jwt = JSON.parse(localStorage.getItem("currentUser"));
+        const email = jwt.email;
+        const user = {
+            email:email,
+            oldPassword:values.oldPassword,
+            newPassword:values.newPassword,
+            confirmPassword:values.confirmPassword
+        }
+        try {
+            await dispatch(changePassword(user)).unwrap();
+            toast.success('Đổi mật khẩu thành công!');
+            navigate("/");
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error(error.message || 'Đã xảy ra lỗi. Vui lòng thử lại.');
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <Container component="main" maxWidth="xs">
             <Box
@@ -37,10 +63,7 @@ function ChangePassword() {
                         confirmPassword: ''
                     }}
                     validationSchema={ChangePasswordSchema}
-                    onSubmit={values => {
-                        // Xử lý thay đổi mật khẩu ở đây
-                        console.log(values);
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     {() => (
                         <Form>
@@ -92,8 +115,8 @@ function ChangePassword() {
                             </Button>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
-                                    <Link to="/login" variant="body2">
-                                        Quay lại đăng nhập
+                                    <Link to="/" variant="body2">
+                                        Quay lại trang chủ
                                     </Link>
                                 </Grid>
                             </Grid>
