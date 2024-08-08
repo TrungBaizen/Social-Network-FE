@@ -48,7 +48,8 @@ export default function Login() {
                 navigate("/");
             } else {
                 // Nếu yêu cầu không thành công, lỗi sẽ được lưu trong action.payload
-                toast.error(action.payload || 'Đăng nhập thất bại, vui lòng thử lại.');
+                const errorMessage = action.payload?.message || 'Đăng nhập thất bại, vui lòng thử lại.';
+                toast.error(errorMessage);
             }
         } catch (error) {
             toast.error("Đăng nhập thất bại, vui lòng thử lại.");

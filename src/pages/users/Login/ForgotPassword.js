@@ -32,8 +32,19 @@ export default function ForgotPassword() {
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            await dispatch(forgotPassword(values.email))
-            navigate('/login'); // Điều hướng đến trang đăng nhập
+            const resultAction = await dispatch(forgotPassword(values.email));
+
+            if (forgotPassword.fulfilled.match(resultAction)) {
+                navigate('/login'); // Điều hướng đến trang đăng nhập
+            } else {
+                if (resultAction.payload) {
+                    // Nếu lỗi đã được gửi từ API
+                    throw new Error(resultAction.payload.message || 'An error occurred');
+                } else {
+                    // Nếu lỗi là một đối tượng lỗi chung chung
+                    throw new Error(resultAction.error.message || 'An error occurred');
+                }
+            }
         } catch (error) {
             toast.error('An error occurred. Please try again.');
         }
