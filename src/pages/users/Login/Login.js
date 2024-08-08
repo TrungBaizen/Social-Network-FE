@@ -48,11 +48,10 @@ export default function Login() {
                 navigate("/");
             } else {
                 // Nếu yêu cầu không thành công, lỗi sẽ được lưu trong action.payload
-                toast.error(action.payload || 'Login failed, please try again.');
+                toast.error(action.payload || 'Đăng nhập thất bại, vui lòng thử lại.');
             }
         } catch (error) {
-            console.error('Login failed:', error);
-            toast.error("Login failed, please try again.");
+            toast.error("Đăng nhập thất bại, vui lòng thử lại.");
         } finally {
             setSubmitting(false);
         }

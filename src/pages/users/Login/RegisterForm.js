@@ -19,9 +19,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {toast} from "react-toastify";
 import {signup} from "../../../redux/services/userService";
+import {getAllGender} from "../../../redux/services/genderService";
+import {useEffect} from "react";
 
 const defaultTheme = createTheme();
 
@@ -49,7 +51,13 @@ const validationSchema = Yup.object({
 export default function SignUp() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const genders =  useSelector(({genders})=>{
+        return genders.list
+    })
 
+    useEffect(() => {
+        dispatch(getAllGender())
+    }, [dispatch]);
     const handleSubmit = async (values, { setSubmitting }) => {
         const birthDate = `${values.year}-${String(values.month).padStart(2, '0')}-${String(values.day).padStart(2, '0')}`;
         const user = {
@@ -61,7 +69,6 @@ export default function SignUp() {
             password: values.password,
             confirmPassword: values.confirmPassword
         };
-        console.log(user)
         try {
             await dispatch(signup(user)).unwrap();
             navigate('/register-success');
@@ -180,9 +187,9 @@ export default function SignUp() {
                                         <FormControl fullWidth required error={Boolean(errors.gender && touched.gender)}>
                                             <InputLabel id="gender-label">Gender</InputLabel>
                                             <Field as={Select} labelId="gender-label" id="gender" name="gender" label="Gender">
-                                                <MenuItem value="MALE">Male</MenuItem>
-                                                <MenuItem value="FEMALE">Female</MenuItem>
-                                                <MenuItem value="OTHER">Other</MenuItem>
+                                                {genders.map((gender,index) => (
+                                                        <MenuItem key={index} value={gender}>{gender}</MenuItem>
+                                                ))}
                                             </Field>
                                             <ErrorMessage name="gender" component="div" style={{ color: 'red' }} />
                                         </FormControl>

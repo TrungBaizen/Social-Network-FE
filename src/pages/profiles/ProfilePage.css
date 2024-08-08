@@ -1,12 +1,14 @@
 /* ProfilePage.css */
 
 .profile-banner {
-    height: 200px; /* Adjust height as needed */
-    background-image: url('https://example.com/banner.jpg'); /* Use your banner image URL */
+    height: 400px; /* Tăng chiều cao của banner */
     background-size: cover;
     background-position: center;
     position: relative;
-    margin-bottom: 24px; /* Space between banner and profile card */
+    margin-bottom: 24px; /* Khoảng cách giữa banner và thẻ hồ sơ */
+    display: flex;
+    align-items: flex-end; /* Căn chỉnh nội dung ở phía dưới */
+    padding: 20px;
 }
 
 .profile-banner-overlay {
@@ -15,16 +17,34 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3); /* Dark overlay for text contrast */
+    background: rgba(0, 0, 0, 0.3); /* Mờ tối để làm nổi bật nội dung */
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Căn chỉnh nội dung thành hàng ngang */
+    width: 100%;
+    color: white; /* Để thông tin nổi bật trên nền banner */
 }
 
 .profile-avatar {
-    position: absolute;
-    bottom: -50px; /* Adjust to control how much of the avatar is overlapping */
-    left: 50%;
-    transform: translateX(-50%);
-    border: 5px solid white; /* Optional: adds a white border around the avatar */
-    z-index: 1; /* Ensure avatar is above other content */
+    border: 6px solid white; /* Thêm viền trắng quanh ảnh đại diện */
+    width: 150px; /* Tăng kích thước của ảnh đại diện */
+    height: 150px; /* Tăng kích thước của ảnh đại diện */
+}
+
+.profile-details {
+    margin-left: 20px;
+    flex: 1;
+}
+
+.profile-name {
+    margin: 0;
+}
+
+.edit-button {
+    margin-left: auto; /* Đẩy nút chỉnh sửa về phía bên phải */
 }
 
 .profile-card {
@@ -32,5 +52,5 @@
     padding: 24px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 60px; /* Adjust to provide space for the avatar overlap */
+    margin-top: 90px; /* Khoảng cách để tạo không gian cho sự chồng lấn của ảnh đại diện */
 }
