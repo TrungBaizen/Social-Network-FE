@@ -1,76 +1,53 @@
 .leftBar {
-    flex: 2;
-    position: sticky;
-    /*top: 70px;*/
+    width: 250px;
     height: auto;
-    overflow: scroll;
-    background-color: #f0f2f5; /* Replace with your theme color */
-    color: #333; /* Replace with your theme color */
-
-    /* Hide scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer and Edge */
+    background-color: #f0f2f5;
+    position: sticky;
+    top: 0;
 }
 
-.leftBar::-webkit-scrollbar {
-    display: none; /* Safari and Chrome */
-}
-
-.leftBar .container {
+.container {
     padding: 20px;
 }
 
-.leftBar .container hr {
-    margin: 20px 0;
-    border: none;
-    height: 0.5px;
-    background-color: #ddd; /* Replace with your theme color */
+.menu {
+    margin-bottom: 10px;
 }
 
-.leftBar .container .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.leftBar .container .menu span {
-    font-size: 12px;
-}
-
-.leftBar .container .menu .user {
+.menu .item {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
-.leftBar .container .menu .user img {
-    width: 30px;
-    height: 30px;
+.menu .item span {
+    font-size: 16px;
+}
+
+.user img {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    object-fit: cover;
+    margin-right: 10px;
 }
 
-.leftBar .container .menu .user span {
-    font-size: 14px;
-}
-
-.leftBar .container .menu .item {
+.user {
     display: flex;
     align-items: center;
-    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.leftBar .container .menu .item img {
-    width: 30px;
+hr {
+    border: 0.5px solid #ddd;
+    margin: 20px 0;
+}
+.leftBar {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.leftBar .container .menu .item span {
-    font-size: 14px;
-}
-
-/* Media queries for mobile and tablet */
-@media (max-width: 768px) {
-    .leftBar {
-        display: none;
-    }
+.menu .item span {
+    font-size: 16px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

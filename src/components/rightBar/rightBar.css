@@ -96,3 +96,11 @@
 .rightBar .item .user .buttons button:last-child {
     background-color: #f0544f;
 }
+/* rightBar.css */
+.rightBar {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.rightBar .item span {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
