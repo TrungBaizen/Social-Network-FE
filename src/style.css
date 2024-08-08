@@ -1,0 +1,37 @@
+/* Light Theme */
+.theme-light {
+    --textColor: #000;
+    --bg: white;
+    --logo: darkblue;
+    --bgSoft: #f6f3f3;
+    --textColorSoft: #555;
+    --border: lightgray;
+
+    color: var(--textColor);
+    background-color: var(--bg);
+    border-color: var(--border);
+}
+
+/* Dark Theme */
+.theme-dark {
+    --textColor: whitesmoke;
+    --bg: #222;
+    --logo: white;
+    --bgSoft: #333;
+    --textColorSoft: lightgray;
+    --border: #444;
+
+    color: var(--textColor);
+    background-color: var(--bg);
+    border-color: var(--border);
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+    /* Add your mobile styles here */
+}
+
+/* Tablet Styles */
+@media (max-width: 960px) {
+    /* Add your tablet styles here */
+}

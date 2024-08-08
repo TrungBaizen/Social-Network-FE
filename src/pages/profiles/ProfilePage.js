@@ -1,135 +1,80 @@
-import React, { useState } from 'react';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter } from 'mdb-react-ui-kit';
+import React from 'react';
+import { Box, Grid, Typography, IconButton, Button, Avatar, Divider } from '@mui/material';
+import FacebookTwoToneIcon from '@mui/icons-material/FacebookTwoTone';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import PlaceIcon from '@mui/icons-material/Place';
+import LanguageIcon from '@mui/icons-material/Language';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import './ProfilePage.css';
 
-export default function ProfilePage() {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalImage, setModalImage] = useState('');
-
-    const openModal = (imageSrc) => {
-        setModalImage(imageSrc);
-        setModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalOpen(false);
-    };
-
+const ProfilePage = () => {
     return (
-        <div className="gradient-custom-2">
-            <MDBContainer className="py-5 h-100 card-container">
-                <MDBRow className="justify-content-center align-items-center h-100">
-                    <MDBCol>
-                        <MDBCard className="card-custom">
-                            <div className="rounded-top text-white d-flex flex-row banner-container">
-                                <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
-                                    <MDBCardImage
-                                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                        alt="Generic placeholder image"
-                                        className="mt-4 mb-2 img-thumbnail img-thumbnail-custom"
-                                        fluid
-                                        style={{ zIndex: '1' }}
-                                        onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp")}
-                                    />
-                                    <MDBBtn
-                                        outline
-                                        color="dark"
-                                        className="edit-button-custom"
-                                    >
-                                        Edit profile
-                                    </MDBBtn>
-                                </div>
-                                <div className="ms-3 text-custom">
-                                    <MDBTypography tag="h5">Andy Horwitz</MDBTypography>
-                                    <MDBCardText>New York</MDBCardText>
-                                </div>
-                            </div>
-                            <div className="p-4 text-black card-container">
-                                <div className="d-flex justify-content-end text-center py-1">
-                                    <div>
-                                        <MDBCardText className="mb-1 h5">253</MDBCardText>
-                                        <MDBCardText className="small text-muted mb-0">Photos</MDBCardText>
-                                    </div>
-                                    <div className="px-3">
-                                        <MDBCardText className="mb-1 h5">1026</MDBCardText>
-                                        <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
-                                    </div>
-                                    <div>
-                                        <MDBCardText className="mb-1 h5">478</MDBCardText>
-                                        <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
-                                    </div>
-                                </div>
-                            </div>
-                            <MDBCardBody className="text-black p-4">
-                                <div className="mb-5">
-                                    <p className="lead fw-normal mb-1">About</p>
-                                    <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                                        <MDBCardText className="font-italic mb-1">Web Developer</MDBCardText>
-                                        <MDBCardText className="font-italic mb-1">Lives in New York</MDBCardText>
-                                        <MDBCardText className="font-italic mb-0">Photographer</MDBCardText>
-                                    </div>
-                                </div>
-                                <div className="d-flex justify-content-between align-items-center mb-4">
-                                    <MDBCardText className="lead fw-normal mb-0">Recent photos</MDBCardText>
-                                    <MDBCardText className="mb-0"><a href="#!" className="text-muted">Show all</a></MDBCardText>
-                                </div>
-                                <MDBRow>
-                                    <MDBCol className="mb-2">
-                                        <MDBCardImage
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                            alt="image 1"
-                                            className="w-100 rounded-3"
-                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp")}
-                                        />
-                                    </MDBCol>
-                                    <MDBCol className="mb-2">
-                                        <MDBCardImage
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                            alt="image 1"
-                                            className="w-100 rounded-3"
-                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp")}
-                                        />
-                                    </MDBCol>
-                                </MDBRow>
-                                <MDBRow className="g-2">
-                                    <MDBCol className="mb-2">
-                                        <MDBCardImage
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                            alt="image 1"
-                                            className="w-100 rounded-3"
-                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp")}
-                                        />
-                                    </MDBCol>
-                                    <MDBCol className="mb-2">
-                                        <MDBCardImage
-                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                            alt="image 1"
-                                            className="w-100 rounded-3"
-                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp")}
-                                        />
-                                    </MDBCol>
-                                </MDBRow>
-                            </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
-
-            <MDBModal show={modalOpen} setShow={setModalOpen} onHide={closeModal}>
-                <MDBModalDialog size="lg">
-                    <MDBModalContent>
-                        <MDBModalHeader>
-                            <MDBBtn className="btn-close" color="none" onClick={closeModal}></MDBBtn>
-                        </MDBModalHeader>
-                        <MDBModalBody>
-                            <MDBCardImage src={modalImage} alt="Modal image" className="w-100" />
-                        </MDBModalBody>
-                        <MDBModalFooter>
-                            <MDBBtn color="secondary" onClick={closeModal}>Close</MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModalContent>
-                </MDBModalDialog>
-            </MDBModal>
-        </div>
+        <Box sx={{ width: '100%' }}>
+            {/* Hình ảnh hồ sơ */}
+            <Box sx={{ position: 'relative' }}>
+                <img
+                    src="https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    alt="Cover"
+                    style={{ width: '100%', height: 300, objectFit: 'cover' }}
+                />
+                <Avatar
+                    src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                    alt="Profile"
+                    sx={{
+                        width: 120,
+                        height: 120,
+                        border: '3px solid white',
+                        position: 'absolute',
+                        bottom: -60,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                    }}
+                />
+            </Box>
+            <Box sx={{ marginTop: '60px', padding: 2 }}>
+                <Grid container spacing={3} justifyContent="center">
+                    <Grid item xs={12} md={4}>
+                        {/* Liên kết mạng xã hội */}
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Typography variant="h6">Jane Doe</Typography>
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 2 }}>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                                    <IconButton href="http://facebook.com">
+                                        <FacebookTwoToneIcon fontSize="large" />
+                                    </IconButton>
+                                    <IconButton href="http://instagram.com">
+                                        <InstagramIcon fontSize="large" />
+                                    </IconButton>
+                                    <IconButton href="http://twitter.com">
+                                        <TwitterIcon fontSize="large" />
+                                    </IconButton>
+                                    <IconButton href="http://linkedin.com">
+                                        <LinkedInIcon fontSize="large" />
+                                    </IconButton>
+                                    <IconButton href="http://pinterest.com">
+                                        <PinterestIcon fontSize="large" />
+                                    </IconButton>
+                                </Box>
+                                <Typography variant="body2" color="textSecondary">
+                                    <PlaceIcon sx={{ verticalAlign: 'middle' }} /> USA
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary">
+                                    <LanguageIcon sx={{ verticalAlign: 'middle' }} /> lama.dev
+                                </Typography>
+                                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                                    Theo dõi
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Grid>
+                </Grid>
+            </Box>
+        </Box>
     );
-}
+};
+
+export default ProfilePage;

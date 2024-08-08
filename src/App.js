@@ -6,7 +6,6 @@ import NotFound from "./pages/404/404";
 import HomeS from "./pages/home/HomeS";
 import RegisterSuccess from "./pages/users/Login/RegisterSuccess";
 import ProfilePage from "./pages/profiles/ProfilePage";
-import PostPage from "./pages/posts/PostPage";
 import ForgotSuccess from "./pages/users/Login/ForgotSuccess";
 import ChangePassword from "./pages/users/Login/ChangePassword";
 import SuccessNotification from "./pages/users/Notification/SuccessNotification";
@@ -23,7 +22,6 @@ function App() {
                 <Route path="/register-success" element={<RegisterSuccess/>}/>
                 <Route path="/changepassword" element={<ChangePassword/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
-                <Route path="/post" element={<PostPage/>}/>
                 <Route path="/successnotification" element={<SuccessNotification/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
