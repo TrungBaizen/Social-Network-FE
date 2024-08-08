@@ -10,6 +10,7 @@ import PostPage from "./pages/posts/PostPage";
 import ForgotSuccess from "./pages/users/Login/ForgotSuccess";
 import ChangePassword from "./pages/users/Login/ChangePassword";
 import SuccessNotification from "./pages/users/Notification/SuccessNotification";
+import Profile from "./pages/profiles/Profile";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/register-success" element={<RegisterSuccess/>}/>
                 <Route path="/changepassword" element={<ChangePassword/>}/>
                 <Route path="/profile" element={<ProfilePage/>}/>
+                <Route path="/profile1" element={<Profile/>}/>
                 <Route path="/post" element={<PostPage/>}/>
                 <Route path="/successnotification" element={<SuccessNotification/>}/>
                 <Route path="*" element={<NotFound/>}/>
