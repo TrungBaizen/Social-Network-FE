@@ -1,62 +1,44 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import "./navbar.css";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
+import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 
-export default function PersistentDrawer() {
-    const DrawerList = (
-        <Box sx={{ width: 250, height: '100%' }} role="presentation">
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
+const Navbar = () => {
+    const { currentUser } = useContext(AuthContext);
 
     return (
-        <Drawer
-            variant="permanent"
-            anchor="left"
-            sx={{
-                width: 250,
-                flexShrink: 0,
-                height: '100vh',
-                '& .MuiDrawer-paper': {
-                    width: 250,
-                    height: '100%',
-                    boxSizing: 'border-box',
-                },
-            }}
-        >
-            {DrawerList}
-        </Drawer>
+        <div className="navbar">
+            <div className="left">
+                <Link to="/" style={{ textDecoration: "none" }}>
+                    <span>TDH Media</span>
+                </Link>
+                <HomeOutlinedIcon />
+                <GridViewOutlinedIcon />
+                <div className="search">
+                    <SearchOutlinedIcon />
+                    <input type="text" placeholder="Search..." />
+                </div>
+            </div>
+            <div className="right">
+                <PersonOutlinedIcon />
+                <EmailOutlinedIcon />
+                <NotificationsOutlinedIcon />
+                <div className="user">
+                    <img
+                        src={currentUser.profilePic}
+                        alt="Profile"
+                    />
+                    <span>{currentUser.name}</span>
+                </div>
+            </div>
+        </div>
     );
-}
+};
+
+export default Navbar;

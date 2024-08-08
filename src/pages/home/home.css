@@ -1,0 +1,15 @@
+.home {
+    padding: 20px 70px;
+    height: auto;
+    background-color: #f0f2f5; /* Bạn cần thay thế giá trị này với màu tương ứng từ theme nếu có */
+
+    /* Media queries for mobile devices */
+    @media (max-width: 767px) {
+        padding: 10px;
+    }
+
+    /* Media queries for tablets */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        padding: 20px;
+    }
+}

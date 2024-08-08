@@ -1,0 +1,76 @@
+.leftBar {
+    flex: 2;
+    position: sticky;
+    /*top: 70px;*/
+    height: auto;
+    overflow: scroll;
+    background-color: #f0f2f5; /* Replace with your theme color */
+    color: #333; /* Replace with your theme color */
+
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.leftBar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+.leftBar .container {
+    padding: 20px;
+}
+
+.leftBar .container hr {
+    margin: 20px 0;
+    border: none;
+    height: 0.5px;
+    background-color: #ddd; /* Replace with your theme color */
+}
+
+.leftBar .container .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.leftBar .container .menu span {
+    font-size: 12px;
+}
+
+.leftBar .container .menu .user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.leftBar .container .menu .user img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.leftBar .container .menu .user span {
+    font-size: 14px;
+}
+
+.leftBar .container .menu .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.leftBar .container .menu .item img {
+    width: 30px;
+}
+
+.leftBar .container .menu .item span {
+    font-size: 14px;
+}
+
+/* Media queries for mobile and tablet */
+@media (max-width: 768px) {
+    .leftBar {
+        display: none;
+    }
+}
