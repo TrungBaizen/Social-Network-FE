@@ -16,8 +16,8 @@ root.render(
         <BrowserRouter>
             <GoogleOAuthProvider clientId="449153157963-qb38js763pjdovu7mbfir2js0jc22112.apps.googleusercontent.com">
                 <App />
+                <ToastContainer />
             </GoogleOAuthProvider>
-            <ToastContainer/>
         </BrowserRouter>
     </Provider>
 );

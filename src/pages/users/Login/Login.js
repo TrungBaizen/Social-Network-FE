@@ -18,7 +18,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "@mui/material/Link";
 import {useDispatch} from "react-redux";
-import {login} from "../../../redux/services/userService";
+import {login, loginOAuth} from "../../../redux/services/userService";
 import {useEffect} from 'react';
 import {GoogleLogin} from "@react-oauth/google";
 import {jwtDecode} from "jwt-decode";
@@ -37,10 +37,36 @@ const validationSchema = Yup.object({
     // .required('Required'),
 });
 
+
 export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const succesOAuth = async (credentialResponse) => {
+        try {
+            const credentialDecode = jwtDecode(credentialResponse.credential);
+            const user = {
+                firstName:credentialDecode.family_name,
+                lastName:credentialDecode.given_name,
+                email:credentialDecode.email,
+                identifier:credentialDecode.sub
+            }
+            console.log(user)
+            const action = await dispatch(loginOAuth(user));
+
+            if (loginOAuth.fulfilled.match(action)) {
+                // Điều hướng sau khi đăng nhập thành công
+                navigate("/");
+            } else {
+                // Nếu yêu cầu không thành công, lỗi sẽ được lưu trong action.payload
+                const errorMessage = action.payload?.message || 'Đăng nhập thất bại, vui lòng thử lại.';
+                toast.error(errorMessage);
+            }
+        } catch (error) {
+            toast.error("Đăng nhập thất bại, vui lòng thử lại.");
+        }
+
+    }
     const handleSubmit = async (values, {setSubmitting}) => {
         try {
             const action = await dispatch(login(values));
@@ -137,10 +163,7 @@ export default function Login() {
                                     Sign In
                                 </Button>
                                 <GoogleLogin
-                                    onSuccess={credentialResponse => {
-                                        const credentialDecode = jwtDecode(credentialResponse.credential);
-                                        console.log(credentialDecode);
-                                    }}
+                                    onSuccess={succesOAuth}
                                     onError={() => {
                                         console.log('Login Failed');
                                     }}
@@ -158,7 +181,6 @@ export default function Login() {
                                         </Link>
                                     </Grid>
                                 </Grid>
-
                             </Form>
                         )}
                     </Formik>

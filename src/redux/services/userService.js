@@ -82,3 +82,18 @@ export const successNotification = createAsyncThunk(
         }
     }
 );
+
+export const loginOAuth = createAsyncThunk(
+    "user/loginOAuth",
+    async (user, { rejectWithValue }) => {
+        try {
+            let res = await getAxios().post("login/oauth", user);
+            return res.data;
+        } catch (err) {
+            if (!err.response) {
+                throw err;
+            }
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
