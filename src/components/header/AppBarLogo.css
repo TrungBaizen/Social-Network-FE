@@ -1,22 +1,17 @@
+/* AppBarLogo.css */
 .app-bar-logo {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px; /* Khoảng cách giữa logo và thanh tìm kiếm */
 }
 
 .logo-typography {
-    font-family: Arial, sans-serif;
-    font-weight: 700; /* Bôi đậm chữ */
-    letter-spacing: 0.3rem;
-    color: #ffffff; /* Màu trắng cho chữ */
-    text-decoration: none; /* Xóa gạch dưới */
-}
-
-.logo-typography:hover {
-    color: #ffffff; /* Giữ màu chữ trắng khi hover */
-    text-decoration: none; /* Xóa gạch dưới khi hover */
+    font-weight: bold;
+    color: #ffffff; /* Màu chữ của logo */
+    text-decoration: none; /* Xóa gạch chân khi hover */
 }
 
 .search-box {
-    flex-grow: 1;
+    flex-grow: 1; /* Làm cho search-box chiếm không gian còn lại */
+    max-width: 400px; /* Đặt giới hạn chiều rộng tối đa */
 }

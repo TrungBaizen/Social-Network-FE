@@ -15,7 +15,7 @@ function AppBarLogo() {
                 to="/"
                 className="logo-typography"
             >
-                TDH MEDIA
+                TDH
             </Typography>
             <Box className="search-box">
                 <SearchItems />
