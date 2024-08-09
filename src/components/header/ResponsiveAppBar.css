@@ -1,26 +1,34 @@
+/* ResponsiveAppBar.css */
 .app-bar {
     background-color: #ffffff; /* Màu nền của AppBar */
     color: #000000; /* Màu chữ của AppBar */
     border-bottom: 1px solid #dcdcdc; /* Đường viền dưới của AppBar */
 }
 
-.app-bar .toolbar {
+.toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.app-bar .logo {
-    flex-grow: 1;
+.logo {
+    flex: 1; /* Phần logo */
+    display: flex;
+    align-items: center;
 }
 
-.app-bar .nav-menu {
-    flex-grow: 2;
+.nav-menu {
+    flex: 2; /* Phần Navigation Menu */
     display: flex;
     justify-content: center;
 }
 
-.app-bar .notification-user-menu {
+.mobile-nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+.notification-user-menu {
     display: flex;
     align-items: center;
 }

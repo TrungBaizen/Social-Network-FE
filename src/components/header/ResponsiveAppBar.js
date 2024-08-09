@@ -8,7 +8,6 @@ import NavigationMenu from './NavigationMenu';
 import MobileNavMenu from './MobileNavMenu';
 import NotificationIcons from './NotificationIcons';
 import UserMenu from './UserMenu';
-import SearchItems from "../search/SearchItems";
 import './ResponsiveAppBar.css'; // Import file CSS mới
 
 function ResponsiveAppBar() {
@@ -41,15 +40,13 @@ function ResponsiveAppBar() {
                     <Box className="nav-menu" sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <NavigationMenu handleCloseNavMenu={handleCloseNavMenu} />
                     </Box>
-
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    <Box className="mobile-nav-menu" sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <MobileNavMenu
                             anchorElNav={anchorElNav}
                             handleOpenNavMenu={handleOpenNavMenu}
                             handleCloseNavMenu={handleCloseNavMenu}
                         />
                     </Box>
-
                     <Box className="notification-user-menu">
                         <NotificationIcons />
                         <UserMenu
