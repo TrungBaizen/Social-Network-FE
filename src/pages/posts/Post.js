@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Avatar, Typography, Button, Input, List, Modal } from 'antd';
 import { LikeOutlined, CommentOutlined } from '@ant-design/icons';
-import './Post.css';
+import './Post.css'; // Nhập file CSS
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -64,7 +64,7 @@ const Post = ({ post }) => {
                 visible={isModalVisible}
                 onCancel={handleCancel}
                 footer={null}
-                width={800} // Mở rộng kích thước modal
+                width={800}
             >
                 <Card className="post-card">
                     <div className="post-header">
@@ -108,7 +108,7 @@ const Post = ({ post }) => {
                 visible={isLikesModalVisible}
                 onCancel={handleCancel}
                 footer={null}
-                width={400} // Kích thước nhỏ hơn
+                width={400}
             >
                 <List
                     dataSource={post.likedBy}

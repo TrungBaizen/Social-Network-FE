@@ -1,0 +1,18 @@
+/* UserMenu.css */
+.avatar-button {
+    background-color: transparent;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red; /* Màu chữ cho Logout, thay đổi theo ý muốn */
+    font-weight: bold; /* Bôi đậm chữ */
+}

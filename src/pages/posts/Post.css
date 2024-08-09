@@ -1,8 +1,14 @@
+/* Post.css */
+
 .post-card {
-    margin-bottom: 24px;
+    margin-bottom: 24px; /* Đảm bảo khoảng cách giữa các bài đăng */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    width: 100%; /* Đảm bảo Card chiếm toàn bộ chiều rộng của container */
+    max-width: 900px; /* Điều chỉnh kích thước tối đa của Card */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .post-header {
@@ -17,24 +23,29 @@
 
 .post-image {
     width: 100%;
+    height: auto;
     border-radius: 10px;
     cursor: pointer;
     margin-top: 10px;
 }
 
 .post-stats {
-    margin-top: 10px;
     display: flex;
     align-items: center;
+    margin-top: 10px;
     cursor: pointer;
+    color: #1890ff; /* Màu sắc cho thống kê */
 }
 
 .post-actions {
+    display: flex;
+    gap: 10px;
     margin-top: 10px;
 }
 
 .post-action-button {
-    margin-right: 10px;
+    border: none;
+    background: transparent; /* Nền trong suốt để giữ màu nền của Card */
 }
 
 .post-comments {

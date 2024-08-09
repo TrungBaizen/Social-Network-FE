@@ -1,0 +1,49 @@
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: transparent; /* Xóa bỏ màu nền thanh điều hướng */
+    padding: 10px 20px;
+    border-bottom: 1px solid #dcdcdc; /* Đường viền dưới thanh điều hướng */
+}
+
+.nav-brand {
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffffff; /* Thay đổi màu chữ thành trắng */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dcdcdc; /* Đường viền thanh tìm kiếm */
+    border-radius: 5px;
+    padding: 5px;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.search-icon {
+    color: #ffffff; /* Thay đổi màu của icon tìm kiếm thành trắng */
+}
+
+.search-input {
+    border: none;
+    width: 100%;
+    background-color: transparent; /* Xóa bỏ màu nền của ô nhập tìm kiếm */
+    color: #ffffff; /* Thay đổi màu chữ trong thanh tìm kiếm thành trắng */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: inherit; /* Kế thừa màu chữ từ phần tử chứa */
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff; /* Thay đổi màu chữ của các nút điều hướng thành trắng */
+}

@@ -1,0 +1,46 @@
+/* Cố định thanh điều hướng trên cùng */
+.home-layout .ant-layout-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Đảm bảo nó nằm trên cùng */
+}
+
+/* Cố định các phần bên trái và bên phải */
+.home-layout .sider-left {
+    position: fixed;
+    top: 64px; /* Chiều cao của thanh điều hướng */
+    bottom: 0;
+    left: 0;
+    width: 300px; /* Chiều rộng của SiderLeft */
+    z-index: 1000; /* Đảm bảo nó nằm trên cùng */
+}
+
+/* Cố định các phần bên phải */
+.home-layout .sider-right {
+    position: fixed;
+    top: 64px; /* Chiều cao của thanh điều hướng */
+    bottom: 0;
+    right: 0;
+    width: 300px; /* Chiều rộng của SiderRight */
+    z-index: 1000; /* Đảm bảo nó nằm trên cùng */
+}
+
+/* Điều chỉnh layout chính để nội dung có thể cuộn */
+.home-layout .main-layout {
+    margin-top: 64px; /* Chiều cao của thanh điều hướng */
+    margin-left: 300px; /* Chiều rộng của SiderLeft */
+    margin-right: 300px; /* Chiều rộng của SiderRight */
+    padding: 0;
+    height: calc(100vh - 64px); /* Chiều cao còn lại sau khi trừ chiều cao của thanh điều hướng */
+    overflow: hidden; /* Đảm bảo không có cuộn ở phần chính */
+}
+
+/* Nội dung chính có thể cuộn */
+.home-layout .content-layout {
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    padding: 24px;
+    background-color: #ffffff; /* Màu nền của nội dung */
+    height: 100%; /* Đảm bảo chiều cao đầy đủ của phần cuộn */
+}
