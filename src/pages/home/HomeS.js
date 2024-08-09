@@ -32,7 +32,6 @@ const HomeS = () => {
                 </Layout>
                 <SiderRight colorBgContainer={colorBgContainer} />
             </Layout>
-            <FooterComponent />
         </Layout>
     );
 };

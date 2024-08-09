@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Menu, Layout } from 'antd';
-import './HomeLayout.css';
+import './SiderRight.css'; // Import the new CSS file
 
 const { Sider } = Layout;
 
@@ -14,25 +14,16 @@ const onlineUsers = [
     { key: '6', name: 'Hải Quay Xe' },
 ];
 
-const SiderRight = ({ colorBgContainer }) => (
+const SiderRight = () => (
     <Sider
         className="sider"
-        style={{
-            position: 'sticky',
-            top: 0,
-            height: '100vh',
-            overflow: 'auto',
-        }}
         width={200}
     >
         <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
-            theme="dark"
-            style={{
-                height: '100%',
-                borderRight: 0,
-            }}
+            // theme="dark"
+            className="menu"
             items={onlineUsers.map(user => ({
                 key: user.key,
                 icon: <UserOutlined style={{ color: '#52c41a' }} />,

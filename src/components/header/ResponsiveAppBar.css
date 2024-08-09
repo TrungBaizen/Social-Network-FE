@@ -1,0 +1,26 @@
+.app-bar {
+    background-color: #ffffff; /* Màu nền của AppBar */
+    color: #000000; /* Màu chữ của AppBar */
+    border-bottom: 1px solid #dcdcdc; /* Đường viền dưới của AppBar */
+}
+
+.app-bar .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-bar .logo {
+    flex-grow: 1;
+}
+
+.app-bar .nav-menu {
+    flex-grow: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.app-bar .notification-user-menu {
+    display: flex;
+    align-items: center;
+}

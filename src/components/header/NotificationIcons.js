@@ -5,11 +5,12 @@ import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Typography from '@mui/material/Typography';
+import './NotificationIcons.css'; // Import file CSS mới
 
 function NotificationIcons() {
     return (
         <>
-            <Box sx={{ display: 'flex', alignItems: 'center', mx: 2 }}>
+            <Box className="notification-icons">
                 <IconButton
                     aria-label="show 4 new mails"
                     color="inherit"
@@ -19,9 +20,9 @@ function NotificationIcons() {
                         <MailIcon />
                     </Badge>
                 </IconButton>
-                <Typography>Messages</Typography>
+                <Typography className="icon-text">Messages</Typography>
             </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', mx: 2 }}>
+            <Box className="notification-icons">
                 <IconButton
                     aria-label="show 11 new notifications"
                     color="inherit"
@@ -31,7 +32,7 @@ function NotificationIcons() {
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
-                <Typography>Notifications</Typography>
+                <Typography className="icon-text">Notifications</Typography>
             </Box>
         </>
     );

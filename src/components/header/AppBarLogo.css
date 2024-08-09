@@ -1,0 +1,22 @@
+.app-bar-logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-typography {
+    font-family: Arial, sans-serif;
+    font-weight: 700; /* Bôi đậm chữ */
+    letter-spacing: 0.3rem;
+    color: #ffffff; /* Màu trắng cho chữ */
+    text-decoration: none; /* Xóa gạch dưới */
+}
+
+.logo-typography:hover {
+    color: #ffffff; /* Giữ màu chữ trắng khi hover */
+    text-decoration: none; /* Xóa gạch dưới khi hover */
+}
+
+.search-box {
+    flex-grow: 1;
+}

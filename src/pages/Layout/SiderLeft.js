@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserOutlined, TeamOutlined, ProfileOutlined, StarOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
-import './HomeLayout.css';
+import './SiderLeft.css';
 
 const { Sider } = Layout;
 
@@ -26,27 +26,17 @@ const items2 = [
         icon: <StarOutlined />,
         label: 'Popular Group',
     },
-    // Add more items if needed
+    // Thêm các mục khác nếu cần
 ];
 
 const SiderLeft = ({ colorBgContainer }) => (
     <Sider
         className="sider"
-        style={{
-            position: 'sticky',
-            top: 0,
-            height: '100vh',
-            overflow: 'auto',
-        }}
-        width={200}
     >
         <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
-            style={{
-                height: '100%',
-                borderRight: 0,
-            }}
+            className="menu"
             items={items2}
         />
     </Sider>

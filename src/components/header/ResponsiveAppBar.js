@@ -9,6 +9,7 @@ import MobileNavMenu from './MobileNavMenu';
 import NotificationIcons from './NotificationIcons';
 import UserMenu from './UserMenu';
 import SearchItems from "../search/SearchItems";
+import './ResponsiveAppBar.css'; // Import file CSS mới
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -33,12 +34,12 @@ function ResponsiveAppBar() {
     return (
         <AppBar position="sticky" className="app-bar">
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
+                <Toolbar className="toolbar" disableGutters>
+                    <Box className="logo">
                         <AppBarLogo />
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-                            <NavigationMenu handleCloseNavMenu={handleCloseNavMenu} />
-                        </Box>
+                    </Box>
+                    <Box className="nav-menu" sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <NavigationMenu handleCloseNavMenu={handleCloseNavMenu} />
                     </Box>
 
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
@@ -49,7 +50,7 @@ function ResponsiveAppBar() {
                         />
                     </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box className="notification-user-menu">
                         <NotificationIcons />
                         <UserMenu
                             anchorElUser={anchorElUser}
