@@ -4,29 +4,19 @@ import SiderLeft from '../Layout/SiderLeft';
 import SiderRight from '../Layout/SiderRight';
 import ContentArea from '../Layout/ContentArea';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
+import './Home.css'; // Import file CSS mới
 
-
-const HomeS = () => {
+const Home = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
     return (
-        <Layout
-            style={{
-                minHeight: '100vh',
-                backgroundColor: '#f0f2f5', // Default background color
-            }}
-        >
+        <Layout className="home-layout">
             <ResponsiveAppBar />
-            <Layout
-                style={{
-                    padding: '24px 0',
-                    backgroundColor: '#ffffff', // Default background color
-                }}
-            >
+            <Layout className="main-layout">
                 <SiderLeft colorBgContainer={colorBgContainer} />
-                <Layout style={{ padding: '0 24px', minHeight: '100vh' }}>
+                <Layout className="content-layout">
                     <ContentArea colorBgContainer={colorBgContainer} borderRadiusLG={borderRadiusLG} />
                 </Layout>
                 <SiderRight colorBgContainer={colorBgContainer} />
@@ -35,4 +25,4 @@ const HomeS = () => {
     );
 };
 
-export default HomeS;
+export default Home;
