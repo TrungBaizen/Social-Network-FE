@@ -31,8 +31,8 @@ const Profile = () => {
                                     <Text>Kỹ sư phần mềm tại XYZ</Text>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="profile-description">
+                            <div className="profile-section">
+                                <div className="profile-navigation">
                                     <div>Bài Viết</div>
                                     <div>Giới Thiệu</div>
                                     <div>Lượt Nhắc</div>
