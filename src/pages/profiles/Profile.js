@@ -1,8 +1,6 @@
 import React from 'react';
-import {Layout, Typography, Avatar, Divider} from 'antd';
+import {Layout, Typography, Avatar} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-import SiderLeft from "../Layout/SiderLeft";
-import SiderRight from "../Layout/SiderRight";
 import PostPage from "../posts/PostPage";
 import './Profile.css'; // Import file CSS chính
 
@@ -44,16 +42,19 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="rowPostProfile d-flex justify-content-center">
-                            <div className="column profile-description">
-                                <Title level={4}>Giới thiệu</Title>
-                                <Text>
-                                    Đây là phần giới thiệu thông tin người dùng. Bạn có thể thêm các thông tin chi
-                                    tiết về bản thân, sở thích, kinh nghiệm làm việc, và nhiều hơn nữa.
-                                </Text>
-                            </div>
-                            <div className="columnPage">
-                                <PostPage/>
+                        <div className="profile-container">
+                            <div className="content-container">
+                                <div className="left-column">
+                                    <Title level={4}>Giới thiệu</Title>
+                                    <Text>
+                                        Đây là phần giới thiệu thông tin người dùng. Bạn có thể thêm các thông tin chi
+                                        tiết
+                                        về bản thân, sở thích, kinh nghiệm làm việc, và nhiều hơn nữa.
+                                    </Text>
+                                </div>
+                                <div className="right-column">
+                                    <PostPage/>
+                                </div>
                             </div>
                         </div>
                     </Content>

@@ -116,3 +116,32 @@
 .columnPage {
     max-width: 100%;
 }
+/* Container lớn bao quanh */
+.content-container {
+    display: flex; /* Sử dụng flexbox để chia nội dung thành các cột */
+    gap: 20px; /* Khoảng cách giữa hai cột */
+    width: 100%; /* Chiếm toàn bộ chiều rộng của phần tử chứa */
+    max-width: 1200px; /* Đặt chiều rộng tối đa để giới hạn kích thước */
+    margin: 0 auto; /* Căn giữa container trên trang */
+    padding: 20px; /* Thêm khoảng cách padding cho container */
+    box-sizing: border-box; /* Bao gồm padding và border trong kích thước phần tử */
+}
+
+/* Cột trái */
+.left-column {
+    flex: 1; /* Cột trái chiếm không gian 1 phần */
+    background-color: #ffffff; /* Màu nền trắng cho cột trái */
+    padding: 20px; /* Thêm khoảng cách padding cho nội dung cột trái */
+    border-radius: 15px; /* Bo tròn góc của cột trái */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho cột trái */
+}
+
+/* Cột phải */
+.right-column {
+    flex: 2; /* Cột phải chiếm không gian 2 phần, rộng hơn cột trái */
+    background-color: #ffffff; /* Màu nền trắng cho cột phải */
+    padding: 20px; /* Thêm khoảng cách padding cho nội dung cột phải */
+    border-radius: 15px; /* Bo tròn góc của cột phải */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho cột phải */
+    box-sizing: border-box; /* Bao gồm padding và border trong kích thước phần tử */
+}
