@@ -1,17 +1,35 @@
-import React from 'react';
-import { Layout, Typography, Avatar } from 'antd';
+import React, {useState} from 'react';
+import {Layout, Typography, Avatar, Button} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import PostPage from "../posts/PostPage";
 import './Profile.css';
-import {FavoriteBorder, HomeOutlined, PeopleOutline} from "@mui/icons-material"; // Import file CSS chính
+import {EditOutlined, FavoriteBorder, HomeOutlined, PeopleOutline} from "@mui/icons-material";
+import EditPersonalInfoModal from "./EditPersonalInfoModal"; // Import file CSS chính
 
-const { Content } = Layout;
-const { Title, Text } = Typography;
+const {Content} = Layout;
+const {Title, Text} = Typography;
 
 const Profile = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    // Show the modal when the button is clicked
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    // Handle the save action from the modal
+    const handleSave = (values) => {
+        console.log('Saved values:', values);
+        // Update your state or make an API call to save the changes
+    };
+
+    // Close the modal
+    const handleClose = () => {
+        setIsModalVisible(false);
+    };
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <ResponsiveAppBar /> {/* Thanh điều hướng trên cùng */}
+        <Layout style={{minHeight: '100vh'}}>
+            <ResponsiveAppBar/> {/* Thanh điều hướng trên cùng */}
             <Layout>
                 <Content>
                     <div className="profile-container">
@@ -62,7 +80,16 @@ const Profile = () => {
                                         <FavoriteBorder className="info-icon"/>
                                         <Text>Tình trạng hôn nhân: Độc thân</Text>
                                     </div>
-                                    <button> Chỉnh Sửa Thông Tin Cá Nhân</button>
+                                    <Button type="primary"
+                                            icon={<EditOutlined/>} onClick={showModal}>Chỉnh Sửa Thông Tin Cá
+                                        Nhân</Button>
+
+                                    {/*Render the EditPersonalInfoModal */}
+                                    <EditPersonalInfoModal
+                                        visible={isModalVisible}
+                                        onClose={handleClose}
+                                        onSave={handleSave}
+                                    />
                                 </div>
                             </div>
                             <div className="right-column">
