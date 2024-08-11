@@ -1,7 +1,9 @@
+
 import React, { useState } from 'react';
-import { Card, Avatar, Typography, Button, Input, List, Modal } from 'antd';
-import { LikeOutlined, CommentOutlined } from '@ant-design/icons';
-import './Post.css'; // Nhập file CSS
+import { Card, Avatar, Typography, Button, Input, List, Modal, Dropdown, Menu } from 'antd';
+import { LikeOutlined, CommentOutlined, MoreOutlined } from '@ant-design/icons';
+import './Post.css';
+import EditPostModal from './EditPostModal'; // Nhập modal chỉnh sửa bài viết
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -14,6 +16,7 @@ const Post = ({ post }) => {
     ]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 
     const handleCommentChange = (e) => {
         setNewComment(e.target.value);
@@ -34,19 +37,53 @@ const Post = ({ post }) => {
         setIsLikesModalVisible(true);
     };
 
+    const showEditModal = () => {
+        setIsEditModalVisible(true);
+    };
+
+    const handleEditPost = (updatedPost) => {
+         console.log('Updated Post:', updatedPost);
+        setIsEditModalVisible(false);
+    };
+
     const handleCancel = () => {
         setIsModalVisible(false);
         setIsLikesModalVisible(false);
+        setIsEditModalVisible(false);
     };
+
+    const handleMenuClick = (e) => {
+        if (e.key === '1') {
+            showEditModal();
+        } else if (e.key === '2') {
+            // Xóa bài viết ở đây
+            console.log('Xóa bài viết');
+        }
+    };
+
+    const menu = (
+        <Menu onClick={handleMenuClick}>
+            <Menu.Item key="1">Sửa bài viết</Menu.Item>
+            <Menu.Item key="2">Xóa bài viết</Menu.Item>
+        </Menu>
+    );
 
     return (
         <div>
-            <Card className="post-card">
+            <Card className="post-card" style={{ position: 'relative' }}>
                 <div className="post-header">
                     <Avatar src={post.user.avatar} />
                     <Title level={4} style={{ marginLeft: 10 }}>
                         {post.user.name}
                     </Title>
+                    <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
+                        <Button
+                            className="more-options-button"
+                            onClick={(e) => e.preventDefault()}
+                        >
+                            <span className="dots">...</span>
+                        </Button>
+                    </Dropdown>
                 </div>
                 <img src={post.image} alt="Post" className="post-image" onClick={showPostModal} />
                 <div className="post-stats" onClick={showLikesModal}>
@@ -120,6 +157,13 @@ const Post = ({ post }) => {
                     )}
                 />
             </Modal>
+
+            <EditPostModal
+                visible={isEditModalVisible}
+                onCancel={handleCancel}
+                post={post}
+                onEdit={handleEditPost}
+            />
         </div>
     );
 };

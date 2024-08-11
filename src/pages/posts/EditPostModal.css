@@ -1,0 +1,56 @@
+/* Đảm bảo tiêu đề modal căn giữa */
+.ant-modal-title {
+    font-size: 24px; /* Tăng kích thước chữ tiêu đề */
+    text-align: center; /* Căn giữa tiêu đề modal */
+}
+
+/* Căn chỉnh avatar và tên người dùng */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px; /* Thêm khoảng cách dưới cùng */
+}
+
+/* Avatar cách xa tên người dùng */
+.post-header .ant-avatar {
+    margin-right: 10px; /* Khoảng cách bên phải avatar */
+}
+
+/* Đảm bảo tên người dùng và select đều căn chỉnh với avatar */
+.post-header .ant-typography {
+    margin: 0;
+}
+
+/* Đặt Select vào bên phải tiêu đề người dùng */
+.ant-select {
+    width: 150px; /* Đặt chiều dài cho Select */
+}
+
+/* Đặt kích thước cho ảnh và khung nhập trạng thái */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa ảnh và khung nhập trạng thái */
+    justify-content: center; /* Căn giữa ảnh và khung nhập trạng thái */
+    gap: 16px; /* Khoảng cách giữa ảnh và khung nhập trạng thái */
+}
+
+/* Đảm bảo rằng ảnh xem trước có kích thước phù hợp */
+.image-preview img {
+    max-width: 100%; /* Đảm bảo ảnh xem trước không vượt quá chiều ngang của container */
+    height: auto;
+}
+
+/* Đảm bảo khung nhập trạng thái có chiều ngang bằng ảnh và nằm giữa modal */
+.status-input {
+    width: 100%; /* Chiều ngang bằng 100% của container */
+    max-width: 800px; /* Đặt chiều rộng tối đa phù hợp với kích thước ảnh */
+    margin: 0 auto; /* Căn giữa khung nhập trạng thái trong Form.Item */
+}
+
+/* Căn chỉnh các phần tử trong Card */
+.post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa các phần tử trong card */
+}
