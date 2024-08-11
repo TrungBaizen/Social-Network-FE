@@ -1,34 +1,29 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import "./NavigationMenu.css"; // Tạo file CSS riêng để tách biệt phần kiểu dáng
 
 const pages = [
-    { title: 'Home', icon: <HomeIcon sx={{ color: 'white' }} />, link: '/' },
-    { title: 'Group', icon: <GroupIcon sx={{ color: 'white' }} />, link: '/group' },
-    { title: 'Account', icon: <AccountCircleIcon sx={{ color: 'white' }} />, link: '/account' },
+    { title: 'Home', icon: <HomeIcon />, link: '/' },
+    { title: 'Group', icon: <GroupIcon />, link: '/group' },
+    { title: 'Account', icon: <AccountCircleIcon />, link: '/account' },
 ];
 
-function NavigationMenu({ handleCloseNavMenu }) {
+const NavigationMenu = () => {
     return (
-        <Box className="nav-menu">
+        <div className="nav-menu">
             {pages.map((page) => (
-                <Button
-                    key={page.title}
-                    onClick={handleCloseNavMenu}
-                    className="nav-menu-button"
-                    startIcon={page.icon}
-                    component={Link}
-                    to={page.link}
-                >
-                    {page.title}
-                </Button>
+                <Link to={page.link} className="nav-link" key={page.title}>
+                    <div className="nav-item">
+                        {page.icon}
+                        <span>{page.title}</span>
+                    </div>
+                </Link>
             ))}
-        </Box>
+        </div>
     );
-}
+};
 
 export default NavigationMenu;

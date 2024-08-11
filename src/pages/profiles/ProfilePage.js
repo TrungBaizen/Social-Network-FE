@@ -1,50 +1,135 @@
-import React from 'react';
-import { Layout, Card, Avatar, Typography } from 'antd';
-import SiderLeft from '../Layout/SiderLeft';
-import SiderRight from '../Layout/SiderRight';
-import FooterComponent from '../Layout/FooterComponent';
-import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
+import React, { useState } from 'react';
+import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBModal, MDBModalDialog, MDBModalContent, MDBModalHeader, MDBModalBody, MDBModalFooter } from 'mdb-react-ui-kit';
 import './ProfilePage.css';
 
-const { Content } = Layout;
-const { Title, Text } = Typography;
+export default function ProfilePage() {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalImage, setModalImage] = useState('');
 
-const ProfilePage = () => {
-    const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '123-456-7890',
-        address: '123 Main St, Anytown, USA',
-        avatar: 'https://freenice.net/wp-content/uploads/2021/08/hinh-anh-avatar-dep.jpg',
-        banner: 'https://treobangron.com.vn/wp-content/uploads/2022/09/background-dep-3-2.jpg'
+    const openModal = (imageSrc) => {
+        setModalImage(imageSrc);
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
     };
 
     return (
-        <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
-            <ResponsiveAppBar />
-            <Layout style={{ padding: '24px 0', backgroundColor: '#ffffff' }}>
-                <SiderLeft />
-                <Layout style={{ padding: '0 24px', minHeight: '100vh' }}>
-                    <Content style={{ padding: 24, margin: 0 }}>
-                        <div className="profile-banner" style={{ backgroundImage: `url(${user.banner})` }}>
-                            <div className="profile-banner-overlay" />
-                            <Avatar size={100} src={user.avatar} className="profile-avatar" />
-                        </div>
-                        <Card className="profile-card">
-                            <Title level={2}>{user.name}</Title>
-                            <Text>Email: {user.email}</Text>
-                            <br />
-                            <Text>Phone: {user.phone}</Text>
-                            <br />
-                            <Text>Address: {user.address}</Text>
-                        </Card>
-                    </Content>
-                </Layout>
-                <SiderRight />
-            </Layout>
-            <FooterComponent />
-        </Layout>
-    );
-};
+        <div className="gradient-custom-2">
+            <MDBContainer className="py-5 h-100 card-container">
+                <MDBRow className="justify-content-center align-items-center h-100">
+                    <MDBCol>
+                        <MDBCard className="card-custom">
+                            <div className="rounded-top text-white d-flex flex-row banner-container">
+                                <div className="ms-4 mt-5 d-flex flex-column" style={{ width: '150px' }}>
+                                    <MDBCardImage
+                                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                                        alt="Generic placeholder image"
+                                        className="mt-4 mb-2 img-thumbnail img-thumbnail-custom"
+                                        fluid
+                                        style={{ zIndex: '1' }}
+                                        onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp")}
+                                    />
+                                    <MDBBtn
+                                        outline
+                                        color="dark"
+                                        className="edit-button-custom"
+                                    >
+                                        Edit profile
+                                    </MDBBtn>
+                                </div>
+                                <div className="ms-3 text-custom">
+                                    <MDBTypography tag="h5">Andy Horwitz</MDBTypography>
+                                    <MDBCardText>New York</MDBCardText>
+                                </div>
+                            </div>
+                            <div className="p-4 text-black card-container">
+                                <div className="d-flex justify-content-end text-center py-1">
+                                    <div>
+                                        <MDBCardText className="mb-1 h5">253</MDBCardText>
+                                        <MDBCardText className="small text-muted mb-0">Photos</MDBCardText>
+                                    </div>
+                                    <div className="px-3">
+                                        <MDBCardText className="mb-1 h5">1026</MDBCardText>
+                                        <MDBCardText className="small text-muted mb-0">Followers</MDBCardText>
+                                    </div>
+                                    <div>
+                                        <MDBCardText className="mb-1 h5">478</MDBCardText>
+                                        <MDBCardText className="small text-muted mb-0">Following</MDBCardText>
+                                    </div>
+                                </div>
+                            </div>
+                            <MDBCardBody className="text-black p-4">
+                                <div className="mb-5">
+                                    <p className="lead fw-normal mb-1">About</p>
+                                    <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
+                                        <MDBCardText className="font-italic mb-1">Web Developer</MDBCardText>
+                                        <MDBCardText className="font-italic mb-1">Lives in New York</MDBCardText>
+                                        <MDBCardText className="font-italic mb-0">Photographer</MDBCardText>
+                                    </div>
+                                </div>
+                                <div className="d-flex justify-content-between align-items-center mb-4">
+                                    <MDBCardText className="lead fw-normal mb-0">Recent photos</MDBCardText>
+                                    <MDBCardText className="mb-0"><a href="#!" className="text-muted">Show all</a></MDBCardText>
+                                </div>
+                                <MDBRow>
+                                    <MDBCol className="mb-2">
+                                        <MDBCardImage
+                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                            alt="image 1"
+                                            className="w-100 rounded-3"
+                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp")}
+                                        />
+                                    </MDBCol>
+                                    <MDBCol className="mb-2">
+                                        <MDBCardImage
+                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                                            alt="image 1"
+                                            className="w-100 rounded-3"
+                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp")}
+                                        />
+                                    </MDBCol>
+                                </MDBRow>
+                                <MDBRow className="g-2">
+                                    <MDBCol className="mb-2">
+                                        <MDBCardImage
+                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                            alt="image 1"
+                                            className="w-100 rounded-3"
+                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp")}
+                                        />
+                                    </MDBCol>
+                                    <MDBCol className="mb-2">
+                                        <MDBCardImage
+                                            src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                                            alt="image 1"
+                                            className="w-100 rounded-3"
+                                            onClick={() => openModal("https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp")}
+                                        />
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
 
-export default ProfilePage;
+            <MDBModal show={modalOpen} setShow={setModalOpen} onHide={closeModal}>
+                <MDBModalDialog size="lg">
+                    <MDBModalContent>
+                        <MDBModalHeader>
+                            <MDBBtn className="btn-close" color="none" onClick={closeModal}></MDBBtn>
+                        </MDBModalHeader>
+                        <MDBModalBody>
+                            <MDBCardImage src={modalImage} alt="Modal image" className="w-100" />
+                        </MDBModalBody>
+                        <MDBModalFooter>
+                            <MDBBtn color="secondary" onClick={closeModal}>Close</MDBBtn>
+                        </MDBModalFooter>
+                    </MDBModalContent>
+                </MDBModalDialog>
+            </MDBModal>
+        </div>
+    );
+}

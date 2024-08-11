@@ -1,36 +1,56 @@
-/* ProfilePage.css */
-
-.profile-banner {
-    height: 200px; /* Adjust height as needed */
-    background-image: url('https://example.com/banner.jpg'); /* Use your banner image URL */
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    margin-bottom: 24px; /* Space between banner and profile card */
+.gradient-custom-2 {
+    /* Gradient and background color styles */
+    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
+    background-color: #9de2ff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.profile-banner-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3); /* Dark overlay for text contrast */
+.card-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.profile-avatar {
-    position: absolute;
-    bottom: -50px; /* Adjust to control how much of the avatar is overlapping */
-    left: 50%;
-    transform: translateX(-50%);
-    border: 5px solid white; /* Optional: adds a white border around the avatar */
-    z-index: 1; /* Ensure avatar is above other content */
+.card-custom {
+    width: 100%;
+    height: auto;
 }
 
-.profile-card {
-    text-align: center;
-    padding: 24px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 60px; /* Adjust to provide space for the avatar overlap */
+.banner-container {
+    background-color: #000;
+    height: 200px;
+}
+
+.img-thumbnail-custom {
+    width: 150px;
+    height: 150px;
+}
+
+.edit-button-custom {
+    height: 36px;
+}
+
+.text-custom {
+    margin-top: 130px;
+}
+
+.text-black {
+    color: #000;
+}
+
+.img-thumbnail {
+    object-fit: cover;
+    z-index: 1;
+}
+/* Thêm vào CSS của bạn để đảm bảo modal hiển thị đúng */
+.mdb-modal-dialog {
+    z-index: 1050; /* Đảm bảo modal hiển thị trên các phần tử khác */
+}
+
+.mdb-modal-content {
+    max-height: 80vh; /* Đảm bảo modal không chiếm quá nhiều không gian trên màn hình */
+    overflow: auto; /* Thêm thanh cuộn nếu nội dung quá lớn */
 }

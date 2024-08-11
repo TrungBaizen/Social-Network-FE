@@ -1,0 +1,66 @@
+/* Post.css */
+
+.post-card {
+    margin-bottom: 24px; /* Đảm bảo khoảng cách giữa các bài đăng */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 100%; /* Đảm bảo Card chiếm toàn bộ chiều rộng của container */
+    max-width: 900px; /* Điều chỉnh kích thước tối đa của Card */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-header .ant-avatar {
+    margin-right: 10px;
+}
+
+.post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.post-stats {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+    color: #1890ff; /* Màu sắc cho thống kê */
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.post-action-button {
+    border: none;
+    background: transparent; /* Nền trong suốt để giữ màu nền của Card */
+}
+
+.post-comments {
+    margin-top: 16px;
+}
+
+.post-comments .ant-list-item {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.post-comments .ant-input {
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.post-comments .ant-btn {
+    margin-top: 10px;
+}

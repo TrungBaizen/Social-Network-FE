@@ -1,5 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {forgotPassword, login, logout} from "../services/userService";
+import {
+    changePassword,
+    forgotPassword,
+    login,
+    loginOAuth,
+    logout,
+    signup,
+    successNotification
+} from "../services/userService";
 
 const initialState = {
     currentUser: JSON.parse(localStorage.getItem("currentUser"))
@@ -17,6 +25,16 @@ const userSlice = createSlice({
                 state.currentUser = null;
             })
             builder.addCase(forgotPassword.fulfilled,(state, {payload})=>{
+            })
+            builder.addCase(signup.fulfilled,(state,{payload})=>{
+            })
+            builder.addCase(changePassword.fulfilled,(state,{payload})=>{
+            })
+            builder.addCase(successNotification.fulfilled,(state,{payload})=>{
+            })
+            builder.addCase(loginOAuth.fulfilled,(state, {payload})=>{
+                localStorage.setItem("currentUser",JSON.stringify(payload))
+                state.currentUser = payload;
             })
         }
     }

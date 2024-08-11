@@ -1,0 +1,27 @@
+/* SearchItems.css */
+.search-select {
+    width: 140%; /* Tăng kích thước width lên 40% */
+    border-radius: 8px; /* Viền bo góc của input */
+    background-color: #f9fafb; /* Màu nền */
+    border: 1px solid #dcdcdc; /* Đường viền */
+    font-size: 16px; /* Kích thước chữ */
+}
+
+.search-select .ant-select-selector {
+    border: none; /* Xóa đường viền của selector */
+    background-color: transparent; /* Nền trong suốt */
+    padding: 0; /* Xóa padding */
+    height: 40px; /* Tăng chiều cao của input */
+}
+
+.search-select .ant-select-selection-item {
+    font-size: 16px; /* Kích thước chữ */
+    color: #000; /* Màu chữ */
+}
+
+.search-icon {
+    color: #000; /* Màu của icon tìm kiếm */
+    margin-left: 8px; /* Khoảng cách giữa icon và input */
+    width: 28px; /* Tăng kích thước của icon */
+    height: 28px; /* Tăng kích thước của icon */
+}
