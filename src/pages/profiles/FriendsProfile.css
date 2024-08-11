@@ -22,6 +22,7 @@
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    position: relative; /* Đảm bảo các phần tử bên trong có thể căn chỉnh chính xác */
 }
 
 .profile-info {
@@ -114,4 +115,18 @@
 /* Friends Section */
 .friends-section {
     margin-top: 20px; /* Add space above the Friends section if needed */
+}
+/* Profile Actions */
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto; /* Đẩy các nút sang phía bên phải */
+    margin-right: 0; /* Đảm bảo không có khoảng trống bên phải */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.profile-actions .ant-btn {
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 8px 16px;
 }

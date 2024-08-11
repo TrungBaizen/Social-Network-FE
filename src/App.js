@@ -11,6 +11,7 @@ import ChangePassword from "./pages/users/Login/ChangePassword";
 import SuccessNotification from "./pages/users/Notification/SuccessNotification";
 import Profile from "./pages/profiles/Profile";
 import Home from "./pages/home/Home";
+import FriendsProfile from "./pages/profiles/FriendsProfile";
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/register-success" element={<RegisterSuccess/>}/>
                 <Route path="/changepassword" element={<ChangePassword/>}/>
                 <Route path="/profile" element={<Profile/>}/>
+                <Route path="/friendsprofile" element={<FriendsProfile/>}/>
                 <Route path="/post" element={<PostPage/>}/>
                 <Route path="/successnotification" element={<SuccessNotification/>}/>
                 <Route path="*" element={<NotFound/>}/>

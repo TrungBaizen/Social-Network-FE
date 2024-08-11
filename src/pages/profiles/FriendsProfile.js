@@ -3,26 +3,23 @@ import { Layout, Typography, Avatar, Button } from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import PostPage from "../posts/PostPage";
 import './Profile.css';
-import { EditOutlined, FavoriteBorder, HomeOutlined, PeopleOutline } from "@mui/icons-material";
-import EditPersonalInfoModal from "./EditPersonalInfoModal";
+import { FavoriteBorder, HomeOutlined, PeopleOutline } from "@mui/icons-material";
 import FriendsList from "./FriendsList";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const Profile = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    // Trạng thái cho các nút
+    const [isFriend, setIsFriend] = useState(false);
+    const [isFollowing, setIsFollowing] = useState(false);
 
-    const showModal = () => {
-        setIsModalVisible(true);
+    const toggleFriend = () => {
+        setIsFriend(!isFriend);
     };
 
-    const handleSave = (values) => {
-        console.log('Saved values:', values);
-    };
-
-    const handleClose = () => {
-        setIsModalVisible(false);
+    const toggleFollow = () => {
+        setIsFollowing(!isFollowing);
     };
 
     return (
@@ -38,12 +35,28 @@ const Profile = () => {
                                 className="banner-img"
                             />
                         </div>
-                        <div className="profile-header">
-                            <Avatar size={64}
-                                    src="https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg" />
-                            <div className="profile-info">
-                                <Title level={2}>John Doe</Title>
-                                <Text>Kỹ sư phần mềm tại XYZ</Text>
+                        <div className="profile-header d-flex justify-content-between">
+                            <div className="d-flex justify-content-start">
+                                <Avatar size={64}
+                                        src="https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"/>
+                                <div className="profile-info">
+                                    <Title level={2}>John Doe</Title>
+                                    <Text>Kỹ sư phần mềm tại XYZ</Text>
+                                </div>
+                            </div>
+                            <div className="profile-actions">
+                                <Button
+                                    type={isFriend ? "default" : "primary"}
+                                    onClick={toggleFriend}
+                                >
+                                    {isFriend ? "Hủy" : "Thêm Bạn Bè"}
+                                </Button>
+                                <Button
+                                    type={isFollowing ? "default" : "primary"}
+                                    onClick={toggleFollow}
+                                >
+                                    {isFollowing ? "Đã Theo Dõi" : "Theo Dõi"}
+                                </Button>
                             </div>
                         </div>
                         <div className="profile-section">
@@ -76,15 +89,6 @@ const Profile = () => {
                                         <FavoriteBorder className="info-icon" />
                                         <Text>Tình trạng hôn nhân: Độc thân</Text>
                                     </div>
-                                    <Button type="primary"
-                                            icon={<EditOutlined />} onClick={showModal}>Chỉnh Sửa Thông Tin Cá
-                                        Nhân</Button>
-
-                                    <EditPersonalInfoModal
-                                        visible={isModalVisible}
-                                        onClose={handleClose}
-                                        onSave={handleSave}
-                                    />
                                 </div>
                                 <FriendsList /> {/* Moved FriendsList component here */}
                             </div>
