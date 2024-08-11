@@ -92,6 +92,35 @@ const Profile = () => {
                                     />
                                 </div>
                             </div>
+                            <div className="left-column">
+                                <Title level={4}>Bạn Bè</Title>
+                                <Title level={4}>Xem Tất Cả Bạn Bè</Title>
+                                {/* Thêm các thông tin như địa chỉ, số bạn bè, tình trạng hôn nhân */}
+                                <div className="personal-info">
+                                    <div className="info-item">
+                                        <HomeOutlined className="info-icon"/>
+                                        <Text>Địa chỉ: Thanh Son, Vinh Phu, Vietnam</Text>
+                                    </div>
+                                    <div className="info-item">
+                                        <PeopleOutline className="info-icon"/>
+                                        <Text>Số bạn bè: 9.186</Text>
+                                    </div>
+                                    <div className="info-item">
+                                        <FavoriteBorder className="info-icon"/>
+                                        <Text>Tình trạng hôn nhân: Độc thân</Text>
+                                    </div>
+                                    <Button type="primary"
+                                            icon={<EditOutlined/>} onClick={showModal}>Chỉnh Sửa Thông Tin Cá
+                                        Nhân</Button>
+
+                                    {/*Render the EditPersonalInfoModal */}
+                                    <EditPersonalInfoModal
+                                        visible={isModalVisible}
+                                        onClose={handleClose}
+                                        onSave={handleSave}
+                                    />
+                                </div>
+                            </div>
                             <div className="right-column">
                                 <PostPage/>
                             </div>
