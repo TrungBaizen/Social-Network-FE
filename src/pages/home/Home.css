@@ -29,9 +29,6 @@
 
 /* Điều chỉnh layout chính để nội dung có thể cuộn */
 .home-layout .main-layout {
-    margin-top: 64px; /* Chiều cao của thanh điều hướng */
-    margin-left: 300px; /* Chiều rộng của SiderLeft */
-    margin-right: 300px; /* Chiều rộng của SiderRight */
     padding: 0;
     height: calc(100vh - 64px); /* Chiều cao còn lại sau khi trừ chiều cao của thanh điều hướng */
     overflow: hidden; /* Đảm bảo không có cuộn ở phần chính */
