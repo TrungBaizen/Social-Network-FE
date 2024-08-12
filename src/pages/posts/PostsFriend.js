@@ -121,8 +121,8 @@ const PostsFriend = () => {
     ];
 
     return (
-        <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
-            <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
+        <Layout className="posts-container">
+            <Content className="content">
                 {posts.map((post, index) => (
                     <Post key={index} post={post} />
                 ))}
