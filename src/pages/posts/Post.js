@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Card, Avatar, Typography, Button, Input, List, Modal, Dropdown, Menu } from 'antd';
-import { LikeOutlined, CommentOutlined, MoreOutlined } from '@ant-design/icons';
-import './Post.css';
+import { LikeOutlined, CommentOutlined, MoreOutlined, LikeFilled } from '@ant-design/icons';
+import './Post.css'; // Nhập tệp CSS
 import EditPostModal from './EditPostModal'; // Nhập modal chỉnh sửa bài viết
 
 const { Title, Text } = Typography;
@@ -17,6 +16,7 @@ const Post = ({ post }) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    const [liked, setLiked] = useState(false); // Trạng thái thích bài viết
 
     const handleCommentChange = (e) => {
         setNewComment(e.target.value);
@@ -42,8 +42,12 @@ const Post = ({ post }) => {
     };
 
     const handleEditPost = (updatedPost) => {
-         console.log('Updated Post:', updatedPost);
+        console.log('Updated Post:', updatedPost);
         setIsEditModalVisible(false);
+    };
+
+    const handleLikeClick = () => {
+        setLiked(!liked); // Đảo trạng thái thích
     };
 
     const handleCancel = () => {
@@ -70,7 +74,7 @@ const Post = ({ post }) => {
 
     return (
         <div>
-            <Card className="post-card" style={{ position: 'relative' }}>
+            <Card className="post-card">
                 <div className="post-header">
                     <Avatar src={post.user.avatar} />
                     <Title level={4} style={{ marginLeft: 10 }}>
@@ -87,12 +91,28 @@ const Post = ({ post }) => {
                 </div>
                 <img src={post.image} alt="Post" className="post-image" onClick={showPostModal} />
                 <div className="post-stats" onClick={showLikesModal}>
-                    <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
+                    {liked ? (
+                        <>
+                            <LikeFilled style={{ marginRight: 8, color: '#1890ff' }} /> {post.likes + 1} lượt thích
+                        </>
+                    ) : (
+                        <>
+                            <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
+                        </>
+                    )}
                 </div>
                 <Text>{post.status}</Text>
                 <div className="post-actions">
-                    <Button className="post-action-button" icon={<LikeOutlined />}>Thích</Button>
-                    <Button className="post-action-button" icon={<CommentOutlined />} onClick={showPostModal}>Bình luận</Button>
+                    <Button
+                        className="post-action-button"
+                        icon={liked ? <LikeFilled /> : <LikeOutlined />}
+                        onClick={handleLikeClick} // Thay đổi trạng thái thích khi nhấp
+                    >
+                        {liked ? 'Đã thích' : 'Thích'}
+                    </Button>
+                    <Button className="post-action-button" icon={<CommentOutlined />} onClick={showPostModal}>
+                        Bình luận
+                    </Button>
                 </div>
             </Card>
 
@@ -112,7 +132,15 @@ const Post = ({ post }) => {
                     </div>
                     <img src={post.image} alt="Post" className="post-image" />
                     <div className="post-stats">
-                        <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
+                        {liked ? (
+                            <>
+                                <LikeFilled style={{ marginRight: 8, color: '#1890ff' }} /> {post.likes + 1} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
+                            </>
+                        )}
                     </div>
                     <Text>{post.status}</Text>
                     <div className="post-comments">

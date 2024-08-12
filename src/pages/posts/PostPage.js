@@ -121,10 +121,14 @@ const PostsPage = () => {
     ];
 
     return (
-        <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
-            <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
+        <Layout className="posts-page">
+            <Content className="posts-content">
                 <Title level={2}>Các Bài Viết</Title>
-                <Button type="primary" onClick={showCreatePostModal} style={{ marginBottom: 20 }}>
+                <Button
+                    type="primary"
+                    onClick={showCreatePostModal}
+                    className="create-post-button"
+                >
                     Tạo bài viết
                 </Button>
                 {posts.map((post, index) => (
