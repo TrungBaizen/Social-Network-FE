@@ -2,17 +2,15 @@ import React, { useState } from 'react';
 import { Card, Avatar, Typography, Button, Input, List, Modal, Dropdown, Menu } from 'antd';
 import { LikeOutlined, LikeFilled, CommentOutlined, MoreOutlined } from '@ant-design/icons';
 import './Post.css';
-import EditPostModal from './EditPostModal'; // Nhập modal chỉnh sửa bài viết
+import EditPostModal from './EditPostModal';
+import LikesModal from '../likes/LikesModal'; // Nhập modal danh sách người thích
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const Post = ({ post }) => {
     const [newComment, setNewComment] = useState('');
-    const [comments, setComments] = useState([
-        'Great post!',
-        'I totally agree!'
-    ]);
+    const [comments, setComments] = useState(post.comments || []);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -85,7 +83,7 @@ const Post = ({ post }) => {
                             className="more-options-button"
                             onClick={(e) => e.preventDefault()}
                         >
-                            <span className="dots">...</span>
+                            <MoreOutlined />
                         </Button>
                     </Dropdown>
                 </div>
@@ -106,7 +104,7 @@ const Post = ({ post }) => {
                     <Button
                         className="post-action-button"
                         icon={liked ? <LikeFilled /> : <LikeOutlined />}
-                        onClick={handleLikeClick} // Thay đổi trạng thái thích khi nhấp
+                        onClick={handleLikeClick}
                     >
                         {liked ? 'Đã thích' : 'Thích'}
                     </Button>
@@ -168,23 +166,11 @@ const Post = ({ post }) => {
                 </Card>
             </Modal>
 
-            <Modal
-                title="Những người đã thích bài đăng"
+            <LikesModal
                 visible={isLikesModalVisible}
                 onCancel={handleCancel}
-                footer={null}
-                width={400}
-            >
-                <List
-                    dataSource={post.likedBy}
-                    renderItem={item => (
-                        <List.Item>
-                            <LikeOutlined style={{ marginRight: 8 }} />
-                            {item}
-                        </List.Item>
-                    )}
-                />
-            </Modal>
+                likedBy={post.likedBy} // Cung cấp danh sách người thích bài viết
+            />
 
             <EditPostModal
                 visible={isEditModalVisible}
