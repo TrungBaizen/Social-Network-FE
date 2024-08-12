@@ -53,6 +53,7 @@ const ImageUpload = ({ previewImage, fileList, onUploadChange }) => (
                 return isImage;
             }}
         >
+            <br/>
             <Button icon={<UploadOutlined />}>Tải lên</Button>
         </Upload>
     </Form.Item>

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {Layout, Typography, Button  } from 'antd';
 import Post from './Post';
 import CreatePostModal from './CreatePostModal';
-import PostCreate from "./PostCreate/PostCreate";
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -103,6 +102,11 @@ const PostsPage = () => {
             likedBy: ['Alice', 'Bob', 'Charlie'],
             comments: 34
         },
+
+
+
+
+        // Thêm các bài viết khác nếu cần
         {
             user: {
                 name: 'Jane Smith',
@@ -117,16 +121,12 @@ const PostsPage = () => {
     ];
 
     return (
-        <Layout className="posts-page">
-            <Content className="posts-content">
-                <Button
-                    type="primary"
-                    onClick={showCreatePostModal}
-                    className="create-post-button"
-                >
+        <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
+            <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
+                <Title level={2}>Các Bài Viết</Title>
+                <Button type="primary" onClick={showCreatePostModal} style={{ marginBottom: 20 }}>
                     Tạo bài viết
                 </Button>
-                <PostCreate/>
                 {posts.map((post, index) => (
                     <Post key={index} post={post} />
                 ))}

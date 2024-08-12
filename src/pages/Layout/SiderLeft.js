@@ -30,9 +30,7 @@ const items2 = [
 ];
 
 const SiderLeft = ({ colorBgContainer }) => (
-    <Sider
-        className="sider"
-    >
+    <Sider className="sider">
         <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
