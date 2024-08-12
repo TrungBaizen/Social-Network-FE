@@ -28,69 +28,6 @@ const PostsPage = () => {
             likes: 120,
             likedBy: ['Alice', 'Bob', 'Charlie'],
             comments: 34
-        },
-        {
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: ['Alice', 'Bob', 'Charlie'],
-            comments: 34
-        },
-        {
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: ['Alice', 'Bob', 'Charlie'],
-            comments: 34
-        },
-        {
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: ['Alice', 'Bob', 'Charlie'],
-            comments: 34
-        },{
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: ['Alice', 'Bob', 'Charlie'],
-            comments: 34
-        },{
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: ['Alice', 'Bob', 'Charlie'],
-            comments: 34
-        },{
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: ['Alice', 'Bob', 'Charlie'],
-            comments: 34
         },{
             user: {
                 name: 'John Doe',
@@ -102,9 +39,6 @@ const PostsPage = () => {
             likedBy: ['Alice', 'Bob', 'Charlie'],
             comments: 34
         },
-
-
-
 
         // Thêm các bài viết khác nếu cần
         {
