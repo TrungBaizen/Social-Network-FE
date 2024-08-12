@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, Avatar, Typography, Button, Input, List, Modal, Dropdown, Menu } from 'antd';
 import { LikeOutlined, CommentOutlined, MoreOutlined } from '@ant-design/icons';
 import './Post.css';
-import EditPostModal from './EditPostModal'; // Nhập modal chỉnh sửa bài viết
+import EditPostModal from './EditPostModal';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;

@@ -3,63 +3,10 @@
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
-}
-
-/* Tiêu đề và liên kết xem tất cả bạn bè */
-.friends-header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.friends-header .ant-typography {
-    margin: 0;
-}
-
-.view-all {
-    font-size: 14px;
-    color: #1877F2;
-    text-decoration: none;
-    margin-top: 5px;
-}
-
-/* Lưới danh sách bạn bè */
-.friends-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-/* Mỗi item trong danh sách bạn bè */
-.friend-item {
-    text-align: center;
-}
-
-/* Hình ảnh bạn bè */
-.friend-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-/* Tên bạn bè */
-.friend-name {
-    font-size: 14px;
-    color: #333;
-}
-
-/* Tiêu đề số lượng bạn bè không tô đậm */
-.friends-header .ant-typography + .ant-typography {
-    font-weight: normal; /* Đảm bảo không tô đậm */
-}
-/* Container cho danh sách bạn bè */
-.friends-container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
+    position: sticky; /* Giữ phần danh sách bạn bè ở một vị trí cố định */
+    top: 0; /* Đặt phần tử này để dính ở trên cùng của container cha */
+    z-index: 10; /* Đảm bảo nó nằm trên các phần tử khác */
+    margin-bottom: 20px; /* Khoảng cách dưới cùng để không bị dính vào nội dung phía dưới */
 }
 
 /* Tiêu đề và liên kết xem tất cả bạn bè */
@@ -107,6 +54,11 @@
 .friend-name {
     font-size: 14px;
     color: #333;
+}
+
+/* Tiêu đề số lượng bạn bè không tô đậm */
+.friends-header .ant-typography + .ant-typography {
+    font-weight: normal; /* Đảm bảo không tô đậm */
 }
 
 /* Modal */

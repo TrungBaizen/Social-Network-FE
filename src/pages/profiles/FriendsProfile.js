@@ -90,7 +90,7 @@ const Profile = () => {
                                         <Text>Tình trạng hôn nhân: Độc thân</Text>
                                     </div>
                                 </div>
-                                <FriendsList /> {/* Moved FriendsList component here */}
+                                <FriendsList /> {/* Danh sách bạn bè trong profile */}
                             </div>
                             <div className="right-column">
                                 <PostPage />

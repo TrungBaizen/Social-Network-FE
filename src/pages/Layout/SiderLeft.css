@@ -1,12 +1,18 @@
+
 .sider {
-    position: sticky;
-    top: 0;
-    height: auto;
-    overflow: auto;
-    width: 200px;
+    position: fixed; /* Cố định vị trí */
+    top: 0; /* Cố định ở phía trên cùng */
+    left: 0; /* Cố định ở phía bên trái */
+    width: 200px; /* Đặt chiều rộng cho thanh bên */
+    height: 100vh; /* Chiều cao bằng với chiều cao của viewport */
+    overflow-y: auto; /* Cho phép cuộn dọc nếu cần */
+    background-color: #fff; /* Màu nền của thanh bên */
+    border-right: 1px solid #ddd; /* Đường viền bên phải */
+    z-index: 1000; /* Đảm bảo thanh bên nằm trên các phần tử khác */
 }
 
+/* Menu component */
 .menu {
-    height: 100%;
-    border-right: 0;
+    height: 100%; /* Đảm bảo menu chiếm toàn bộ chiều cao của thanh bên */
+    border-right: 0; /* Xóa đường viền bên phải của menu */
 }
