@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Layout, Typography, Avatar, Button } from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-import PostPage from "../posts/PostPage";
 import './Profile.css';
 import { FavoriteBorder, HomeOutlined, PeopleOutline } from "@mui/icons-material";
 import FriendsList from "./FriendsList";
+import PostsFriend from "../posts/PostsFriend";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -97,7 +97,7 @@ const Profile = () => {
                                 <FriendsList /> {/* Moved FriendsList component here */}
                             </div>
                             <div className="right-column">
-                                <PostPage />
+                                <PostsFriend />
                             </div>
                         </div>
                     </div>
