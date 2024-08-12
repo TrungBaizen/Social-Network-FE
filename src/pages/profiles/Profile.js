@@ -6,12 +6,15 @@ import './Profile.css';
 import { EditOutlined, FavoriteBorder, HomeOutlined, PeopleOutline } from "@mui/icons-material";
 import EditPersonalInfoModal from "./EditPersonalInfoModal";
 import FriendsList from "./FriendsList";
+import ImageModal from "./ImageModal/ImageModal";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
 const Profile = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [imageModalVisible, setImageModalVisible] = useState(false); // State for ImageModal
+    const [currentImage, setCurrentImage] = useState(''); // State for current image
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -25,13 +28,27 @@ const Profile = () => {
         setIsModalVisible(false);
     };
 
+    const handleImageClick = (imageUrl) => {
+        setCurrentImage(imageUrl);
+        setImageModalVisible(true);
+    };
+
+    const handleImageModalClose = () => {
+        setImageModalVisible(false);
+    };
+
+    const handleImageUpdate = () => {
+        // Logic to update the image goes here
+        console.log('Update image logic');
+    };
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <ResponsiveAppBar /> {/* Thanh điều hướng trên cùng */}
             <Layout>
                 <Content>
                     <div className="profile-container">
-                        <div className="banner">
+                        <div className="banner" onClick={() => handleImageClick("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")}>
                             <img
                                 src="https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                                 alt="Banner"
@@ -39,8 +56,11 @@ const Profile = () => {
                             />
                         </div>
                         <div className="profile-header">
-                            <Avatar size={64}
-                                    src="https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg" />
+                            <Avatar
+                                size={64}
+                                src="https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"
+                                onClick={() => handleImageClick("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg")} // Open modal with avatar
+                            />
                             <div className="profile-info">
                                 <Title level={2}>John Doe</Title>
                                 <Text>Kỹ sư phần mềm tại XYZ</Text>
@@ -57,11 +77,10 @@ const Profile = () => {
                             </div>
                         </div>
                         <div className="profile-content">
-                            <div className="left-column-info"> {/* Renamed class */}
+                            <div className="left-column-info">
                                 <Title level={4}>Giới thiệu</Title>
                                 <Text>
-                                    Đây là phần giới thiệu thông tin người dùng. Bạn có thể thêm các thông tin chi
-                                    tiết về bản thân, sở thích, kinh nghiệm làm việc, và nhiều hơn nữa.
+                                    Đây là phần giới thiệu thông tin người dùng. Bạn có thể thêm các thông tin chi tiết về bản thân, sở thích, kinh nghiệm làm việc, và nhiều hơn nữa.
                                 </Text>
                                 <div className="personal-info">
                                     <div className="info-item">
@@ -76,9 +95,9 @@ const Profile = () => {
                                         <FavoriteBorder className="info-icon" />
                                         <Text>Tình trạng hôn nhân: Độc thân</Text>
                                     </div>
-                                    <Button type="primary"
-                                            icon={<EditOutlined />} onClick={showModal}>Chỉnh Sửa Thông Tin Cá
-                                        Nhân</Button>
+                                    <Button type="primary" icon={<EditOutlined />} onClick={showModal}>
+                                        Chỉnh Sửa Thông Tin Cá Nhân
+                                    </Button>
 
                                     <EditPersonalInfoModal
                                         visible={isModalVisible}
@@ -86,13 +105,20 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                <FriendsList /> {/* Moved FriendsList component here */}
+                                <FriendsList />
                             </div>
                             <div className="right-column">
                                 <PostPage />
                             </div>
                         </div>
                     </div>
+                    {/* Modal hiển thị ảnh */}
+                    <ImageModal
+                        visible={imageModalVisible}
+                        onClose={handleImageModalClose}
+                        imageUrl={currentImage}
+                        onUpdate={handleImageUpdate}
+                    />
                 </Content>
             </Layout>
         </Layout>

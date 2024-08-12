@@ -37,7 +37,7 @@
 /* Nội dung chính có thể cuộn */
 .home-layout .content-layout {
     overflow-y: auto; /* Cho phép cuộn dọc */
-    padding: 24px;
+    padding: 0px 24px 24px 24px;
     background-color: #ffffff; /* Màu nền của nội dung */
     height: 100%; /* Đảm bảo chiều cao đầy đủ của phần cuộn */
 }
