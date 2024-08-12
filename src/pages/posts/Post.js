@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { Card, Avatar, Typography, Button, Input, List, Modal, Dropdown, Menu } from 'antd';
-import { LikeOutlined, CommentOutlined, MoreOutlined } from '@ant-design/icons';
+import { LikeOutlined, LikeFilled, CommentOutlined, MoreOutlined } from '@ant-design/icons';
 import './Post.css';
 import EditPostModal from './EditPostModal'; // Nhập modal chỉnh sửa bài viết
 
@@ -43,7 +42,7 @@ const Post = ({ post }) => {
     };
 
     const handleEditPost = (updatedPost) => {
-         console.log('Updated Post:', updatedPost);
+        console.log('Updated Post:', updatedPost);
         setIsEditModalVisible(false);
     };
 
