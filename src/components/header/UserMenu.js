@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -7,21 +7,26 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { logout } from '../../redux/services/userService';
-import './UserMenu.css'; // Import file CSS
+import './UserMenu.css';
 
-const settings = [
-    { title: 'Profile', link: '/profile' },
-    { title: 'Account', link: '/account' },
-    { title: 'Dashboard', link: '/dashboard' },
-    { title: 'Change Password', link: '/changepassword' }
-];
 
 function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const [settings, setSettings] = useState([]);
+    useEffect(() => {
+        const jwt = JSON.parse(localStorage.getItem("currentUser"));
+        const email = jwt.email;
+        const newSettings  = [
+            { title: 'Profile', link: `/profile?email=${email}` },
+            { title: 'Account', link: '/account' },
+            { title: 'Dashboard', link: '/dashboard' },
+            { title: 'Change Password', link: '/changepassword' }
+        ];
+        setSettings(newSettings)
+    }, []);
     const handleLogout = () => {
         const user = JSON.parse(localStorage.getItem('currentUser'));
         dispatch(logout(user ? { email: user.email } : {}));
