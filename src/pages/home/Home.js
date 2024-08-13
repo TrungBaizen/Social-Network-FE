@@ -15,6 +15,7 @@ const Home = () => {
         <Layout className="home-layout">
             <ResponsiveAppBar />
             <Layout className="main-layout">
+                {/* Hiển thị SiderLeft và SiderRight trên màn hình lớn */}
                 <SiderLeft colorBgContainer={colorBgContainer} />
                 <Layout className="content-layout">
                     <ContentArea colorBgContainer={colorBgContainer} borderRadiusLG={borderRadiusLG} />
