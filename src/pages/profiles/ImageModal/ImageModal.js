@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal, Button } from 'antd';
-import './ImageModal.css';
+import { Modal, Button, Dropdown, Menu } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import './ImageModal.css'; // Import file CSS
 
 const ImageModal = ({ visible, onClose, imageUrl, type, onUpdate }) => {
     const getTitle = () => {
@@ -14,24 +15,51 @@ const ImageModal = ({ visible, onClose, imageUrl, type, onUpdate }) => {
         }
     };
 
+    const handleUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            // Xử lý tệp ảnh sau khi người dùng chọn
+            alert(`Tệp đã chọn: ${file.name}`);
+            // Gọi callback onUpdate với tệp mới nếu cần thiết
+            if (onUpdate) onUpdate(file);
+        }
+    };
+
+    const menu = (
+        <Menu>
+            <Menu.Item key="upload" icon={<UploadOutlined />}>
+                <label htmlFor="upload-input" style={{ cursor: 'pointer', margin: 0 }}>
+                    Tải ảnh lên
+                </label>
+                <input
+                    id="upload-input"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handleUpload}
+                />
+            </Menu.Item>
+        </Menu>
+    );
+
     return (
         <Modal
             visible={visible}
             onCancel={onClose}
             footer={[
-                type && (
-                    <Button key="update" type="primary" onClick={onUpdate}>
-                        {type === 'avatar' ? 'Cập Nhật Avatar' : 'Cập Nhật Ảnh Bìa'}
+                <Dropdown overlay={menu} key="dropdown">
+                    <Button type="primary">
+                        {type === 'avatar' ? 'Chỉnh sửa Avatar' : 'Chỉnh sửa Ảnh Bìa'}
                     </Button>
-                ),
+                </Dropdown>,
                 <Button key="close" onClick={onClose}>
                     Đóng
                 </Button>,
             ]}
             title={getTitle()}
-            className="image-modal"
+            className="image-modal" // Thêm lớp CSS
         >
-            <img src={imageUrl} alt={getTitle()} style={{ width: '100%' }} />
+            <img src={imageUrl} alt={getTitle()} />
         </Modal>
     );
 };

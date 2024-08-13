@@ -1,4 +1,36 @@
 /* ImageModal.css */
+.image-modal {
+    max-width: 90% !important; /* Đảm bảo modal không vượt quá 90% chiều rộng cửa sổ trình duyệt */
+    width: 800px !important;    /* Kích thước mặc định của modal */
+    margin: 0 auto;             /* Căn giữa modal */
+}
+
 .image-modal img {
     width: 100%;
+    height: auto; /* Đảm bảo ảnh không bị bóp méo */
+}
+
+/* Media queries để điều chỉnh kích thước modal trên các thiết bị nhỏ hơn */
+@media (max-width: 1200px) {
+    .image-modal {
+        width: 70% !important; /* Kích thước modal nhỏ hơn trên các màn hình rộng hơn */
+    }
+}
+
+@media (max-width: 992px) {
+    .image-modal {
+        width: 80% !important; /* Kích thước modal trên các màn hình vừa */
+    }
+}
+
+@media (max-width: 768px) {
+    .image-modal {
+        width: 90% !important; /* Kích thước modal trên các màn hình nhỏ */
+    }
+}
+
+@media (max-width: 576px) {
+    .image-modal {
+        width: 95% !important; /* Kích thước modal trên các thiết bị di động nhỏ */
+    }
 }
