@@ -28,7 +28,8 @@ const Profile = () => {
     const profile = useSelector(({ profiles }) => profiles.profile);
     const [imageCover, setImageCover] = useState('');
     const [avatarImage, setAvatarImage] = useState('');
-
+    const a = profile.imageAvatar
+    console.log(a)
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -51,8 +52,20 @@ const Profile = () => {
         setImageModalVisible(false);
     };
 
-    const handleImageUpdate = () => {
-     // logic update ảnh
+    const handleImageUpdate = async (value) => {
+        const id = JSON.parse(localStorage.getItem("currentUser")).id;
+        try {
+            if (imageType === "avatar") {
+                await dispatch(updateAvatar({ image: value, id }));
+            } else {
+                await dispatch(updateCover({ image: value, id }));
+            }
+            // Gọi lại API để lấy thông tin profile mới sau khi cập nhật ảnh
+            await dispatch(getProfile(email));
+            setImageModalVisible(false); // Đóng modal sau khi cập nhật
+        } catch (error) {
+            console.error('Error updating image:', error);
+        }
     };
 
     useEffect(() => {
@@ -63,7 +76,8 @@ const Profile = () => {
         const fetchImage = async () => {
             if (profile.imageCover) {
                 try {
-                    const imageUrl = await decodeAndDecompressImageFile(profile.imageCover);
+                    const decodeURL = decodeURIComponent(profile.imageCover);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
                     setImageCover(imageUrl);
                 } catch (error) {
                     console.error('Error decoding image:', error);
@@ -72,10 +86,11 @@ const Profile = () => {
             } else {
                 setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
             }
-            if (profile.avatar) {
+            if (profile.imageAvatar) {
                 try {
-                    const decompressedBlob = await decodeAndDecompressImageFile(profile.imageAvatar);
-                    const imageUrl = URL.createObjectURL(decompressedBlob);
+                    const decodeURL = decodeURIComponent(profile.imageAvatar);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
+                    // const imageUrl = URL.createObjectURL(decompressedBlob);
                     setAvatarImage(imageUrl);
                 } catch (error) {
                     console.error('Error decoding avatar image:', error);
@@ -84,6 +99,7 @@ const Profile = () => {
             } else {
                 setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
             }
+            dispatch(getProfile(email))
         };
         fetchImage();
     }, [profile]);
