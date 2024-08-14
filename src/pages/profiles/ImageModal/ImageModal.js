@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button, Dropdown, Menu } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import './ImageModal.css';
+import {compressAndEncodeImageFile} from "../../../EncodeDecodeImage/compressAndEncodeImageFile"; // Import file CSS
 
 const ImageModal = ({ visible, onClose, imageUrl, type, onUpdate }) => {
     const getTitle = () => {
@@ -15,13 +16,13 @@ const ImageModal = ({ visible, onClose, imageUrl, type, onUpdate }) => {
         }
     };
 
-    const handleUpload = (event) => {
+    const handleUpload =async (event) => {
         const file = event.target.files[0];
         if (file) {
             // Xử lý tệp ảnh sau khi người dùng chọn
-            alert(`Tệp đã chọn: ${file.name}`);
+            const base64Compressed = await compressAndEncodeImageFile(file);
             // Gọi callback onUpdate với tệp mới nếu cần thiết
-            if (onUpdate) onUpdate(file);
+            if (onUpdate) onUpdate(base64Compressed);
         }
     };
 

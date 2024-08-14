@@ -8,10 +8,11 @@ import EditPersonalInfoModal from "./EditPersonalInfoModal";
 import FriendsList from "./FriendsList";
 import ImageModal from "./ImageModal/ImageModal";
 import { useDispatch, useSelector } from "react-redux";
-import {getProfile} from "../../redux/services/profileService";
+import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
 import { useLocation } from "react-router-dom";
 import { CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined } from "@ant-design/icons";
 import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import data from "bootstrap/js/src/dom/data";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -29,7 +30,8 @@ const Profile = () => {
     const profile = useSelector(({ profiles }) => profiles.profile);
     const [imageCover, setImageCover] = useState('');
     const [avatarImage, setAvatarImage] = useState('');
-
+    const a = profile.imageAvatar
+    console.log(a)
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -52,8 +54,21 @@ const Profile = () => {
         setImageModalVisible(false);
     };
 
-    const handleImageUpdate = () => {
         // logic update ảnh
+    const handleImageUpdate = async (value) => {
+        const id = JSON.parse(localStorage.getItem("currentUser")).id;
+        try {
+            if (imageType === "avatar") {
+                await dispatch(updateAvatar({ image: value, id }));
+            } else {
+                await dispatch(updateCover({ image: value, id }));
+            }
+            // Gọi lại API để lấy thông tin profile mới sau khi cập nhật ảnh
+            await dispatch(getProfile(email));
+            setImageModalVisible(false);
+        } catch (error) {
+            console.error('Error updating image:', error);
+        }
     };
 
     useEffect(() => {
@@ -64,7 +79,8 @@ const Profile = () => {
         const fetchImage = async () => {
             if (profile.imageCover) {
                 try {
-                    const imageUrl = await decodeAndDecompressImageFile(profile.imageCover);
+                    const decodeURL = decodeURIComponent(profile.imageCover);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
                     setImageCover(imageUrl);
                 } catch (error) {
                     console.error('Error decoding image:', error);
@@ -73,10 +89,11 @@ const Profile = () => {
             } else {
                 setImageCover("https://cdn.24h.com.vn/upload/4-2023/images/2023-10-17/skysports-lionel-messi-argentina_6000508-740-1697534366-935-width740height416.jpg");
             }
-            if (profile.avatar) {
+            if (profile.imageAvatar) {
                 try {
-                    const decompressedBlob = await decodeAndDecompressImageFile(profile.imageAvatar);
-                    const imageUrl = URL.createObjectURL(decompressedBlob);
+                    const decodeURL = decodeURIComponent(profile.imageAvatar);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
+                    // const imageUrl = URL.createObjectURL(decompressedBlob);
                     setAvatarImage(imageUrl);
                 } catch (error) {
                     console.error('Error decoding avatar image:', error);
@@ -85,6 +102,7 @@ const Profile = () => {
             } else {
                 setAvatarImage("https://ddk.1cdn.vn/2023/01/01/image.daidoanket.vn-images-upload-01012023-_dodo_1_4132cf89_980a7c75.jpg");
             }
+            dispatch(getProfile(email))
         };
         fetchImage();
     }, [profile]);

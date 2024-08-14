@@ -77,7 +77,7 @@ const PostPage = () => {
             <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
                 <div className="create-post-container">
                     <Avatar
-                        src="https://ddk.1cdn.vn/2023/01/01/image.daidoanket.vn-images-upload-01012023-_dodo_1_4132cf89_980a7c75.jpg"
+                        src=".fhan17-1.fna&amp;oh=00_AYBCRher2NmxkyJLeMbl1bogimlscT7TTop5ZXi7NpUMew&amp;oe=66BFC073"
                         size={40}
                     />
                     <Button type="primary" onClick={showCreatePostModal} className="create-post-button">

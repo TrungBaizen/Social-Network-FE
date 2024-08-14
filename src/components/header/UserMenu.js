@@ -17,10 +17,8 @@ function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
     const dispatch = useDispatch();
     const [settings, setSettings] = useState([]);
     useEffect(() => {
-        const jwt = JSON.parse(localStorage.getItem("currentUser"));
-        const email = jwt.email;
         const newSettings  = [
-            { title: 'Profile', link: `/profile?email=${email}` },
+            { title: 'Profile', link: `/profile` },
             { title: 'Account', link: '/account' },
             { title: 'Dashboard', link: '/dashboard' },
             { title: 'Change Password', link: '/changepassword' }
