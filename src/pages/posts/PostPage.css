@@ -1,0 +1,16 @@
+/* PostsPage.css */
+
+.posts-page {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.posts-content {
+    padding: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.create-post-button {
+    margin-bottom: 20px;
+}

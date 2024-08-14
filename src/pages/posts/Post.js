@@ -1,22 +1,23 @@
-
 import React, { useState } from 'react';
-import { Card, Avatar, Typography, Button, Input, List, Modal, Dropdown, Menu } from 'antd';
-import { LikeOutlined, CommentOutlined, MoreOutlined } from '@ant-design/icons';
+import { Card, Typography, Button, Input, List, Modal, Avatar } from 'antd';
+import { LikeOutlined, LikeFilled, MoreOutlined, CommentOutlined } from '@ant-design/icons';
 import './Post.css';
-import EditPostModal from './EditPostModal';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import EditPostModal from "./EditPostModal";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
+const DEFAULT_AVATAR = 'https://img.a.transfermarkt.technology/portrait/big/8198-1694609670.jpg?lm=1';
+const POST_IMAGE = 'https://cafebiz.cafebizcdn.vn/2018/7/13/photo-1-1531464319857736227485.jpg';
+const DEFAULT_NAME = 'User-Account'
 const Post = ({ post }) => {
     const [newComment, setNewComment] = useState('');
-    const [comments, setComments] = useState([
-        'Great post!',
-        'I totally agree!'
-    ]);
+    const [comments, setComments] = useState(post.comments ? post.comments.map(c => c.content) : []);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    const [liked, setLiked] = useState(post.likes && post.likes.length > 0);
 
     const handleCommentChange = (e) => {
         setNewComment(e.target.value);
@@ -27,6 +28,10 @@ const Post = ({ post }) => {
             setComments([...comments, newComment]);
             setNewComment('');
         }
+    };
+
+    const handleLikeClick = () => {
+        setLiked(!liked);
     };
 
     const showPostModal = () => {
@@ -41,58 +46,53 @@ const Post = ({ post }) => {
         setIsEditModalVisible(true);
     };
 
-    const handleEditPost = (updatedPost) => {
-         console.log('Updated Post:', updatedPost);
-        setIsEditModalVisible(false);
-    };
-
     const handleCancel = () => {
         setIsModalVisible(false);
         setIsLikesModalVisible(false);
         setIsEditModalVisible(false);
     };
 
-    const handleMenuClick = (e) => {
-        if (e.key === '1') {
-            showEditModal();
-        } else if (e.key === '2') {
-            // Xóa bài viết ở đây
-            console.log('Xóa bài viết');
-        }
-    };
-
-    const menu = (
-        <Menu onClick={handleMenuClick}>
-            <Menu.Item key="1">Sửa bài viết</Menu.Item>
-            <Menu.Item key="2">Xóa bài viết</Menu.Item>
-        </Menu>
-    );
-
     return (
         <div>
-            <Card className="post-card" style={{ position: 'relative' }}>
+            <Card className="post-card">
                 <div className="post-header">
-                    <Avatar src={post.user.avatar} />
+                    <Avatar src={DEFAULT_AVATAR} />
                     <Title level={4} style={{ marginLeft: 10 }}>
-                        {post.user.name}
+                        {DEFAULT_NAME}
                     </Title>
-                    <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
-                        <Button
-                            className="more-options-button"
-                            onClick={(e) => e.preventDefault()}
-                        >
-                            <span className="dots">...</span>
-                        </Button>
-                    </Dropdown>
+                    <Button
+                        className="more-options-button"
+                        onClick={showEditModal}
+                        icon={<MoreOutlined />}
+                    />
                 </div>
-                <img src={post.image} alt="Post" className="post-image" onClick={showPostModal} />
-                <div className="post-stats" onClick={showLikesModal}>
-                    <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
+                <Text>{post.content}</Text>
+                {POST_IMAGE && <div className="post-image-container"><img src={POST_IMAGE} alt="Post" className="post-image" /></div>}
+                <Text type="secondary">Ngày tạo: {new Date(post.createdAt).toLocaleDateString()}</Text>
+                {post.updatedAt && <Text type="secondary">Cập nhật: {new Date(post.updatedAt).toLocaleDateString()}</Text>}
+                <Text type="secondary">Trạng thái: {post.postStatus}</Text>
+                <div onClick={showLikesModal} className="post-stats">
+                    {liked ? (
+                        <>
+                            <LikeFilled style={{ marginRight: 8, color: '#1890ff' }} /> {post.likes ? post.likes.length + 1 : 1} lượt thích
+                        </>
+                    ) : (
+                        <>
+                            <LikeOutlined style={{ marginRight: 8 }} /> {post.likes ? post.likes.length : 0} lượt thích
+                        </>
+                    )}
                 </div>
-                <Text>{post.status}</Text>
                 <div className="post-actions">
-                    <Button className="post-action-button" icon={<LikeOutlined />}>Thích</Button>
-                    <Button className="post-action-button" icon={<CommentOutlined />} onClick={showPostModal}>Bình luận</Button>
+                    <Button
+                        className="post-action-button"
+                        icon={liked ? <LikeFilled /> : <LikeOutlined />}
+                        onClick={handleLikeClick}
+                    >
+                        {liked ? 'Đã thích' : 'Thích'}
+                    </Button>
+                    <Button className="post-action-button" icon={<CommentOutlined />} onClick={showPostModal}>
+                        Bình luận
+                    </Button>
                 </div>
             </Card>
 
@@ -105,16 +105,28 @@ const Post = ({ post }) => {
             >
                 <Card className="post-card">
                     <div className="post-header">
-                        <Avatar src={post.user.avatar} />
+                        <Avatar src={DEFAULT_AVATAR} />
                         <Title level={4} style={{ marginLeft: 10 }}>
-                            {post.user.name}
+                            {DEFAULT_NAME}
                         </Title>
                     </div>
-                    <img src={post.image} alt="Post" className="post-image" />
-                    <div className="post-stats">
-                        <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
-                    </div>
-                    <Text>{post.status}</Text>
+                    <Text>{post.content}</Text>
+                    {POST_IMAGE && <div className="post-image-container"><img src={POST_IMAGE} alt="Post" className="post-image" /></div>}
+                    <Text type="secondary">Ngày tạo: {new Date(post.createdAt).toLocaleDateString()}</Text>
+                    {post.updatedAt && <Text type="secondary">Cập nhật: {new Date(post.updatedAt).toLocaleDateString()}</Text>}
+                    <Text type="secondary">Trạng thái: {post.postStatus}</Text>
+
+                    {/*<div onClick={showLikesModal} className="post-stats">*/}
+                    {/*    {liked ? (*/}
+                    {/*        <>*/}
+                    {/*            <LikeFilled style={{ marginRight: 8, color: '#1890ff' }} /> {post.likes ? post.likes.length + 1 : 1} lượt thích*/}
+                    {/*        </>*/}
+                    {/*    ) : (*/}
+                    {/*        <>*/}
+                    {/*            <LikeOutlined style={{ marginRight: 8 }} /> {post.likes ? post.likes.length : 0} lượt thích*/}
+                    {/*        </>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
                     <div className="post-comments">
                         <Title level={4}>Bình luận:</Title>
                         <List
@@ -148,11 +160,11 @@ const Post = ({ post }) => {
                 width={400}
             >
                 <List
-                    dataSource={post.likedBy}
+                    dataSource={post.likes ? post.likes.map(like => like.userId) : []}
                     renderItem={item => (
                         <List.Item>
                             <LikeOutlined style={{ marginRight: 8 }} />
-                            {item}
+                            User {item}
                         </List.Item>
                     )}
                 />
@@ -162,10 +174,20 @@ const Post = ({ post }) => {
                 visible={isEditModalVisible}
                 onCancel={handleCancel}
                 post={post}
-                onEdit={handleEditPost}
+                onEdit={(updatedPost) => {
+                    console.log('Updated Post:', updatedPost);
+                    setIsEditModalVisible(false);
+                }}
             />
         </div>
     );
 };
 
 export default Post;
+
+
+
+
+
+
+

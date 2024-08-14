@@ -62,13 +62,13 @@ const ImageUpload = ({ previewImage, fileList, onUploadChange }) => (
 const EditPostModal = ({ visible, onCancel, post, onEdit }) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
-    const [previewImage, setPreviewImage] = useState(post.image);
+    // const [previewImage, setPreviewImage] = useState(post.image);
 
     const handleFinish = (values) => {
         const updatedPost = {
             ...post,
             ...values,
-            image: fileList.length > 0 ? fileList[0].url : previewImage
+            // image: fileList.length > 0 ? fileList[0].url : previewImage
         };
         onEdit(updatedPost);
     };
@@ -76,7 +76,7 @@ const EditPostModal = ({ visible, onCancel, post, onEdit }) => {
     const handleUploadChange = ({ fileList }) => {
         setFileList(fileList);
         if (fileList.length > 0) {
-            setPreviewImage(fileList[0].url);
+            // setPreviewImage(fileList[0].url);
         }
     };
 
@@ -90,8 +90,8 @@ const EditPostModal = ({ visible, onCancel, post, onEdit }) => {
         >
             <Card className="post-card">
                 <AvatarSection
-                    avatar={post.user.avatar}
-                    name={post.user.name}
+                    // avatar={post.user.avatar}
+                    // name={post.user.name}
                     visibility={post.visibility || 'public'}
                     onVisibilityChange={(value) => form.setFieldsValue({ visibility: value })}
                 />
@@ -106,7 +106,7 @@ const EditPostModal = ({ visible, onCancel, post, onEdit }) => {
                 >
                     <StatusInput />
                     <ImageUpload
-                        previewImage={previewImage}
+                        // previewImage={previewImage}
                         fileList={fileList}
                         onUploadChange={handleUploadChange}
                     />

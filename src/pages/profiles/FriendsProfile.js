@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Layout, Typography, Avatar, Button } from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-import PostPage from "../posts/PostPage";
 import './Profile.css';
 import { FavoriteBorder, HomeOutlined, PeopleOutline } from "@mui/icons-material";
 import FriendsList from "./FriendsList";
+import PostsFriend from "../posts/PostsFriend";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -44,19 +44,23 @@ const Profile = () => {
                                     <Text>Kỹ sư phần mềm tại XYZ</Text>
                                 </div>
                             </div>
-                            <div className="profile-actions">
-                                <Button
-                                    type={isFriend ? "default" : "primary"}
-                                    onClick={toggleFriend}
-                                >
-                                    {isFriend ? "Hủy" : "Thêm Bạn Bè"}
-                                </Button>
-                                <Button
-                                    type={isFollowing ? "default" : "primary"}
-                                    onClick={toggleFollow}
-                                >
-                                    {isFollowing ? "Đã Theo Dõi" : "Theo Dõi"}
-                                </Button>
+                            <div className="profile-actions d-flex align-items-center">
+                                <div className="friend-action me-2">
+                                    <Button
+                                        type={isFriend ? "default" : "primary"}
+                                        onClick={toggleFriend}
+                                    >
+                                        {isFriend ? "Hủy" : "Thêm Bạn Bè"}
+                                    </Button>
+                                </div>
+                                <div className="follow-action">
+                                    <Button
+                                        type={isFollowing ? "default" : "primary"}
+                                        onClick={toggleFollow}
+                                    >
+                                        {isFollowing ? "Đã Theo Dõi" : "Theo Dõi"}
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                         <div className="profile-section">
@@ -93,7 +97,7 @@ const Profile = () => {
                                 <FriendsList /> {/* Danh sách bạn bè trong profile */}
                             </div>
                             <div className="right-column">
-                                <PostPage />
+                                <PostsFriend />
                             </div>
                         </div>
                     </div>

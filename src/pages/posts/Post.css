@@ -1,58 +1,126 @@
 /* Post.css */
 
 .post-card {
-    position: relative;
+    position: relative; /* Đặt vị trí tương đối cho toàn bộ thẻ bài viết */
 }
 
 .post-header {
-    display: flex;
-    align-items: center;
-    position: relative;
+    display: flex; /* Sắp xếp các phần tử con theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    position: relative; /* Đặt vị trí tương đối cho phần tiêu đề bài viết */
 }
 
 .post-header .ant-avatar {
-    border-radius: 50%;
+    border-radius: 50%; /* Làm cho ảnh đại diện có dạng hình tròn */
 }
 
 .post-header .ant-typography {
-    margin-left: 10px;
+    margin-left: 10px; /* Khoảng cách từ phần văn bản đến ảnh đại diện */
 }
 
 .post-image {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
+    width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều rộng của container */
+    height: auto; /* Chiều cao ảnh tự động điều chỉnh theo tỉ lệ */
+    cursor: pointer; /* Đổi con trỏ chuột thành hình bàn tay khi di chuột qua ảnh */
 }
 
 .post-stats {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
+    display: flex; /* Sắp xếp các thống kê bài viết theo chiều ngang */
+    align-items: center; /* Căn giữa các thống kê theo chiều dọc */
+    margin-top: 10px; /* Khoảng cách phía trên của phần thống kê */
 }
 
 .post-actions {
-    margin-top: 10px;
+    margin-top: 10px; /* Khoảng cách phía trên của các nút hành động */
 }
 
 .post-action-button {
-    margin-right: 10px;
+    margin-right: 10px; /* Khoảng cách giữa các nút hành động */
 }
 
 .ant-btn {
-    font-size: 16px;
+    font-size: 16px; /* Kích thước chữ trên các nút bấm */
 }
 
 .more-options-button {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
-    margin-left: auto;
+    background: transparent; /* Nền của nút tuỳ chọn thêm là trong suốt */
+    border: none; /* Không có viền cho nút tuỳ chọn thêm */
+    padding: 0; /* Không có khoảng đệm bên trong nút */
+    cursor: pointer; /* Đổi con trỏ chuột thành hình bàn tay khi di chuột qua */
+    font-size: 20px; /* Kích thước chữ của nút tuỳ chọn thêm */
+    font-weight: bold; /* Độ đậm của chữ trên nút */
+    color: #000; /* Màu chữ của nút tuỳ chọn thêm */
+    margin-left: auto; /* Đẩy nút sang bên phải trong phần tiêu đề */
 }
 
 .more-options-button .anticon {
-    vertical-align: middle;
+    vertical-align: middle; /* Căn giữa biểu tượng theo chiều dọc */
+}
+
+/* Màn hình cỡ nhỏ (Small devices, tối đa 768px) */
+@media only screen and (max-width: 768px) {
+    .post-header {
+        flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+        align-items: flex-start; /* Căn trái các phần tử trong tiêu đề */
+    }
+
+    .post-header .ant-typography {
+        margin-left: 0; /* Xóa khoảng cách trái của văn bản */
+        margin-top: 10px; /* Thêm khoảng cách phía trên cho văn bản */
+        text-align: center; /* Căn giữa văn bản */
+        width: 100%; /* Chiều rộng của văn bản chiếm toàn bộ container */
+    }
+
+    .more-options-button {
+        margin-left: 0; /* Xóa khoảng cách trái của nút tuỳ chọn thêm */
+        margin-top: 10px; /* Thêm khoảng cách phía trên cho nút */
+    }
+
+    .post-actions {
+        display: flex; /* Sắp xếp các nút hành động theo chiều dọc */
+        flex-direction: column; /* Các nút hành động xếp chồng lên nhau */
+        align-items: stretch; /* Các nút kéo dài để chiếm toàn bộ chiều rộng */
+    }
+
+    .post-action-button {
+        margin-right: 0; /* Xóa khoảng cách phải của các nút hành động */
+        margin-bottom: 10px; /* Thêm khoảng cách phía dưới cho các nút hành động */
+    }
+
+    .post-card {
+        padding: 10px; /* Thêm khoảng đệm bên trong thẻ bài viết */
+    }
+}
+
+/* Màn hình điện thoại (Small devices, tối đa 576px) */
+@media only screen and (max-width: 576px) {
+    .post-header {
+        flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+        align-items: center; /* Căn giữa các phần tử trong tiêu đề */
+    }
+
+    .post-image {
+        width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều rộng của container */
+        height: auto; /* Chiều cao ảnh tự động điều chỉnh theo tỉ lệ */
+    }
+
+    .post-stats {
+        justify-content: center; /* Căn giữa các thống kê bài viết */
+        margin-top: 5px; /* Khoảng cách phía trên của phần thống kê */
+    }
+
+    .post-actions {
+        flex-direction: column; /* Các nút hành động xếp chồng lên nhau */
+        align-items: center; /* Căn giữa các nút hành động */
+        margin-top: 5px; /* Khoảng cách phía trên của các nút hành động */
+    }
+
+    .post-action-button {
+        width: 100%; /* Chiều rộng của nút chiếm toàn bộ container */
+        margin-bottom: 5px; /* Thêm khoảng cách phía dưới cho các nút hành động */
+    }
+
+    .more-options-button {
+        margin-top: 10px; /* Thêm khoảng cách phía trên cho nút tuỳ chọn thêm */
+    }
 }
