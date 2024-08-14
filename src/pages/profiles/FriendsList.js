@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Typography, Modal, Input } from 'antd';
 import './FriendsList.css';
+import {useSelector} from "react-redux";
 
 const { Title } = Typography;
 const { Search } = Input;
+
 
 const friends = [
     { id: 1, name: 'Friend 1', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
@@ -20,7 +22,8 @@ const friends = [
 const FriendsList = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-
+    const profile = useSelector(({profiles}) => profiles.profile);
+    const friends1 = profile.friendList;
     const showModal = () => {
         setIsModalVisible(true);
     };

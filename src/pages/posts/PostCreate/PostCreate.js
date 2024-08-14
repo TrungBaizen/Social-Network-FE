@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Modal, Input, Button } from 'antd';
 import './PostCreate.css';
 
 const PostCreate = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     return (
         <div className="post-create-container">
             <div className="post-create-header">
@@ -14,9 +25,20 @@ const PostCreate = () => {
                     </div>
                 </a>
                 <div className="post-input-container">
-                    <a>Duy ơi, bạn đang nghĩ gì thế?</a>
+                    <Button type="text" onClick={showModal}>
+                        Duy ơi, bạn đang nghĩ gì thế?
+                    </Button>
                 </div>
             </div>
+
+            <Modal
+                title="Tạo bài viết"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+            >
+                <Input.TextArea placeholder="Bạn đang nghĩ gì?" rows={4} />
+            </Modal>
         </div>
     );
 };

@@ -6,8 +6,8 @@ const PostPage = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-                const data = await fetchPostsService();
-                setPosts(data);
+            const data = await fetchPostsService();
+            setPosts(data);
         };
 
         fetchPosts();

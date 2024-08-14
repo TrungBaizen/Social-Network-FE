@@ -3,32 +3,84 @@
     background-color: #ffffff; /* Màu nền của AppBar */
     color: #000000; /* Màu chữ của AppBar */
     border-bottom: 1px solid #dcdcdc; /* Đường viền dưới của AppBar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm bóng cho AppBar */
 }
 
+/* Toolbar */
 .toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 16px; /* Padding bên trái và phải */
 }
 
+/* Logo */
 .logo {
-    flex: 1; /* Phần logo */
     display: flex;
     align-items: center;
+    flex: 1; /* Để logo chiếm toàn bộ không gian còn lại */
 }
 
+/* Navigation Menu */
 .nav-menu {
-    flex: 2; /* Phần Navigation Menu */
     display: flex;
     justify-content: center;
+    gap: 20px; /* Khoảng cách giữa các mục menu */
 }
 
+/* Mobile Navigation Menu */
 .mobile-nav-menu {
-    display: flex;
-    align-items: center;
+    display: none; /* Ẩn menu điều hướng di động trên màn hình lớn */
 }
 
+/* Notification & User Menu */
 .notification-user-menu {
     display: flex;
     align-items: center;
+    gap: 10px; /* Khoảng cách giữa các mục thông báo và menu người dùng */
+}
+
+/* Media Queries for Mobile Devices */
+@media (max-width: 768px) {
+    .toolbar {
+        flex-direction: row; /* Sắp xếp các phần tử theo hàng trên màn hình nhỏ */
+        align-items: center; /* Căn giữa các phần tử */
+        padding: 0 8px; /* Giảm padding cho màn hình nhỏ */
+    }
+
+    .logo {
+        flex: 1; /* Để logo chiếm toàn bộ không gian còn lại */
+    }
+
+    .nav-menu {
+        display: none; /* Ẩn menu điều hướng trên màn hình nhỏ */
+    }
+
+    .mobile-nav-menu {
+        display: flex; /* Hiển thị menu điều hướng di động */
+    }
+
+    .notification-user-menu {
+        display: none; /* Ẩn các mục thông báo và menu người dùng trên màn hình nhỏ */
+    }
+
+    /* Ẩn ô tìm kiếm trên màn hình nhỏ */
+    .search-bar {
+        display: none; /* Ẩn ô tìm kiếm */
+    }
+}
+
+/* Media Queries for Larger Mobile Devices */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .toolbar {
+        padding: 0 16px; /* Padding cho màn hình lớn hơn một chút */
+    }
+
+    .nav-menu {
+        gap: 20px; /* Khoảng cách giữa các mục menu */
+    }
+
+    .mobile-nav-menu {
+        display: none; /* Ẩn menu điều hướng di động trên màn hình lớn hơn */
+    }
 }

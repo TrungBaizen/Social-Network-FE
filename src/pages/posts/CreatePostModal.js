@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Modal, Button, Typography, Input, Select } from 'antd';
 import { PictureOutlined } from '@ant-design/icons';
@@ -82,4 +81,3 @@ const CreatePostModal = ({ visible, onCancel }) => {
 };
 
 export default CreatePostModal;
-

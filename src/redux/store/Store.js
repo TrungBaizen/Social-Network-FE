@@ -5,6 +5,7 @@ import statusReducer from "../reducers/postStatusReducer";
 import notificationReducer from "../reducers/notificationReducer";
 import postPageReducer from "../reducers/postPageReducer";
 import {thunk} from "redux-thunk";
+import profileReducer from "../reducers/profileReducer";
 
 const store = configureStore({
     reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
         genders: genderReducer,
         postStatuses: statusReducer,
         notifications: notificationReducer, // ô thông báo
-        posts: postPageReducer
+        posts: postPageReducer,
+        profiles: profileReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(thunk),

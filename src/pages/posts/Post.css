@@ -1,5 +1,33 @@
 /* Post.css */
 
+.post-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    overflow: hidden; /* Ẩn các phần của ảnh ra ngoài */
+}
+
+.post-image {
+    max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng modal */
+    max-height: 80vh; /* Giới hạn chiều cao tối đa của ảnh */
+    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động mượt mà khi thay đổi kích thước */
+}
+
+.zoom-controls {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+    background: rgba(0, 0, 0, 0.5); /* Nền bán trong suốt */
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+}
+
+
+
 .post-card {
     position: relative; /* Đặt vị trí tương đối cho toàn bộ thẻ bài viết */
 }

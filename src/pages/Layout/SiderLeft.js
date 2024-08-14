@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserOutlined, TeamOutlined, ProfileOutlined, StarOutlined } from '@ant-design/icons';
+import {FcBusinessman, FcPortraitMode, FcHighPriority, FcContacts} from 'react-icons/fc'; // Import các biểu tượng phù hợp
 import { Layout, Menu } from 'antd';
 import './SiderLeft.css';
 
@@ -8,23 +8,28 @@ const { Sider } = Layout;
 const items2 = [
     {
         key: '1',
-        icon: <UserOutlined />,
+        icon: <FcBusinessman />,
         label: 'Account',
     },
     {
         key: '2',
-        icon: <TeamOutlined />,
+        icon: <FcContacts />, // Biểu tượng nhóm gần nhất
         label: 'Group',
     },
     {
         key: '3',
-        icon: <ProfileOutlined />,
+        icon: <FcPortraitMode />,
         label: 'Author Profile',
     },
     {
         key: '4',
-        icon: <StarOutlined />,
+        icon: <FcHighPriority />, // Biểu tượng nổi bật gần nhất
         label: 'Popular Group',
+    },
+    {
+        key: '5',
+        icon: <FcBusinessman />, // Sử dụng lại biểu tượng cho "Bạn Bè" nếu không có biểu tượng khác
+        label: 'Bạn Bè',
     },
     // Thêm các mục khác nếu cần
 ];

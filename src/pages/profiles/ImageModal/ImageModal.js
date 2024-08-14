@@ -1,23 +1,65 @@
 import React from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Dropdown, Menu } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import './ImageModal.css';
 
-const ImageModal = ({ visible, onClose, imageUrl, onUpdate }) => {
+const ImageModal = ({ visible, onClose, imageUrl, type, onUpdate }) => {
+    const getTitle = () => {
+        switch (type) {
+            case 'avatar':
+                return 'Avatar';
+            case 'cover':
+                return 'Cover Image';
+            default:
+                return 'Image';
+        }
+    };
+
+    const handleUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            // Xử lý tệp ảnh sau khi người dùng chọn
+            alert(`Tệp đã chọn: ${file.name}`);
+            // Gọi callback onUpdate với tệp mới nếu cần thiết
+            if (onUpdate) onUpdate(file);
+        }
+    };
+
+    const menu = (
+        <Menu>
+            <Menu.Item key="upload" icon={<UploadOutlined />}>
+                <label htmlFor="upload-input" style={{ cursor: 'pointer', margin: 0 }}>
+                    Tải ảnh lên
+                </label>
+                <input
+                    id="upload-input"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handleUpload}
+                />
+            </Menu.Item>
+        </Menu>
+    );
+
     return (
         <Modal
             visible={visible}
             onCancel={onClose}
             footer={[
-                <Button key="update" type="primary" onClick={onUpdate}>
-                    Cập Nhật Ảnh
-                </Button>,
+                <Dropdown overlay={menu} key="dropdown">
+                    <Button type="primary">
+                        {type === 'avatar' ? 'Chỉnh sửa Avatar' : 'Chỉnh sửa Ảnh Bìa'}
+                    </Button>
+                </Dropdown>,
                 <Button key="close" onClick={onClose}>
                     Đóng
                 </Button>,
             ]}
-            className="image-modal"
+            title={getTitle()}
+            className="image-modal" // Thêm lớp CSS
         >
-            <img src={imageUrl} alt="Profile or Banner" />
+            <img src={imageUrl} alt={getTitle()} />
         </Modal>
     );
 };
