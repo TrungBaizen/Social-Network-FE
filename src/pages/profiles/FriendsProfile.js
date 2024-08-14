@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Layout, Typography, Avatar, Button } from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import './Profile.css';
-import { FavoriteBorder, HomeOutlined, PeopleOutline } from "@mui/icons-material";
+import {EditOutlined, FavoriteBorder, HomeOutlined, PeopleOutline} from "@mui/icons-material";
 import FriendsList from "./FriendsList";
 import PostsFriend from "../posts/PostsFriend";
+import {useDispatch, useSelector} from "react-redux";
+import {getProfile} from "../../redux/services/profileService";
+import {useLocation, useNavigate} from "react-router-dom";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -13,6 +18,13 @@ const Profile = () => {
     // Trạng thái cho các nút
     const [isFriend, setIsFriend] = useState(false);
     const [isFollowing, setIsFollowing] = useState(false);
+    const location = useLocation();
+    const query = new URLSearchParams(location.search)
+    const email = query.get("email");
+    const dispatch = useDispatch();
+    const profile = useSelector(({ profiles }) => profiles.profile);
+    const [imageCover, setImageCover] = useState('');
+    const [avatarImage, setAvatarImage] = useState('');
 
     const toggleFriend = () => {
         setIsFriend(!isFriend);
@@ -22,6 +34,41 @@ const Profile = () => {
         setIsFollowing(!isFollowing);
     };
 
+    useEffect(() => {
+        dispatch(getProfile(email));
+    }, [dispatch, email]);
+
+
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                if (profile.imageCover) {
+                    const decodeURL = decodeURIComponent(profile.imageCover);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
+                    setImageCover(imageUrl);
+                } else {
+                    setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+                }
+
+                if (profile.imageAvatar) {
+                    const decodeURL = decodeURIComponent(profile.imageAvatar);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
+                    setAvatarImage(imageUrl);
+                } else {
+                    setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
+                }
+            } catch (error) {
+                console.error('Error decoding image:', error);
+            }
+        };
+
+        if (profile) {
+            fetchImage();
+        }
+    }, [profile]);
+
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <ResponsiveAppBar /> {/* Thanh điều hướng trên cùng */}
@@ -30,7 +77,7 @@ const Profile = () => {
                     <div className="profile-container">
                         <div className="banner">
                             <img
-                                src="https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                                src={imageCover}
                                 alt="Banner"
                                 className="banner-img"
                             />
@@ -38,10 +85,9 @@ const Profile = () => {
                         <div className="profile-header d-flex justify-content-between">
                             <div className="d-flex justify-content-start">
                                 <Avatar size={64}
-                                        src="https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"/>
+                                        src={avatarImage}/>
                                 <div className="profile-info">
-                                    <Title level={2}>John Doe</Title>
-                                    <Text>Kỹ sư phần mềm tại XYZ</Text>
+                                    <Title level={2}>{profile.firstName} {profile.lastName}</Title>
                                 </div>
                             </div>
                             <div className="profile-actions d-flex align-items-center">
@@ -63,41 +109,63 @@ const Profile = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="profile-section">
-                            <div className="profile-navigation">
-                                <div>Bài Viết</div>
-                                <div>Giới Thiệu</div>
-                                <div>Lượt Nhắc</div>
-                                <div>Reels</div>
-                                <div>Ảnh</div>
-                                <div>Video</div>
-                            </div>
-                        </div>
                         <div className="profile-content">
-                            <div className="left-column-info"> {/* Renamed class */}
+                            <div className="left-column-info">
                                 <Title level={4}>Giới thiệu</Title>
-                                <Text>
-                                    Đây là phần giới thiệu thông tin người dùng. Bạn có thể thêm các thông tin chi
-                                    tiết về bản thân, sở thích, kinh nghiệm làm việc, và nhiều hơn nữa.
-                                </Text>
+                                {profile.description && (
+                                    <Text>
+                                        {profile.description}
+                                    </Text>
+                                )}
                                 <div className="personal-info">
                                     <div className="info-item">
-                                        <HomeOutlined className="info-icon" />
-                                        <Text>Địa chỉ: Thanh Son, Vinh Phu, Vietnam</Text>
+                                        {profile.birthDate && (
+                                            <>
+                                                <CalendarOutlined className="info-icon"/>
+                                                <Text>{new Date(profile.birthDate).toLocaleDateString('vi-VN')}</Text>
+                                            </>
+                                        )}
                                     </div>
                                     <div className="info-item">
-                                        <PeopleOutline className="info-icon" />
-                                        <Text>Số bạn bè: 9.186</Text>
+                                        {profile.hometown && (
+                                            <>
+                                                <HomeOutlined className="info-icon"/>
+                                                <Text>{profile.hometown}</Text>
+                                            </>
+                                        )}
                                     </div>
                                     <div className="info-item">
-                                        <FavoriteBorder className="info-icon" />
-                                        <Text>Tình trạng hôn nhân: Độc thân</Text>
+                                        {profile.currentLocation && (
+                                            <>
+                                                <EnvironmentOutlined className="info-icon"/>
+                                                <Text>{profile.currentLocation}</Text>
+                                            </>
+                                        )}
                                     </div>
+                                    <div className="info-item">
+                                        {profile.gender === "MALE" ? (
+                                            <>
+                                                <ManOutlined className="info-icon"/>
+                                                <Text>Nam</Text>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <WomanOutlined className="info-icon"/>
+                                                <Text>Nữ</Text>
+                                            </>
+                                        )}
+                                    </div>
+                                    {profile.occupation && (
+                                        <div className="info-item">
+                                            <ToolOutlined className="info-icon"/>
+                                            <Text>{profile.occupation}</Text>
+                                        </div>
+                                    )}
                                 </div>
-                                <FriendsList /> {/* Danh sách bạn bè trong profile */}
+                                <FriendsList/>
                             </div>
                             <div className="right-column">
-                                <PostsFriend />
+                                <PostsFriend/>
                             </div>
                         </div>
                     </div>

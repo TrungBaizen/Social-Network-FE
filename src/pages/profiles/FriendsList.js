@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Typography, Modal, Input} from 'antd';
 import './FriendsList.css';
 import {useSelector} from "react-redux";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {json, Link} from "react-router-dom";
 
 const {Title} = Typography;
 const {Search} = Input;
@@ -13,7 +15,9 @@ const FriendsList = () => {
     const profile = useSelector(({profiles}) => profiles.profile);
     const friendList = profile.friendList || []; // Sử dụng mảng rỗng nếu friendList là undefined
     const numberOfFriends = friendList.length;
-
+    const token = localStorage.getItem('currentUser');
+    const parseToken = token ? JSON.parse(token) : null;
+    const myEmail = parseToken ? parseToken.email : null;
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -31,6 +35,7 @@ const FriendsList = () => {
         friend.lastName.toLowerCase().includes(searchTerm)
     );
 
+
     return (
         <div className="friends-container">
             <div className="friends-header">
@@ -42,11 +47,21 @@ const FriendsList = () => {
                 {friendList.slice(0, 9).map(friend => (
                     <div key={friend.userId} className="friend-item">
                         <img
-                            src={friend.imageAvatar || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
+                            src={decodeAndDecompressImageFile(decodeURIComponent(friend.imageAvatar)) || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
                             alt={friend.firstName + " " + friend.lastName}
                             className="friend-img"
                         />
-                        <div className="friend-name">{friend.firstName + " " + friend.lastName}</div>
+                        <div className="friend-name">
+                            {friend.email === myEmail ? (
+                                <Link to="/profile" className="friend-name">
+                                    {friend.firstName + " " + friend.lastName}
+                                </Link>
+                            ) : (
+                                <Link to={`/friendsprofile?email=${friend.email}`} className="friend-name">
+                                    {friend.firstName + " " + friend.lastName}
+                                </Link>
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>
@@ -66,12 +81,16 @@ const FriendsList = () => {
                 <div className="friends-grid">
                     {filteredFriends.map(friend => (
                         <div key={friend.userId} className="friend-item">
-                            <img
-                                src={friend.imageAvatar || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
+                        <img
+                                src={decodeAndDecompressImageFile(decodeURIComponent(friend.imageAvatar)) || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
                                 alt={friend.firstName + " " + friend.lastName}
                                 className="friend-img"
                             />
-                            <div className="friend-name">{friend.firstName + " " + friend.lastName}</div>
+                            <div className="friend-name">
+                                <Link to={`/friendsprofile?email=${friend.email}`} className="friend-name">
+                                    {friend.firstName + " " + friend.lastName}
+                                </Link>
+                            </div>
                         </div>
                     ))}
                 </div>
