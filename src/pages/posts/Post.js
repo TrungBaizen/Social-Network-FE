@@ -188,7 +188,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Typography, Button, Input, List, Modal, Avatar } from 'antd';
 import { LikeOutlined, LikeFilled, MoreOutlined, CommentOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -244,6 +244,7 @@ const Post = ({ post }) => {
         setIsModalVisible(false);
         setIsLikesModalVisible(false);
         setIsEditModalVisible(false);
+        setZoomLevel(1); // Khôi phục kích thước ảnh về mặc định khi đóng modal
     };
 
     // Xử lý phóng to và thu nhỏ ảnh
@@ -398,3 +399,4 @@ const Post = ({ post }) => {
 };
 
 export default Post;
+
