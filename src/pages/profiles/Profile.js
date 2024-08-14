@@ -71,7 +71,7 @@ const Profile = () => {
                     setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
                 }
             } else {
-                setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+                setImageCover("https://cdn.24h.com.vn/upload/4-2023/images/2023-10-17/skysports-lionel-messi-argentina_6000508-740-1697534366-935-width740height416.jpg");
             }
             if (profile.avatar) {
                 try {
@@ -83,7 +83,7 @@ const Profile = () => {
                     setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
                 }
             } else {
-                setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
+                setAvatarImage("https://ddk.1cdn.vn/2023/01/01/image.daidoanket.vn-images-upload-01012023-_dodo_1_4132cf89_980a7c75.jpg");
             }
         };
         fetchImage();
