@@ -9,7 +9,6 @@ import FriendsList from "./FriendsList";
 import ImageModal from "./ImageModal/ImageModal";
 import { useDispatch, useSelector } from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
-import { useLocation } from "react-router-dom";
 import { CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined } from "@ant-design/icons";
 import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
@@ -22,14 +21,11 @@ const Profile = () => {
     const [currentImage, setCurrentImage] = useState('');
     const [imageType, setImageType] = useState(''); // Added state for image type
     const dispatch = useDispatch();
-    const location = useLocation();
-    const query = new URLSearchParams(location.search);
-    const email = query.get('email');
+    const email = JSON.parse(localStorage.getItem("currentUser")).email;
     const profile = useSelector(({ profiles }) => profiles.profile);
     const [imageCover, setImageCover] = useState('');
     const [avatarImage, setAvatarImage] = useState('');
-    const a = profile.imageAvatar
-    console.log(a)
+    console.log(profile)
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -74,35 +70,32 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchImage = async () => {
-            if (profile.imageCover) {
-                try {
+            try {
+                if (profile.imageCover) {
                     const decodeURL = decodeURIComponent(profile.imageCover);
                     const imageUrl = await decodeAndDecompressImageFile(decodeURL);
                     setImageCover(imageUrl);
-                } catch (error) {
-                    console.error('Error decoding image:', error);
+                } else {
                     setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
                 }
-            } else {
-                setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
-            }
-            if (profile.imageAvatar) {
-                try {
+
+                if (profile.imageAvatar) {
                     const decodeURL = decodeURIComponent(profile.imageAvatar);
                     const imageUrl = await decodeAndDecompressImageFile(decodeURL);
-                    // const imageUrl = URL.createObjectURL(decompressedBlob);
                     setAvatarImage(imageUrl);
-                } catch (error) {
-                    console.error('Error decoding avatar image:', error);
+                } else {
                     setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
                 }
-            } else {
-                setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
+            } catch (error) {
+                console.error('Error decoding image:', error);
             }
-            dispatch(getProfile(email))
         };
-        fetchImage();
+
+        if (profile) {
+            fetchImage();
+        }
     }, [profile]);
+
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -150,7 +143,7 @@ const Profile = () => {
                                         {profile.birthDate && (
                                             <>
                                                 <CalendarOutlined className="info-icon" />
-                                                <Text>{profile.birthDate}</Text>
+                                                <Text>{new Date(profile.birthDate).toLocaleDateString('vi-VN')}</Text>
                                             </>
                                         )}
                                     </div>
@@ -213,7 +206,6 @@ const Profile = () => {
                         type={imageType} // Pass image type
                         onUpdate={handleImageUpdate}
                     />
-
                 </Content>
             </Layout>
         </Layout>

@@ -1,29 +1,19 @@
-import React, { useState } from 'react';
-import { Typography, Modal, Input } from 'antd';
+import React, {useState} from 'react';
+import {Typography, Modal, Input} from 'antd';
 import './FriendsList.css';
 import {useSelector} from "react-redux";
 
-const { Title } = Typography;
-const { Search } = Input;
+const {Title} = Typography;
+const {Search} = Input;
 
-
-const friends = [
-    { id: 1, name: 'Friend 1', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 2, name: 'Friend 2', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 3, name: 'Friend 3', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 4, name: 'Friend 4', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 5, name: 'Friend 5', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 6, name: 'Friend 6', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 7, name: 'Friend 7', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 8, name: 'Friend 8', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-    { id: 9, name: 'Friend 9', imgSrc: 'https://idodesign.vn/wp-content/uploads/2023/08/logo-tra-sua-3.jpg' },
-];
 
 const FriendsList = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const profile = useSelector(({profiles}) => profiles.profile);
-    const friends1 = profile.friendList;
+    const friendList = profile.friendList || []; // Sử dụng mảng rỗng nếu friendList là undefined
+    const numberOfFriends = friendList.length;
+
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -36,22 +26,27 @@ const FriendsList = () => {
         setSearchTerm(value.toLowerCase());
     };
 
-    const filteredFriends = friends.filter(friend =>
-        friend.name.toLowerCase().includes(searchTerm)
+    const filteredFriends = friendList.filter(friend =>
+        friend.firstName.toLowerCase().includes(searchTerm) ||
+        friend.lastName.toLowerCase().includes(searchTerm)
     );
 
     return (
         <div className="friends-container">
             <div className="friends-header">
                 <Title level={4}>Bạn Bè</Title>
-                <Title level={5}>571 người bạn</Title>
+                <Title level={5}>{numberOfFriends} người bạn</Title> {/* Hiển thị số lượng bạn bè */}
                 <a onClick={showModal} className="view-all">Xem Tất Cả Bạn Bè</a>
             </div>
             <div className="friends-grid">
-                {friends.map(friend => (
-                    <div key={friend.id} className="friend-item">
-                        <img src={friend.imgSrc} alt={friend.name} className="friend-img" />
-                        <div className="friend-name">{friend.name}</div>
+                {friendList.slice(0, 9).map(friend => (
+                    <div key={friend.userId} className="friend-item">
+                        <img
+                            src={friend.imageAvatar || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
+                            alt={friend.firstName + " " + friend.lastName}
+                            className="friend-img"
+                        />
+                        <div className="friend-name">{friend.firstName + " " + friend.lastName}</div>
                     </div>
                 ))}
             </div>
@@ -66,13 +61,17 @@ const FriendsList = () => {
                 <Search
                     placeholder="Tìm bạn bè"
                     onSearch={handleSearch}
-                    style={{ marginBottom: 20 }}
+                    style={{marginBottom: 20}}
                 />
                 <div className="friends-grid">
                     {filteredFriends.map(friend => (
-                        <div key={friend.id} className="friend-item">
-                            <img src={friend.imgSrc} alt={friend.name} className="friend-img" />
-                            <div className="friend-name">{friend.name}</div>
+                        <div key={friend.userId} className="friend-item">
+                            <img
+                                src={friend.imageAvatar || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
+                                alt={friend.firstName + " " + friend.lastName}
+                                className="friend-img"
+                            />
+                            <div className="friend-name">{friend.firstName + " " + friend.lastName}</div>
                         </div>
                     ))}
                 </div>
