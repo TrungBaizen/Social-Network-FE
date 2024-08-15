@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Layout, Typography, Button, Avatar } from 'antd';
 import Post from './Post';
 import CreatePostModal from './CreatePostModal';
 import LikesModal from '../likes/LikesModal';
-import './PostPage.css';  // Thêm file CSS riêng
+import './PostPage.css';
+import {useDispatch, useSelector} from "react-redux";
+import {getPostByUserId} from "../../redux/services/postService";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";  // Thêm file CSS riêng
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -12,7 +15,11 @@ const PostsPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [likedBy, setLikedBy] = useState([]);
-
+    const dispatch = useDispatch();
+    const id = JSON.parse(localStorage.getItem('currentUser')).id;
+    const posts = useSelector(({ posts }) => posts.list);
+    const profile = useSelector(({ profiles }) => profiles.profile);
+    const [avatarImage, setAvatarImage] = useState('');
     const showCreatePostModal = () => {
         setIsModalVisible(true);
     };
@@ -30,31 +37,56 @@ const PostsPage = () => {
         setIsLikesModalVisible(false);
     };
 
-    const posts = [
-        {
-            user: {
-                name: 'John Doe',
-                avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-            },
-            image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-            status: 'Had a great day at the beach!',
-            likes: 120,
-            likedBy: [
-                { name: 'Alice', avatar: 'https://example.com/avatar-alice.jpg' },
-                { name: 'Bob', avatar: 'https://example.com/avatar-bob.jpg' },
-                { name: 'Charlie', avatar: 'https://example.com/avatar-charlie.jpg' }
-            ],
-            comments: 34
-        },
-        // Thêm các bài viết khác
-    ];
+    // const posts = [
+    //     {
+    //         user: {
+    //             name: 'John Doe',
+    //             avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
+    //         },
+    //         image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
+    //         status: 'Had a great day at the beach!',
+    //         likes: 120,
+    //         likedBy: [
+    //             { name: 'Alice', avatar: 'https://example.com/avatar-alice.jpg' },
+    //             { name: 'Bob', avatar: 'https://example.com/avatar-bob.jpg' },
+    //             { name: 'Charlie', avatar: 'https://example.com/avatar-charlie.jpg' }
+    //         ],
+    //         comments: 34
+    //     },
+    //     // Thêm các bài viết khác
+    // ];
+
+    useEffect(() => {
+        dispatch(getPostByUserId(id))
+    }, []);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                if (profile.imageAvatar) {
+                    const decodeURL = decodeURIComponent(profile.imageAvatar);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
+                    setAvatarImage(imageUrl);
+                } else {
+                    setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
+                }
+            } catch (error) {
+                console.error('Error decoding image:', error);
+            }
+        };
+        if (profile) {
+            fetchImage();
+        }
+    }, [profile]);
+
+
 
     return (
         <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
             <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
                 <div className="create-post-container">
                     <Avatar
-                        src="https://scontent.fhan17-1.fna.fbcdn.net/v/t39.30808-1/429973265_3120961174703167_3477680488109187875_n.jpg?stp=cp6_dst-jpg_p120x120&amp;_nc_cat=105&amp;ccb=1-7&amp;_nc_sid=0ecb9b&amp;_nc_eui2=AeF8CENiz_FCiIt_VWUzO5Cn9HpSCSthZiz0elIJK2FmLIyntBL90scrPNG8x_VhvXRSMTGf-DHYubgpmTJni4y5&amp;_nc_ohc=dhiUVYZgqzgQ7kNvgFAK1vx&amp;_nc_ht=scontent.fhan17-1.fna&amp;oh=00_AYBCRher2NmxkyJLeMbl1bogimlscT7TTop5ZXi7NpUMew&amp;oe=66BFC073"
+                        src={avatarImage}
                         size={40}
                     />
                     <Button type="primary" onClick={showCreatePostModal} className="create-post-button">
@@ -62,11 +94,12 @@ const PostsPage = () => {
                     </Button>
                 </div>
 
-                {posts.map((post, index) => (
+                {posts.map((post, index ) => (
                     <Post
                         key={index}
                         post={post}
                         onLikesClick={() => showLikesModal(post.likedBy)}
+                        avatarImage={avatarImage}
                     />
                 ))}
 

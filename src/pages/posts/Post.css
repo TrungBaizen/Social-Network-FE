@@ -2,6 +2,7 @@
 
 .post-card {
     position: relative; /* Đặt vị trí tương đối cho toàn bộ thẻ bài viết */
+    padding: 10px; /* Thêm khoảng đệm bên trong thẻ bài viết */
 }
 
 .post-header {
@@ -57,6 +58,11 @@
     vertical-align: middle; /* Căn giữa biểu tượng theo chiều dọc */
 }
 
+/* Căn trái nội dung nếu không có ảnh */
+.post-card.no-image .post-content {
+    text-align: left; /* Căn trái nội dung bài viết */
+}
+
 /* Màn hình cỡ nhỏ (Small devices, tối đa 768px) */
 @media only screen and (max-width: 768px) {
     .post-header {
@@ -67,7 +73,7 @@
     .post-header .ant-typography {
         margin-left: 0; /* Xóa khoảng cách trái của văn bản */
         margin-top: 10px; /* Thêm khoảng cách phía trên cho văn bản */
-        text-align: center; /* Căn giữa văn bản */
+        text-align: left; /* Căn trái văn bản */
         width: 100%; /* Chiều rộng của văn bản chiếm toàn bộ container */
     }
 
@@ -85,10 +91,6 @@
     .post-action-button {
         margin-right: 0; /* Xóa khoảng cách phải của các nút hành động */
         margin-bottom: 10px; /* Thêm khoảng cách phía dưới cho các nút hành động */
-    }
-
-    .post-card {
-        padding: 10px; /* Thêm khoảng đệm bên trong thẻ bài viết */
     }
 }
 

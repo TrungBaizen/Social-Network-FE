@@ -59,7 +59,7 @@ const ImageUpload = ({ previewImage, fileList, onUploadChange }) => (
     </Form.Item>
 );
 
-const EditPostModal = ({ visible, onCancel, post, onEdit }) => {
+const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
     const [previewImage, setPreviewImage] = useState(post.image);
@@ -90,8 +90,8 @@ const EditPostModal = ({ visible, onCancel, post, onEdit }) => {
         >
             <Card className="post-card">
                 <AvatarSection
-                    avatar={post.user.avatar}
-                    name={post.user.name}
+                    avatar={avatarImage}
+                    name={post.firstName + " "+ post.lastName}
                     visibility={post.visibility || 'public'}
                     onVisibilityChange={(value) => form.setFieldsValue({ visibility: value })}
                 />
