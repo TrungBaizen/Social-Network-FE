@@ -53,7 +53,7 @@ const Post = ({ post }) => {
         setIsModalVisible(false);
         setIsLikesModalVisible(false);
         setIsEditModalVisible(false);
-        setZoomLevel(1); // Khôi phục kích thước ảnh về mặc định khi đóng modal
+        setZoomLevel(1); // Khôi phục kích thước ảnh khi đóng modal
     };
 
     // Xử lý phóng to và thu nhỏ ảnh
@@ -94,6 +94,8 @@ const Post = ({ post }) => {
                 <Text type="secondary">Ngày tạo: {new Date(post.createdAt).toLocaleDateString()}</Text>
                 {post.updatedAt && <Text type="secondary">Cập nhật: {new Date(post.updatedAt).toLocaleDateString()}</Text>}
                 <Text type="secondary">Trạng thái: {post.postStatus}</Text>
+                <Text type="secondary">ID: {post.id}</Text>
+
                 <div onClick={showLikesModal} className="post-stats">
                     {liked ? (
                         <>
@@ -126,7 +128,7 @@ const Post = ({ post }) => {
                 onCancel={handleCancel}
                 footer={null}
                 width={800}
-                bodyStyle={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} // Căn giữa nội dung
+                styles={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} // Căn giữa nội dung
             >
                 <Card className="post-card">
                     <div className="post-header">
@@ -209,6 +211,8 @@ const Post = ({ post }) => {
 };
 
 export default Post;
+
+
 
 
 

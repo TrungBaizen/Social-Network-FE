@@ -33,7 +33,7 @@ const PostCreate = () => {
 
             <Modal
                 title="Tạo bài viết"
-                visible={isModalVisible}
+                open={isModalVisible}
                 onCancel={handleCancel}
                 footer={null}
             >

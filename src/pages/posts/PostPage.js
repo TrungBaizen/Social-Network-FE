@@ -1,36 +1,5 @@
-// import React, { useEffect, useState } from 'react';
-// import Post from './Post';
-// import {fetchPostsService} from '../../redux/services/postPageService'
-// const PostPage = () => {
-//     const [posts, setPosts] = useState([]);
-//
-//     useEffect(() => {
-//         const fetchPosts = async () => {
-//             const data = await fetchPostsService();
-//             setPosts(data);
-//         };
-//
-//         fetchPosts();
-//     }, []);
-//
-//     return (
-//         <div className="post-page">
-//             {posts.length > 0 ? (
-//                 posts.map(post => (
-//                     <Post key={post.id} post={post} />
-//                 ))
-//             ) : (
-//                 <p>Không có bài viết nào để hiển thị.</p>
-//             )}
-//         </div>
-//     );
-// };
-//
-// export default PostPage;
-
-
 import React, { useEffect, useState } from 'react';
-import { Layout, Typography, Button, Avatar } from 'antd';
+import { Layout, Button, Avatar } from 'antd';
 import Post from './Post';
 import CreatePostModal from './CreatePostModal';
 import LikesModal from '../likes/LikesModal';
@@ -38,7 +7,6 @@ import { fetchPostsService } from '../../redux/services/postPageService';
 import './PostPage.css';  // Thêm file CSS riêng
 
 const { Content } = Layout;
-const { Title } = Typography;
 
 const PostPage = () => {
     const [posts, setPosts] = useState([]);
@@ -46,9 +14,19 @@ const PostPage = () => {
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [likedBy, setLikedBy] = useState([]);
 
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         const data = await fetchPostsService();
+    //         setPosts(data);
+    //     };
+    //
+    //     fetchPosts();
+    // }, []);
+
     useEffect(() => {
         const fetchPosts = async () => {
             const data = await fetchPostsService();
+            console.log('Fetched posts:', data); // Kiểm tra dữ liệu nhận được
             setPosts(data);
         };
 
@@ -115,3 +93,6 @@ const PostPage = () => {
 };
 
 export default PostPage;
+
+
+

@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {getProfile, updateAvatar, updateCover} from "../services/profileService";
 
 const initialState = {
-    profile:"",
+    profile:{},
     list:[]
 }
 const profileSlice = createSlice({

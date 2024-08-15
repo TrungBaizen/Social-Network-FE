@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Modal, Button, Input, Form } from 'antd';
+import {Modal, Button, Input, Form, DatePicker} from 'antd';
+import TextArea from "antd/es/input/TextArea";
 
 const EditPersonalInfoModal = ({ visible, onClose, onSave }) => {
     const [form] = Form.useForm();
@@ -26,14 +27,43 @@ const EditPersonalInfoModal = ({ visible, onClose, onSave }) => {
         >
             <Form form={form} layout="vertical">
                 <Form.Item
-                    name="dateOfBirth"
-                    label="Ngày Sinh"
-                    rules={[{ required: true, message: 'Vui lòng nhập ngày sinh' }]}
+                    name="firstName"
+                    label="Họ"
+                    rules={[{ required: true, message: 'Vui lòng nhập họ' }]}
                 >
-                    <Input placeholder="Ngày sinh" />
+                    <Input placeholder="Họ" />
                 </Form.Item>
                 <Form.Item
-                    name="placeOfOrigin"
+                    name="lastName"
+                    label="Tên"
+                    rules={[{ required: true, message: 'Vui lòng nhập tên' }]}
+                >
+                    <Input placeholder="Tên" />
+                </Form.Item>
+                <Form.Item
+                    name="description"
+                    label="Giới Thiệu"
+                    rules={[{ required: true, message: 'Vui lòng nhập giới thiệu' }]}
+                >
+                    <TextArea
+                        placeholder="Giới thiệu"
+                        maxLength={255}
+                        showCount
+                    />
+                </Form.Item>
+                <Form.Item
+                    name="birthDate"
+                    label="Ngày Sinh"
+                    rules={[{ required: true, message: 'Vui lòng chọn ngày sinh' }]}
+                >
+                    <DatePicker
+                        format="DD-MM-YYYY"
+                        placeholder="Chọn ngày sinh"
+                        style={{ width: '100%' }}
+                    />
+                </Form.Item>
+                <Form.Item
+                    name="hometown"
                     label="Nơi Đến"
                     rules={[{ required: true, message: 'Vui lòng nhập nơi đến' }]}
                 >

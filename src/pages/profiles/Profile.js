@@ -1,37 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Layout, Typography, Avatar, Button } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Layout, Typography, Avatar, Button} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import PostPage from "../posts/PostPage";
 import './Profile.css';
-import { EditOutlined, HomeOutlined } from "@mui/icons-material";
+import {EditOutlined, HomeOutlined} from "@mui/icons-material";
 import EditPersonalInfoModal from "./EditPersonalInfoModal";
 import FriendsList from "./FriendsList";
 import ImageModal from "./ImageModal/ImageModal";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
-import { useLocation } from "react-router-dom";
-import { CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined } from "@ant-design/icons";
-import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
-import data from "bootstrap/js/src/dom/data";
-
-const { Content } = Layout;
-const { Title, Text } = Typography;
+import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+const {Content} = Layout;
+const {Title, Text} = Typography;
 
 const Profile = () => {
-    console.log("day la profile")
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [imageModalVisible, setImageModalVisible] = useState(false);
     const [currentImage, setCurrentImage] = useState('');
-    const [imageType, setImageType] = useState(''); // Added state for image type
+    const [imageType, setImageType] = useState('');
     const dispatch = useDispatch();
-    const location = useLocation();
-    const query = new URLSearchParams(location.search);
-    const email = query.get('email');
-    const profile = useSelector(({ profiles }) => profiles.profile);
+    const email = JSON.parse(localStorage.getItem("currentUser")).email;
+    const profile = useSelector(({profiles}) => profiles.profile);
     const [imageCover, setImageCover] = useState('');
     const [avatarImage, setAvatarImage] = useState('');
-    const a = profile.imageAvatar
-    console.log(a)
+    console.log(profile)
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -54,14 +47,14 @@ const Profile = () => {
         setImageModalVisible(false);
     };
 
-        // logic update ảnh
+    // logic update ảnh
     const handleImageUpdate = async (value) => {
         const id = JSON.parse(localStorage.getItem("currentUser")).id;
         try {
             if (imageType === "avatar") {
-                await dispatch(updateAvatar({ image: value, id }));
+                await dispatch(updateAvatar({image: value, id}));
             } else {
-                await dispatch(updateCover({ image: value, id }));
+                await dispatch(updateCover({image: value, id}));
             }
             // Gọi lại API để lấy thông tin profile mới sau khi cập nhật ảnh
             await dispatch(getProfile(email));
@@ -77,39 +70,35 @@ const Profile = () => {
 
     useEffect(() => {
         const fetchImage = async () => {
-            if (profile.imageCover) {
-                try {
+            try {
+                if (profile.imageCover) {
                     const decodeURL = decodeURIComponent(profile.imageCover);
                     const imageUrl = await decodeAndDecompressImageFile(decodeURL);
                     setImageCover(imageUrl);
-                } catch (error) {
-                    console.error('Error decoding image:', error);
+                } else {
                     setImageCover("https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
                 }
-            } else {
-                setImageCover("https://cdn.24h.com.vn/upload/4-2023/images/2023-10-17/skysports-lionel-messi-argentina_6000508-740-1697534366-935-width740height416.jpg");
-            }
-            if (profile.imageAvatar) {
-                try {
+                if (profile.imageAvatar) {
                     const decodeURL = decodeURIComponent(profile.imageAvatar);
                     const imageUrl = await decodeAndDecompressImageFile(decodeURL);
-                    // const imageUrl = URL.createObjectURL(decompressedBlob);
                     setAvatarImage(imageUrl);
-                } catch (error) {
-                    console.error('Error decoding avatar image:', error);
+                } else {
                     setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
                 }
-            } else {
-                setAvatarImage("https://ddk.1cdn.vn/2023/01/01/image.daidoanket.vn-images-upload-01012023-_dodo_1_4132cf89_980a7c75.jpg");
+            } catch (error) {
+                console.error('Error decoding image:', error);
             }
-            dispatch(getProfile(email))
         };
-        fetchImage();
+
+        if (profile) {
+            fetchImage();
+        }
     }, [profile]);
 
+
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <ResponsiveAppBar />
+        <Layout style={{minHeight: '100vh'}}>
+            <ResponsiveAppBar/>
             <Layout>
                 <Content>
                     <div className="profile-container">
@@ -152,15 +141,15 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.birthDate && (
                                             <>
-                                                <CalendarOutlined className="info-icon" />
-                                                <Text>{profile.birthDate}</Text>
+                                                <CalendarOutlined className="info-icon"/>
+                                                <Text>{new Date(profile.birthDate).toLocaleDateString('vi-VN')}</Text>
                                             </>
                                         )}
                                     </div>
                                     <div className="info-item">
                                         {profile.hometown && (
                                             <>
-                                                <HomeOutlined className="info-icon" />
+                                                <HomeOutlined className="info-icon"/>
                                                 <Text>{profile.hometown}</Text>
                                             </>
                                         )}
@@ -168,7 +157,7 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.currentLocation && (
                                             <>
-                                                <EnvironmentOutlined className="info-icon" />
+                                                <EnvironmentOutlined className="info-icon"/>
                                                 <Text>{profile.currentLocation}</Text>
                                             </>
                                         )}
@@ -176,23 +165,23 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.gender === "MALE" ? (
                                             <>
-                                                <ManOutlined className="info-icon" />
+                                                <ManOutlined className="info-icon"/>
                                                 <Text>Nam</Text>
                                             </>
                                         ) : (
                                             <>
-                                                <WomanOutlined className="info-icon" />
+                                                <WomanOutlined className="info-icon"/>
                                                 <Text>Nam</Text>
                                             </>
                                         )}
                                     </div>
                                     {profile.occupation && (
                                         <div className="info-item">
-                                            <ToolOutlined className="info-icon" />
+                                            <ToolOutlined className="info-icon"/>
                                             <Text>{profile.occupation}</Text>
                                         </div>
                                     )}
-                                    <Button type="primary" icon={<EditOutlined />} onClick={showModal}>
+                                    <Button type="primary" icon={<EditOutlined/>} onClick={showModal}>
                                         Chỉnh Sửa Thông Tin Cá Nhân
                                     </Button>
 
@@ -202,10 +191,10 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                <FriendsList />
+                                <FriendsList/>
                             </div>
                             <div className="right-column">
-                                <PostPage />
+                                <PostPage/>
                             </div>
                         </div>
                     </div>
@@ -216,7 +205,6 @@ const Profile = () => {
                         type={imageType}
                         onUpdate={handleImageUpdate}
                     />
-
                 </Content>
             </Layout>
         </Layout>
