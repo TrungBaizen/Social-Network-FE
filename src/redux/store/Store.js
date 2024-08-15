@@ -7,6 +7,7 @@ import postPageReducer from "../reducers/postPageReducer";
 import {thunk} from "redux-thunk";
 import profileReducer from "../reducers/profileReducer";
 import createPostReducer from '../reducers/createPostReducer';
+import searchReducer from "../reducers/searchReducer";
 
 const store = configureStore({
     reducer: {
@@ -16,7 +17,8 @@ const store = configureStore({
         notifications: notificationReducer, // ô thông báo
         posts: postPageReducer,
         profiles: profileReducer,
-        createPost: createPostReducer
+        createPost: createPostReducer,
+        search: searchReducer
      },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(thunk),

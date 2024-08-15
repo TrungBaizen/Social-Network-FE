@@ -24,7 +24,6 @@ const Profile = () => {
     const profile = useSelector(({profiles}) => profiles.profile);
     const [imageCover, setImageCover] = useState('');
     const [avatarImage, setAvatarImage] = useState('');
-    console.log(profile)
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -117,16 +116,6 @@ const Profile = () => {
                             />
                             <div className="profile-info">
                                 <Title level={2}>{profile.firstName} {profile.lastName}</Title>
-                            </div>
-                        </div>
-                        <div className="profile-section">
-                            <div className="profile-navigation">
-                                <div>Bài Viết</div>
-                                <div>Giới Thiệu</div>
-                                <div>Lượt Nhắc</div>
-                                <div>Reels</div>
-                                <div>Ảnh</div>
-                                <div>Video</div>
                             </div>
                         </div>
                         <div className="profile-content">

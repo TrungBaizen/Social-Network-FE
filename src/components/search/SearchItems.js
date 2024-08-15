@@ -16,12 +16,7 @@ const SearchItems = () => {
                     <line x1="21" x2="16.65" y1="21" y2="16.65" />
                 </svg>
             }
-            // Các thuộc tính khác nếu cần
         >
-            {/* Thêm các Option nếu cần */}
-            <Option value="option1">Option 1</Option>
-            <Option value="option2">Option 2</Option>
-            {/* Thay thế bằng dữ liệu của bạn */}
         </Select>
     );
 };
