@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

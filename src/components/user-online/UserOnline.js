@@ -1,8 +1,7 @@
 // UserOnline.js
 import React from 'react';
-import { Badge } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { Menu, Layout } from 'antd';
+import {Badge, Layout, Menu} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 
 const { Sider } = Layout;
 

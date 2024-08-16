@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserOutlined } from '@ant-design/icons';
-import { Menu, Layout } from 'antd';
+import {UserOutlined} from '@ant-design/icons';
+import {Layout, Menu} from 'antd';
 import './SiderRight.css'; // Import the new CSS file
 
 const { Sider } = Layout;

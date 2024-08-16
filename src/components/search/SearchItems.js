@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Select } from 'antd';
+import {Select} from 'antd';
 import './SearchItems.css';
 import {useDispatch, useSelector} from "react-redux";
 import {searchProfile} from "../../redux/services/profileService";

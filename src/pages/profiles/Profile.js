@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Layout, Typography, Avatar, Button } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Avatar, Button, Layout, Typography} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import PostPage from "../posts/PostPage";
 import './Profile.css';
-import { EditOutlined, HomeOutlined, PeopleOutline } from "@mui/icons-material";
+import {EditOutlined, HomeOutlined} from "@mui/icons-material";
 import EditPersonalInfoModal from "./EditPersonalInfoModal";
 import FriendsList from "./FriendsList";
 import ImageModal from "./ImageModal/ImageModal";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
-import { CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined } from "@ant-design/icons";
-import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;

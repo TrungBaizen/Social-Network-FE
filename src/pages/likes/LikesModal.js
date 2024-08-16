@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, List, Avatar } from 'antd';
+import {Avatar, List, Modal} from 'antd';
 
 const LikesModal = ({ visible, onCancel, likedBy }) => {
     return (

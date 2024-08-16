@@ -1,11 +1,11 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import * as Yup from 'yup';
-import { Container, Box, Typography, Grid, Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { changePassword } from '../../../redux/services/userService';
-import { toast } from 'react-toastify';
+import {Box, Button, Container, Grid, Typography} from '@mui/material';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {changePassword} from '../../../redux/services/userService';
+import {toast} from 'react-toastify';
 
 const ChangePasswordSchema = Yup.object().shape({
     oldPassword: Yup.string()

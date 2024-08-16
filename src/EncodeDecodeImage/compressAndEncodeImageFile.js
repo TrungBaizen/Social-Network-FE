@@ -1,4 +1,5 @@
 import pako from "pako";
+
 const arrayBufferToBase64 = (buffer) => {
     let binary = '';
     const bytes = new Uint8Array(buffer);

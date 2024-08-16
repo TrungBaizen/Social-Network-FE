@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Input, Button } from 'antd';
+import React, {useState} from 'react';
+import {Button, Input, Modal} from 'antd';
 import './PostCreate.css';
 
 const PostCreate = () => {

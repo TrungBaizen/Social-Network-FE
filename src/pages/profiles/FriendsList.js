@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {Typography, Modal, Input} from 'antd';
+import React, {useState} from 'react';
+import {Input, Modal, Typography} from 'antd';
 import './FriendsList.css';
 import {useSelector} from "react-redux";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
-import {json, Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const {Title} = Typography;
 const {Search} = Input;

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Layout, Typography, Button  } from 'antd';
+import React, {useState} from 'react';
+import {Layout, Typography} from 'antd';
 import Post from './Post';
 import CreatePostModal from './CreatePostModal';
 
