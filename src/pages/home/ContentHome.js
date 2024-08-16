@@ -1,21 +1,21 @@
 // ContentArea.js
 import React from 'react';
 import { Layout } from 'antd';
-import PostPage from "../posts/PostPage";
+import './ContentHome.css';
+import PostsHome from "../posts/PostsHome/PostsHome";
 
 const { Content } = Layout;
 
-const ContentArea = ({ colorBgContainer, borderRadiusLG }) => (
+const ContentHome = ({ colorBgContainer, borderRadiusLG }) => (
     <Content
+        className="content-area"
         style={{
-            padding: '0 24px',
-            minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
         }}
     >
-       <PostPage/>
+        <PostsHome />
     </Content>
 );
 
-export default ContentArea;
+export default ContentHome;

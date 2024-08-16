@@ -1,0 +1,43 @@
+/* SearchPost.css */
+.search-post-card {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+}
+
+.search-post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.search-post-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-post-image {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.search-post-stats {
+    margin-top: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.like-button {
+    background: none;
+    border: none;
+    color: #1890ff;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}

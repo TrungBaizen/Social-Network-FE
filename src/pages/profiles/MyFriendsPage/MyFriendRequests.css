@@ -1,0 +1,27 @@
+/* MyFriendRequests.css */
+.friend-requests {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-request-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.friend-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.friend-name {
+    margin-left: 10px;
+    flex-grow: 1;
+}
+
+.friend-request-actions {
+    display: flex;
+    gap: 10px;
+}
