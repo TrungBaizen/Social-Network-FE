@@ -1,10 +1,36 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Select } from 'antd';
-import './SearchItems.css'; // Import file CSS
+import './SearchItems.css';
+import {useDispatch, useSelector} from "react-redux";
+import {searchProfile} from "../../redux/services/profileService";
+import {searchPost} from "../../redux/services/postService"; // Import file CSS
 
-const { Option } = Select;
 
 const SearchItems = () => {
+    const dispatch = useDispatch();
+    const [searchValue, setSearchValue] = useState('');
+    const contents = useSelector(({ posts }) => posts.listSearch);
+    const profiles = useSelector(({ profiles }) => profiles.listSearch);
+    // console.log(contents)
+    // console.log(profiles)
+    const handleSearch = (value) => {
+        setSearchValue(value);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            console.log("Search value on Enter:", searchValue);
+            dispatch(searchProfile(searchValue));
+            dispatch(searchPost(searchValue));
+        }
+    };
+
+    useEffect(() => {
+        if (contents.length > 0 || profiles.length > 0) {
+            console.log("Search results for posts:", contents);
+            console.log("Search results for profiles:", profiles);
+        }
+    }, [contents, profiles]);
     return (
         <Select
             showSearch
@@ -16,12 +42,9 @@ const SearchItems = () => {
                     <line x1="21" x2="16.65" y1="21" y2="16.65" />
                 </svg>
             }
-            // Các thuộc tính khác nếu cần
+            onSearch={handleSearch} // Bắt sự kiện khi người dùng nhập liệu
+            onInputKeyDown={handleKeyDown} // Bắt sự kiện khi người dùng nhấn phím
         >
-            {/* Thêm các Option nếu cần */}
-            <Option value="option1">Option 1</Option>
-            <Option value="option2">Option 2</Option>
-            {/* Thay thế bằng dữ liệu của bạn */}
         </Select>
     );
 };

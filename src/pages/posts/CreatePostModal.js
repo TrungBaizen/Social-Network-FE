@@ -30,7 +30,6 @@ const CreatePostModal = ({visible, onCancel}) => {
     };
 
     const handleSubmit =async () => {
-        console.log('Post submitted:', postContent, selectedFiles , visibility);
         // Tạo danh sách các URL của ảnh đã chọn
         const postImages = selectedFiles ? await Promise.all(selectedFiles.map(async (file) => {
             return await compressAndEncodeImageFile(file);

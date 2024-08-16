@@ -19,12 +19,6 @@
     margin-left: 10px; /* Khoảng cách từ phần văn bản đến ảnh đại diện */
 }
 
-.post-image {
-    width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều rộng của container */
-    height: auto; /* Chiều cao ảnh tự động điều chỉnh theo tỉ lệ */
-    cursor: pointer; /* Đổi con trỏ chuột thành hình bàn tay khi di chuột qua ảnh */
-}
-
 .post-stats {
     display: flex; /* Sắp xếp các thống kê bài viết theo chiều ngang */
     align-items: center; /* Căn giữa các thống kê theo chiều dọc */
@@ -102,8 +96,8 @@
     }
 
     .post-image {
-        width: 100%; /* Chiều rộng ảnh chiếm toàn bộ chiều rộng của container */
-        height: auto; /* Chiều cao ảnh tự động điều chỉnh theo tỉ lệ */
+        width: 100%; /* Đặt chiều rộng là 100% trên màn hình nhỏ hơn */
+        height: auto; /* Để chiều cao tự động điều chỉnh */
     }
 
     .post-stats {
@@ -125,4 +119,18 @@
     .more-options-button {
         margin-top: 10px; /* Thêm khoảng cách phía trên cho nút tuỳ chọn thêm */
     }
+}
+
+/* Đặt kích thước cố định cho ảnh */
+.post-image {
+    width: 200px; /* Đặt chiều rộng cố định */
+    height: 200px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và cắt bớt nếu cần */
+    border-radius: 8px; /* (Tùy chọn) Thêm bo tròn các góc ảnh */
+    cursor: pointer; /* Đổi con trỏ thành hình bàn tay khi di chuột qua ảnh */
+    transition: transform 0.3s ease; /* (Tùy chọn) Thêm hiệu ứng chuyển động */
+}
+
+.post-image:hover {
+    transform: scale(1.05); /* (Tùy chọn) Phóng to ảnh một chút khi di chuột qua */
 }

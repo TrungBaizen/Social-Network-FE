@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Modal, Form, Input, Button, Upload, Avatar, Typography, Select, Card } from 'antd';
 import { UploadOutlined, LikeOutlined } from '@ant-design/icons';
-import './EditPostModal.css'; // Nhập file CSS
+import './EditPostModal.css';
+import {useSelector} from "react-redux";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile"; // Nhập file CSS
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -9,60 +11,28 @@ const { TextArea } = Input;
 
 const AvatarSection = ({ avatar, name, visibility, onVisibilityChange }) => (
     <div className="post-header">
-        <Avatar src={avatar} />
-        <Title level={4} style={{ marginLeft: 10 }}>
+        <Avatar src={avatar}/>
+        <Title level={4} style={{marginLeft: 10}}>
             {name}
         </Title>
-        <Select
-            defaultValue={visibility}
-            onChange={onVisibilityChange}
-            style={{ marginLeft: 'auto' }}
-        >
-            <Option value="public">Công khai</Option>
-            <Option value="private">Chỉ mình tôi</Option>
-        </Select>
     </div>
 );
 
 const StatusInput = () => (
     <Form.Item
         label="Trạng thái"
-        name="status"
-        rules={[{ required: true, message: 'Vui lòng nhập trạng thái!' }]}
+        name="content"
+        rules={[{required: true, message: 'Vui lòng nhập trạng thái!' }]}
     >
         <TextArea rows={4} placeholder="Nhập trạng thái bài viết" className="status-input" />
-    </Form.Item>
-);
-
-const ImageUpload = ({ previewImage, fileList, onUploadChange }) => (
-    <Form.Item label="Hình ảnh" className="image-container">
-        <div className="image-preview">
-            <img src={previewImage} alt="Preview" />
-        </div>
-        <Upload
-            action="/upload"
-            listType="picture"
-            fileList={fileList}
-            onChange={onUploadChange}
-            showUploadList={{ showPreviewIcon: true }}
-            beforeUpload={(file) => {
-                const isImage = file.type.startsWith('image/');
-                if (!isImage) {
-                    alert('Bạn chỉ có thể tải lên hình ảnh!');
-                }
-                return isImage;
-            }}
-        >
-            <br/>
-            <Button icon={<UploadOutlined />}>Tải lên</Button>
-        </Upload>
     </Form.Item>
 );
 
 const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
-    const [previewImage, setPreviewImage] = useState(post.image);
+    const [previewImage, setPreviewImage] = useState([]);
+    const profile = useSelector(({profiles}) => profiles.profile);
 
     const handleFinish = (values) => {
         const updatedPost = {
@@ -72,13 +42,34 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
         };
         onEdit(updatedPost);
     };
-
-    const handleUploadChange = ({ fileList }) => {
-        setFileList(fileList);
-        if (fileList.length > 0) {
-            setPreviewImage(fileList[0].url);
-        }
+    const handleUploadChange = (event) => {
+        const files = Array.from(event.target.files); // Chuyển FileList thành mảng
+        const previewNewList = files.map(file => URL.createObjectURL(file));
+        setPreviewImage(previewNewList);
     };
+    useEffect(() => {
+        form.setFieldsValue({
+            content: post.content,
+            visibility: post.postStatus // Đảm bảo rằng giá trị là 'PUBLIC' hoặc 'PRIVATE'
+        });
+    }, [post, form]);
+
+    useEffect(() => {
+        const fetchDecodedImages = async () => {
+            try {
+                const postList = post.postImages;
+                const decodeImageList = postList && postList.length > 0
+                    ? await Promise.all(postList.map(async (post) => {
+                        return await decodeAndDecompressImageFile(decodeURIComponent(post.image));
+                    }))
+                    : [];
+                setPreviewImage(decodeImageList);
+            } catch (error) {
+                console.error('Error decoding images:', error);
+            }
+        };
+        fetchDecodedImages();
+    }, [post.postImages]);
 
     return (
         <Modal
@@ -91,31 +82,48 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
             <Card className="post-card">
                 <AvatarSection
                     avatar={avatarImage}
-                    name={post.firstName + " "+ post.lastName}
-                    visibility={post.visibility || 'public'}
-                    onVisibilityChange={(value) => form.setFieldsValue({ visibility: value })}
+                    name={profile.firstName + " "+ profile.lastName}
                 />
                 <Form
                     form={form}
                     layout="vertical"
                     onFinish={handleFinish}
-                    initialValues={{
-                        status: post.status,
-                        visibility: post.visibility || 'public'
-                    }}
                 >
+                    <Form.Item
+                        name="visibility"
+                        label="Trạng thái"
+                        rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
+                    >
+                        <Select>
+                            <Option value="PUBLIC">Công khai</Option>
+                            <Option value="PRIVATE">Chỉ mình tôi</Option>
+                        </Select>
+                    </Form.Item>
                     <StatusInput />
-                    <ImageUpload
-                        previewImage={previewImage}
-                        fileList={fileList}
-                        onUploadChange={handleUploadChange}
-                    />
+                    <div>
+                        <input
+                            type="file"
+                            multiple
+                            onChange={handleUploadChange}
+                        />
+                        <div className="image-preview-list">
+                            {previewImage.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`preview-${index}`}
+                                    className="image-preview"
+                                />
+                            ))}
+                        </div>
+                    </div>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Cập nhật
                         </Button>
                     </Form.Item>
                 </Form>
+
             </Card>
         </Modal>
     );

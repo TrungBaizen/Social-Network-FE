@@ -25,6 +25,14 @@ export const updateCover = createAsyncThunk(
     }
 )
 
+export const searchProfile=createAsyncThunk(
+    "profiles/searchProfile",
+    async(name)=>{
+        let res = await getAxios().get(`profiles/search?name=${name}`)
+        return res.data
+    }
+)
+
 export const updateProfile = createAsyncThunk(
     "profiles/updateProfile",
         async ({profile, id}) => {

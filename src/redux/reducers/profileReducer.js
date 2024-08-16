@@ -1,9 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getProfile, updateAvatar, updateCover, updateProfile} from "../services/profileService";
+import {getProfile, searchProfile, updateAvatar, updateCover, updateProfile} from "../services/profileService";
 
 const initialState = {
     profile: "",
-    list: []
+    list: [],
+    listSearch:[]
 }
 const profileSlice = createSlice({
     name: 'profiles',
@@ -18,6 +19,9 @@ const profileSlice = createSlice({
         })
         builder.addCase(updateProfile.fulfilled, (state, {payload}) => {
             state.profile = payload;
+        })
+        builder.addCase(searchProfile.fulfilled,(state,{payload})=>{
+            state.listSearch = payload;
         })
     }
 });

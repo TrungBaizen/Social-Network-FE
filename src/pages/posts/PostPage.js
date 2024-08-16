@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Typography, Button, Avatar } from 'antd';
+import {Avatar, Button, Layout, Typography} from 'antd';
 import Post from './Post';
 import CreatePostModal from './CreatePostModal';
 import LikesModal from '../likes/LikesModal';
 import './PostPage.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getPostByUserId} from "../../redux/services/postService";
-import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";  // Thêm file CSS riêng
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile"; // Thêm file CSS riêng
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -37,24 +37,6 @@ const PostsPage = () => {
         setIsLikesModalVisible(false);
     };
 
-    // const posts = [
-    //     {
-    //         user: {
-    //             name: 'John Doe',
-    //             avatar: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg'
-    //         },
-    //         image: 'https://cafefcdn.com/thumb_w/640/203337114487263232/2023/10/26/avatar1698288256028-1698288256554577697100.jpg',
-    //         status: 'Had a great day at the beach!',
-    //         likes: 120,
-    //         likedBy: [
-    //             { name: 'Alice', avatar: 'https://example.com/avatar-alice.jpg' },
-    //             { name: 'Bob', avatar: 'https://example.com/avatar-bob.jpg' },
-    //             { name: 'Charlie', avatar: 'https://example.com/avatar-charlie.jpg' }
-    //         ],
-    //         comments: 34
-    //     },
-    //     // Thêm các bài viết khác
-    // ];
 
     useEffect(() => {
         dispatch(getPostByUserId(id))
