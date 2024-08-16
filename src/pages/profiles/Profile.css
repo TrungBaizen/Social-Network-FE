@@ -232,3 +232,32 @@
         height: 100px;
     }
 }
+.profile-description {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, auto)); /* Điều chỉnh độ rộng tối thiểu cho mỗi mục */
+    gap: 16px; /* Khoảng cách giữa các mục */
+}
+.profile-description div {
+    display: inline-block;
+    margin-right: 16px; /* Khoảng cách giữa các mục */
+    padding: 8px 16px; /* Khoảng cách bên trong của mỗi mục */
+    text-align: center;
+    white-space: nowrap; /* Giữ cho các mục không bị xuống dòng */
+}
+.row {
+    display: flex;
+    justify-content: space-between; /* Chia đều khoảng cách giữa các mục */
+}
+
+.profile-description {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-description div {
+    flex: 1; /* Đảm bảo mỗi mục chiếm cùng một lượng không gian */
+    padding: 8px 16px;
+    box-sizing: border-box;
+}

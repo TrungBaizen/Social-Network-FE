@@ -12,6 +12,7 @@ import Profile from "./pages/profiles/Profile";
 import Home from "./pages/home/Home";
 import FriendsProfile from "./pages/profiles/FriendsProfile";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import SearchResults from "./components/search/SearchResults";
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/friendsprofile" element={<ProtectedRoute><FriendsProfile/></ProtectedRoute>}/>
                 <Route path="/post" element={<ProtectedRoute><PostPage/></ProtectedRoute>}/>
                 <Route path="/successnotification" element={<SuccessNotification/>}/>
+                <Route path="/search-results" element={<SearchResults />} />
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
         </>

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Button, Layout, Typography} from 'antd';
+import {Layout, Typography, Avatar, Button} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import PostPage from "../posts/PostPage";
 import './Profile.css';
-import {EditOutlined, HomeOutlined} from "@mui/icons-material";
+import {EditOutlined, HomeOutlined, PeopleOutline} from "@mui/icons-material";
 import EditPersonalInfoModal from "./EditPersonalInfoModal";
 import FriendsList from "./FriendsList";
 import ImageModal from "./ImageModal/ImageModal";
@@ -11,9 +11,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import ContentHome from "../home/ContentHome";
+import MyFriendsList from "./MyFriendsPage/MyFriendsList";
+import MyFriendsPage from "./MyFriendsPage/MyFriendsPage";
 
-const { Content } = Layout;
-const { Title, Text } = Typography;
+const {Content} = Layout;
+const {Title, Text} = Typography;
 
 const Profile = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -22,7 +25,7 @@ const Profile = () => {
     const [imageType, setImageType] = useState(''); // Added state for image type
     const dispatch = useDispatch();
     const email = JSON.parse(localStorage.getItem("currentUser")).email;
-    const profile = useSelector(({ profiles }) => profiles.profile);
+    const profile = useSelector(({profiles}) => profiles.profile);
     const [imageCover, setImageCover] = useState('');
     const [avatarImage, setAvatarImage] = useState('');
     const showModal = () => {
@@ -51,9 +54,9 @@ const Profile = () => {
         const id = JSON.parse(localStorage.getItem("currentUser")).id;
         try {
             if (imageType === "avatar") {
-                await dispatch(updateAvatar({ image: value, id }));
+                await dispatch(updateAvatar({image: value, id}));
             } else {
-                await dispatch(updateCover({ image: value, id }));
+                await dispatch(updateCover({image: value, id}));
             }
             // Gọi lại API để lấy thông tin profile mới sau khi cập nhật ảnh
             await dispatch(getProfile(email));
@@ -97,8 +100,8 @@ const Profile = () => {
 
 
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <ResponsiveAppBar />
+        <Layout style={{minHeight: '100vh'}}>
+            <ResponsiveAppBar/>
             <Layout>
                 <Content>
                     <div className="profile-container">
@@ -117,6 +120,15 @@ const Profile = () => {
                             />
                             <div className="profile-info">
                                 <Title level={2}>{profile.firstName} {profile.lastName}</Title>
+                                <div className="row">
+                                    <div className="profile-description">
+                                        <div>Bài Viết</div>
+                                        <div>Bạn Bè</div>
+                                        <div>Reels</div>
+                                        <div>Ảnh</div>
+                                        <div>Video</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="profile-content">
@@ -131,7 +143,7 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.birthDate && (
                                             <>
-                                                <CalendarOutlined className="info-icon" />
+                                                <CalendarOutlined className="info-icon"/>
                                                 <Text>{new Date(profile.birthDate).toLocaleDateString('vi-VN')}</Text>
                                             </>
                                         )}
@@ -139,7 +151,7 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.hometown && (
                                             <>
-                                                <HomeOutlined className="info-icon" />
+                                                <HomeOutlined className="info-icon"/>
                                                 <Text>{profile.hometown}</Text>
                                             </>
                                         )}
@@ -147,7 +159,7 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.currentLocation && (
                                             <>
-                                                <EnvironmentOutlined className="info-icon" />
+                                                <EnvironmentOutlined className="info-icon"/>
                                                 <Text>{profile.currentLocation}</Text>
                                             </>
                                         )}
@@ -155,23 +167,23 @@ const Profile = () => {
                                     <div className="info-item">
                                         {profile.gender === "MALE" ? (
                                             <>
-                                                <ManOutlined className="info-icon" />
+                                                <ManOutlined className="info-icon"/>
                                                 <Text>Nam</Text>
                                             </>
                                         ) : (
                                             <>
-                                                <WomanOutlined className="info-icon" />
+                                                <WomanOutlined className="info-icon"/>
                                                 <Text>Nữ</Text>
                                             </>
                                         )}
                                     </div>
                                     {profile.occupation && (
                                         <div className="info-item">
-                                            <ToolOutlined className="info-icon" />
+                                            <ToolOutlined className="info-icon"/>
                                             <Text>{profile.occupation}</Text>
                                         </div>
                                     )}
-                                    <Button type="primary" icon={<EditOutlined />} onClick={showModal}>
+                                    <Button type="primary" icon={<EditOutlined/>} onClick={showModal}>
                                         Chỉnh Sửa Thông Tin Cá Nhân
                                     </Button>
 
@@ -181,10 +193,12 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                <FriendsList />
+                                <MyFriendsPage/>
+                                {/*<MyFriendsList/>*/}
+                                <FriendsList/>
                             </div>
                             <div className="right-column">
-                                <PostPage />
+                               {/*<ContentHome/>*/}
                             </div>
                         </div>
                     </div>

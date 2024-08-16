@@ -1,0 +1,14 @@
+/* MyFriendsPage.css */
+.friends-page {
+    padding: 20px;
+}
+
+.friends-modal .modal-nav {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.friends-modal .modal-nav .ant-btn {
+    margin: 0 5px;
+}
