@@ -1,0 +1,48 @@
+/* Nội dung chính có thể cuộn */
+.search-layout .content-layout {
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    padding: 0px 24px 24px 24px;
+    background-color: #ffffff; /* Màu nền của nội dung */
+    height: 100%; /* Đảm bảo chiều cao đầy đủ của phần cuộn */
+    display: flex;
+    justify-content: center; /* Canh giữa nội dung theo chiều ngang */
+    align-items: flex-start; /* Bắt đầu nội dung từ trên xuống */
+}
+
+/* Điều chỉnh chiều rộng của content-layout cho các kích thước màn hình khác nhau */
+.search-layout .content-layout .search-results {
+    width: 100%; /* Mặc định là 100% của content-layout */
+    max-width: 1200px; /* Giới hạn tối đa chiều rộng cho màn hình lớn */
+}
+
+/* Media Queries cho Màn Hình Điện Thoại */
+@media (max-width: 768px) {
+    .search-layout .content-layout {
+        padding: 0px 16px 16px 16px;
+    }
+
+    .search-layout .content-layout .search-results {
+        width: 100%; /* Đảm bảo nội dung chiếm toàn bộ chiều rộng */
+        max-width: none; /* Không giới hạn chiều rộng tối đa */
+    }
+}
+
+/* Media Queries cho Màn Hình Di Động Lớn */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .search-layout .content-layout {
+        padding: 0px 16px 16px 16px;
+    }
+
+    .search-layout .content-layout .search-results {
+        width: 100%; /* Đảm bảo nội dung chiếm toàn bộ chiều rộng */
+        max-width: 800px; /* Giới hạn chiều rộng tối đa cho màn hình vừa */
+    }
+}
+
+/* Media Queries cho Màn Hình Lớn */
+@media (min-width: 1025px) {
+    .search-layout .content-layout .search-results {
+        width: 100%; /* Đảm bảo nội dung chiếm toàn bộ chiều rộng */
+        max-width: 1200px; /* Giới hạn chiều rộng tối đa cho màn hình lớn */
+    }
+}
