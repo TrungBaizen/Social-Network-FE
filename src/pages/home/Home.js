@@ -2,9 +2,9 @@ import React from 'react';
 import { Layout, theme } from 'antd';
 import SiderLeft from '../Layout/SiderLeft';
 import SiderRight from '../Layout/SiderRight';
-import ContentArea from '../Layout/ContentArea';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-import './Home.css'; // Import file CSS mới
+import './Home.css';
+import ContentHome from "./ContentHome"; // Import file CSS mới
 
 const Home = () => {
     const {
@@ -18,7 +18,7 @@ const Home = () => {
                 {/* Hiển thị SiderLeft và SiderRight trên màn hình lớn */}
                 <SiderLeft colorBgContainer={colorBgContainer} />
                 <Layout className="content-layout">
-                    <ContentArea colorBgContainer={colorBgContainer} borderRadiusLG={borderRadiusLG} />
+                    <ContentHome colorBgContainer={colorBgContainer} borderRadiusLG={borderRadiusLG} />
                 </Layout>
                 <SiderRight colorBgContainer={colorBgContainer} />
             </Layout>

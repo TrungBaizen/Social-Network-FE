@@ -1,30 +1,113 @@
-.posts-home {
-    padding: 20px; /* Thêm khoảng đệm cho toàn bộ khu vực bài viết */
+/* Style for the post card */
+.post-card {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.ant-typography {
-    margin-bottom: 20px; /* Khoảng cách phía dưới tiêu đề */
+/* Style for the post header */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-/* Thay đổi cách hiển thị danh sách bài viết */
-.ant-list-items {
-    margin: 0; /* Xóa khoảng cách bên ngoài của các mục danh sách */
+.post-header .ant-avatar {
+    margin-right: 10px;
 }
 
-.ant-list-item {
-    margin-bottom: 20px; /* Khoảng cách phía dưới mỗi mục danh sách */
+/* Style for the post images */
+.post-images {
+    margin-bottom: 10px;
 }
 
-/* Màn hình cỡ nhỏ (Small devices, tối đa 768px) */
-@media only screen and (max-width: 768px) {
-    .posts-home {
-        padding: 10px; /* Thay đổi khoảng đệm cho màn hình nhỏ */
+/* General styles for post images */
+.post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Layout for 1-2 images */
+.post-images.single {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.post-images.single .post-image {
+    width: 100%;
+    max-width: calc(50% - 10px); /* 2 images: each takes up 50% of the width minus the gap */
+}
+
+/* Layout for 3 or more images */
+.post-images.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+/* Adjust the grid layout on different screen sizes */
+@media (min-width: 576px) {
+    .post-images.grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 }
 
-/* Màn hình điện thoại (Small devices, tối đa 576px) */
-@media only screen and (max-width: 576px) {
-    .posts-home {
-        padding: 5px; /* Thay đổi khoảng đệm cho màn hình điện thoại */
+@media (min-width: 768px) {
+    .post-images.grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
+}
+
+@media (min-width: 992px) {
+    .post-images.grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+/* Style for post stats */
+.post-stats {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.post-stats .anticon {
+    font-size: 16px;
+}
+
+/* Style for post actions */
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-action-button {
+    margin-right: 10px;
+}
+
+/* Style for edit post modal */
+.ant-modal-body {
+    padding: 20px;
+}
+
+.ant-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Style for post details modal */
+.post-comments {
+    margin-top: 20px;
+}
+
+.post-comments .ant-list-item {
+    padding: 10px 0;
+}
+
+.ant-input-textarea {
+    margin-top: 10px;
 }
