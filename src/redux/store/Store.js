@@ -13,7 +13,7 @@ const store = configureStore({
         postStatuses:statusReducer,
         notifications : notificationReducer,
         profiles: profileReducer,
-        posts:postReducer
+        posts:postReducer,
     }
 })
 export default store;

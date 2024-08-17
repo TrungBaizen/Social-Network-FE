@@ -2,7 +2,7 @@
 import React from 'react';
 import { Layout } from 'antd';
 import './ContentHome.css';
-import PostsHome from "../posts/PostsHome/PostsHome";
+import HomePosts from "../posts/HomePosts/HomePosts";
 
 const { Content } = Layout;
 
@@ -14,7 +14,7 @@ const ContentHome = ({ colorBgContainer, borderRadiusLG }) => (
             borderRadius: borderRadiusLG,
         }}
     >
-        <PostsHome />
+        <HomePosts />
     </Content>
 );
 
