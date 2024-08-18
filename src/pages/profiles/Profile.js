@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Layout, Typography, Avatar, Button} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-import PostPage from "../posts/PostPage";
 import './Profile.css';
 import {EditOutlined, HomeOutlined, PeopleOutline} from "@mui/icons-material";
 import EditPersonalInfoModal from "./EditPersonalInfoModal";
@@ -11,9 +10,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
-import ContentHome from "../home/ContentHome";
-import MyFriendsList from "./MyFriendsPage/MyFriendsList";
 import MyFriendsPage from "./MyFriendsPage/MyFriendsPage";
+import ContentArea from "../Layout/ContentArea";
 
 const {Content} = Layout;
 const {Title, Text} = Typography;
@@ -199,6 +197,7 @@ const Profile = () => {
                             </div>
                             <div className="right-column">
                                {/*<ContentHome/>*/}
+                                <ContentArea/>
                             </div>
                         </div>
                     </div>

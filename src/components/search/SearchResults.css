@@ -76,3 +76,29 @@
     font-size: 18px;
     color: #333;
 }
+.view-all-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #1877f2; /* Màu xanh của Facebook */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.view-all-button:hover {
+    background-color: #145db2; /* Màu khi hover */
+}
+
+.view-all-button:active {
+    background-color: #104a8c; /* Màu khi nhấn */
+}
+.profile-item a {
+    text-decoration: none; /* Bỏ gạch chân */
+}
