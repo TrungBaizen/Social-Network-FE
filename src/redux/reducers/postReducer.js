@@ -21,6 +21,7 @@ const postSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(createPost.fulfilled, (state, {payload}) => {
             state.list.push(payload); // Thêm bài viết mới vào danh sách
+            state.listPostHome.push(payload)
         });
         builder.addCase(getPostByUserId.fulfilled, (state, {payload}) => {
             state.list = payload; // Cập nhật danh sách bài viết

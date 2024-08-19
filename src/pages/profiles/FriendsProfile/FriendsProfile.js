@@ -128,7 +128,7 @@ const FriendsProfile = () => {
                         >
                             <div className="post-header">
                                 <div className="post-info">
-                                    <Avatar src={post.avatar} className="post-avatar" />
+                                    <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))} className="post-avatar" />
                                     <div className="post-author-date">
                                         <Title level={4} className="post-author">
                                             {`${post.firstName} ${post.lastName}`}
