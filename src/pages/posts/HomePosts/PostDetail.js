@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
-import { Card, Avatar, Typography, Button, Dropdown, Menu } from 'antd';
-import { LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom'; // Import Link for navigation
-import { decodeAndDecompressImageFile } from '../../../EncodeDecodeImage/decodeAndDecompressImageFile';
+import React, {useState} from 'react';
+import {Card, Avatar, Typography, Button, Dropdown, Menu} from 'antd';
+import {LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined} from '@ant-design/icons';
+import {Link} from 'react-router-dom'; // Import Link for navigation
+import {decodeAndDecompressImageFile} from '../../../EncodeDecodeImage/decodeAndDecompressImageFile';
 import LikesModal from "../../likes/LikesModal";
 import ImageModal from "./ImageModal";
 import './PostDetail.css';
 import EditPostHomeModal from "./EditPostHomeModal/EditPostHomeModal";
+import {compressAndEncodeImageFile} from "../../../EncodeDecodeImage/compressAndEncodeImageFile";
+import {deletePost, updatePost} from "../../../redux/services/postService";
+import {useDispatch} from "react-redux";
 
-const { Title, Text } = Typography;
+const {Title, Text} = Typography;
 
-const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit }) => {
+const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick, onPostEdit}) => {
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [isImageModalVisible, setIsImageModalVisible] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false); // State for EditPostHomeModal
-    const { email } = JSON.parse(localStorage.getItem('currentUser')); // Extract email from localStorage
+    const {email} = JSON.parse(localStorage.getItem('currentUser')); // Extract email from localStorage
+    const dispatch = useDispatch();
+    const id = post.id;
 
     // Handle like click
     const handleLikeClick = (postId) => {
@@ -61,9 +66,27 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
     };
 
     // Handle post edit
-    const handleEditPost = (updatedPost) => {
-        onPostEdit(updatedPost); // Call the prop function to handle the edited post
-        setIsEditModalVisible(false); // Close the modal
+    const handleEditPost = async (updatedPost) => {
+        const urlToFile = async (url, filename) => {
+            const response = await fetch(url);
+            const blob = await response.blob();
+            const file = new File([blob], filename, {type: blob.type});
+            return file;
+        };
+        const listImage = await Promise.all(updatedPost.image.map(async (imageUrl, index) => {
+            return await urlToFile(imageUrl, `image-${index}.jpg`); // Bạn có thể thay đổi đuôi file hoặc tên tùy theo yêu cầu
+        }));
+        const postImages = listImage ? await Promise.all(listImage.map(async (file) => {
+            return await compressAndEncodeImageFile(file);
+        })) : [];
+        const posts = {
+            email: email,
+            content: updatedPost.content,
+            postImages: postImages,
+            postStatus: updatedPost.visibility
+        }
+        dispatch(updatePost({post: posts, id}));
+        setIsEditModalVisible(false);
     };
 
     // Like count fallback
@@ -87,18 +110,18 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
         <Dropdown
             overlay={
                 <Menu>
-                    <Menu.Item key="edit" icon={<EditOutlined />} onClick={handleEditClick}>
-                        Chỉnh sửa
+                    <Menu.Item key="edit" icon={<EditOutlined/>} onClick={handleEditClick}>
+                        Chỉnh sửa bài viết
                     </Menu.Item>
-                    <Menu.Item key="delete" icon={<DeleteOutlined />} onClick={() => console.log('Delete')}>
-                        Xóa
+                    <Menu.Item key="delete" icon={<DeleteOutlined/>} onClick={() => dispatch(deletePost(post.id))}>
+                        Xóa bài viết
                     </Menu.Item>
                 </Menu>
             }
             trigger={['click']}
             placement="bottomRight"
         >
-            <Button icon={<MoreOutlined />} className="post-detail-more-btn" />
+            <Button icon={<MoreOutlined/>} className="post-detail-more-btn"/>
         </Dropdown>
     );
 
@@ -109,14 +132,14 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
                 actions={[
                     <Button
                         key="like"
-                        icon={likedPosts.has(post.id) ? <LikeFilled /> : <LikeOutlined />}
+                        icon={likedPosts.has(post.id) ? <LikeFilled/> : <LikeOutlined/>}
                         onClick={() => handleLikeClick(post.id)}
                     >
                         {likedPosts.has(post.id) ? 'Đã thích' : 'Thích'}
                     </Button>,
                     <Button
                         key="comment"
-                        icon={<CommentOutlined />}
+                        icon={<CommentOutlined/>}
                         onClick={() => handleCommentClick(post)}
                     >
                         Bình luận
@@ -125,14 +148,14 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
             >
                 <div className="post-detail-header d-flex justify-content-between">
                     <div className="post-info d-flex align-items-center">
-                        <Link to={profileLink} style={{ textDecoration: 'none' }}>
+                        <Link to={profileLink} style={{textDecoration: 'none'}}>
                             <Avatar
                                 src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}
                                 className="post-avatar"
                             />
                         </Link>
                         <div className="post-detail-author-date ml-2">
-                            <Link to={profileLink} style={{ textDecoration: 'none' }}>
+                            <Link to={profileLink} style={{textDecoration: 'none'}}>
                                 <Title level={4} className="post-detail-author">
                                     {`${post.firstName || 'Tên'} ${post.lastName || 'Người dùng'}`}
                                 </Title>
@@ -160,14 +183,9 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
                             </div>
                         ))}
                     </div>
-                    {post.postImages && post.postImages.length > 3 && (
-                        <Button className="post-detail-expand-button" onClick={handleExpandClick}>
-                            {isExpanded ? 'Thu gọn' : 'Mở rộng'}
-                        </Button>
-                    )}
                 </div>
                 <div className="post-detail-like-count-container" onClick={showLikesModal}>
-                    <LikeOutlined className="post-detail-like-icon" />
+                    <LikeOutlined className="post-detail-like-icon"/>
                     <Text className="post-detail-like-count">
                         {likeCount} lượt thích
                     </Text>
@@ -184,7 +202,7 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
                 visible={isImageModalVisible}
                 onClose={handleImageModalClose}
                 image={selectedImage}
-                author={{ name: `${post.firstName || 'Tên'} ${post.lastName || 'Người dùng'}`, avatar: post.avatar }}
+                author={{name: `${post.firstName || 'Tên'} ${post.lastName || 'Người dùng'}`, avatar: post.imageAvatar}}
                 date={new Date(post.createdAt).toLocaleDateString()}
                 comments={post.comments || []}
             />
@@ -194,7 +212,7 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
                 onCancel={() => setIsEditModalVisible(false)}
                 post={post}
                 onEdit={handleEditPost}
-                avatarImage={post.avatar} // Pass the avatar image to EditPostHomeModal
+                avatarImage={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))} // Pass the avatar image to EditPostHomeModal
             />
         </>
     );

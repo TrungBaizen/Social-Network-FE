@@ -19,6 +19,7 @@ const HomePosts = () => {
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const profile = useSelector(({ profiles }) => profiles.profile);
     const dispatch = useDispatch();
     const posts = useSelector(({ posts }) => posts.listPostHome);
     const { id, email } = JSON.parse(localStorage.getItem('currentUser'));
@@ -77,13 +78,17 @@ const HomePosts = () => {
         }
     };
 
+    const filteredPosts = posts.filter(post =>
+        post.email === profile.email || post.postStatus !== 'PRIVATE'
+    );
+
     if (loading) return <Text>Đang tải...</Text>;
     if (error) return <Text>Lỗi: {error}</Text>;
 
     return (
         <div className="home-posts">
-            {posts && posts.length > 0 ? (
-                posts.map(post => (
+            {filteredPosts && filteredPosts.length > 0 ? (
+                filteredPosts.map(post => (
                     <PostDetail
                         key={post.id}
                         post={post}

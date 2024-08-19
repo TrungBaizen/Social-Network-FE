@@ -192,7 +192,6 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                {/*<MyFriendsList/>*/}
                                 <FriendsList/>
                             </div>
                             <div className="right-column">

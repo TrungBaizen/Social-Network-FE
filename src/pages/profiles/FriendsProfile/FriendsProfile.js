@@ -101,10 +101,13 @@ const FriendsProfile = () => {
         }
     };
 
+    const filteredPosts = posts.filter(post =>
+         post.postStatus !== 'PRIVATE'
+    );
     return (
         <div className="home-posts">
-            {posts.length > 0 ? (
-                posts.map(post => (
+            {filteredPosts.length > 0 ? (
+                filteredPosts.map(post => (
                     (post.content || (post.postImages && post.postImages.length > 0)) && (
                         <Card
                             key={post.id}
