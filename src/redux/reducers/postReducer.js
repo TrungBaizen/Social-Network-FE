@@ -20,8 +20,8 @@ const postSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(createPost.fulfilled, (state, {payload}) => {
-            state.list.push(payload); // Thêm bài viết mới vào danh sách
-            state.listPostHome.push(payload)
+            state.list.unshift(payload); // Thêm bài viết mới vào đầu danh sách
+            state.listPostHome.unshift(payload);
         });
         builder.addCase(getPostByUserId.fulfilled, (state, {payload}) => {
             state.list = payload; // Cập nhật danh sách bài viết

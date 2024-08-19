@@ -16,7 +16,7 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
     const [selectedImage, setSelectedImage] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false); // State for EditPostHomeModal
-    const { id, email } = JSON.parse(localStorage.getItem('currentUser'));
+    const { email } = JSON.parse(localStorage.getItem('currentUser')); // Extract email from localStorage
 
     // Handle like click
     const handleLikeClick = (postId) => {
@@ -76,9 +76,32 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
         if (post.postImages.length === 2) return 'two-images';
         return 'three-or-more-images';
     };
+
+    // Profile link based on ownership
     const profileLink = email === post.email
         ? '/profile'
         : `/friendsprofile?email=${post.email}`;
+
+    // Render dropdown menu if the post belongs to the current user
+    const renderDropdownMenu = () => (
+        <Dropdown
+            overlay={
+                <Menu>
+                    <Menu.Item key="edit" icon={<EditOutlined />} onClick={handleEditClick}>
+                        Chỉnh sửa
+                    </Menu.Item>
+                    <Menu.Item key="delete" icon={<DeleteOutlined />} onClick={() => console.log('Delete')}>
+                        Xóa
+                    </Menu.Item>
+                </Menu>
+            }
+            trigger={['click']}
+            placement="bottomRight"
+        >
+            <Button icon={<MoreOutlined />} className="post-detail-more-btn" />
+        </Dropdown>
+    );
+
     return (
         <>
             <Card
@@ -119,22 +142,9 @@ const PostDetail = ({ post, likedPosts, onLikeClick, onCommentClick, onPostEdit 
                             </Text>
                         </div>
                     </div>
-                    <Dropdown
-                        overlay={
-                            <Menu>
-                                <Menu.Item key="edit" icon={<EditOutlined />} onClick={handleEditClick}>
-                                    Chỉnh sửa
-                                </Menu.Item>
-                                <Menu.Item key="delete" icon={<DeleteOutlined />} onClick={() => console.log('Delete')}>
-                                    Xóa
-                                </Menu.Item>
-                            </Menu>
-                        }
-                        trigger={['click']}
-                        placement="bottomRight"
-                    >
-                        <Button icon={<MoreOutlined />} className="post-detail-more-btn" />
-                    </Dropdown>
+
+                    {/* Render dropdown only if the post belongs to the current user */}
+                    {email === post.email && renderDropdownMenu()}
                 </div>
                 <Text className="post-detail-content">{post.content}</Text>
                 <div className={`post-detail-images ${imageClass()}`}>

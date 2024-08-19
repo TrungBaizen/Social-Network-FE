@@ -44,6 +44,7 @@ const SearchResults = () => {
         return email === currentUserEmail ? `/profile` : `/friendsprofile?email=${email}`;
     };
 
+    console.log(posts)
     return (
         <div className="search-results">
             <div className="results-section">

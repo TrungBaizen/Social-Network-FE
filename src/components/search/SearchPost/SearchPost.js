@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Avatar, Card, Typography} from 'antd';
-import {LikeFilled, LikeOutlined} from '@ant-design/icons';
 import './SearchPost.css';
 import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
@@ -10,7 +9,6 @@ const SearchPost = ({post}) => {
     const [avatarImage, setAvatarImage] = useState('');
     const [decodeImages, setDecodeImages] = useState([]);
     const [liked, setLiked] = useState(false);
-
     useEffect(() => {
         const fetchImage = async () => {
             try {
@@ -73,17 +71,17 @@ const SearchPost = ({post}) => {
                     ) : null}
                 </div>
             </div>
-            <div className="search-post-stats">
-                {liked ? (
-                    <>
-                        <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích
-                    </>
-                ) : (
-                    <>
-                        <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích
-                    </>
-                )}
-            </div>
+            {/*<div className="search-post-stats">*/}
+            {/*    {liked ? (*/}
+            {/*        <>*/}
+            {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
+            {/*        </>*/}
+            {/*    ) : (*/}
+            {/*        <>*/}
+            {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
+            {/*        </>*/}
+            {/*    )}*/}
+            {/*</div>*/}
             <button className="like-button" onClick={handleLikeClick}>
                 {liked ? 'Đã thích' : 'Thích'}
             </button>
