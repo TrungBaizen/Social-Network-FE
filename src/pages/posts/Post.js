@@ -118,9 +118,15 @@ const Post = ({post, avatarImage}) => {
             <Card className="post-card">
                 <div className="post-header">
                     <Avatar src={avatarImage}/>
-                    <Title level={4} style={{marginLeft: 10}}>
-                        {profile.firstName + " " + profile.lastName}
-                    </Title>
+                    <div>
+                        <Title level={4} style={{marginLeft: 10}}>
+                            {profile.firstName + " " + profile.lastName}
+                        </Title>
+                        <Text className="post-date">
+                            {new Date(post.createdAt).toLocaleDateString()}
+                        </Text>
+                    </div>
+
                     <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
                         <Button
                             className="more-options-button"
@@ -181,9 +187,14 @@ const Post = ({post, avatarImage}) => {
                 <Card className="post-card">
                     <div className="post-header">
                         <Avatar src={avatarImage}/>
-                        <Title level={4} style={{marginLeft: 10}}>
-                            {profile.firstName + " " + profile.lastName}
-                        </Title>
+                            <Title level={4} style={{marginLeft: 10}}>
+                                {profile.firstName + " " + profile.lastName}
+                            </Title>
+                        <div>
+                            <Text className="post-date">
+                                {new Date(post.createdAt).toLocaleDateString()}
+                            </Text>
+                        </div>
                     </div>
                     <div className="post-images">
                         {decodeImages && decodeImages.length > 0 ? (
@@ -201,17 +212,17 @@ const Post = ({post, avatarImage}) => {
                         )}
                     </div>
                     <Text>{post.content}</Text>
-                    <div className="post-stats">
-                        {liked ? (
-                            <>
-                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích
-                            </>
-                        ) : (
-                            <>
-                                <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích
-                            </>
-                        )}
-                    </div>
+                    {/*<div className="post-stats">*/}
+                    {/*    {liked ? (*/}
+                    {/*        <>*/}
+                    {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
+                    {/*        </>*/}
+                    {/*    ) : (*/}
+                    {/*        <>*/}
+                    {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
+                    {/*        </>*/}
+                    {/*    )}*/}
+                    {/*</div>*/}
                     <div className="post-comments">
                         <Title level={4}>Bình luận:</Title>
                         <List

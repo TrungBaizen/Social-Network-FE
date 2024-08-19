@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Avatar, Typography, Button, Modal, Image, Dropdown, Menu, Input, List } from 'antd';
-import { LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons';
+import React, {useEffect, useState} from 'react';
+import {Card, Avatar, Typography, Button, Modal, Image, Dropdown, Menu, Input, List} from 'antd';
+import {LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import './HomePosts.css';
+import './FriendsProfile.css';
+import {getAllPostByFollowing, getPostByUserId} from "../../../redux/services/postService";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllPostByFollowing} from "../../../redux/services/postService";
 import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {getProfile} from "../../../redux/services/profileService";
+import {useLocation} from "react-router-dom";
 
-const { Title, Text } = Typography;
-const { TextArea } = Input;
+const {Title, Text} = Typography;
+const {TextArea} = Input;
 
-const HomePosts = () => {
-    // const [posts, setPosts] = useState([]);
+const FriendsProfile = () => {
     const [likedPosts, setLikedPosts] = useState(new Set());
     const [selectedImage, setSelectedImage] = useState(null);
     const [showImageModal, setShowImageModal] = useState(false);
@@ -20,13 +21,14 @@ const HomePosts = () => {
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const dispatch = useDispatch();
-    const posts = useSelector(({ posts }) => posts.listPostHome);
-    const id = JSON.parse(localStorage.getItem('currentUser')).id;
+    const dispatch =useDispatch();
+    const profile = useSelector(({profiles}) => profiles.profile);
+    const posts = useSelector(({posts}) => posts.list);
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                dispatch(getAllPostByFollowing(id));
+                dispatch(getPostByUserId(profile.userId));
                 setLoading(false);
             } catch (error) {
                 setError('Failed to fetch posts');
@@ -35,8 +37,7 @@ const HomePosts = () => {
         };
 
         fetchPosts();
-    }, []);
-
+    }, [profile]);
 
     const handleLikeClick = (postId) => {
         setLikedPosts(prev => {
@@ -91,22 +92,22 @@ const HomePosts = () => {
 
     return (
         <div className="home-posts">
-            {posts && posts.length > 0? (
+            {posts.length > 0 ? (
                 posts.map(post => (
                     <Card
                         key={post.id}
-                        className={`post-card`}
+                        className={`post-card ${post.postImages.length === 1 ? 'single-image-post' : post.postImages.length === 2 ? 'two-image-post' : 'multi-image-post'}`}
                         actions={[
                             <Button
                                 key="like"
-                                icon={likedPosts.has(post.id) ? <LikeFilled /> : <LikeOutlined />}
+                                icon={likedPosts.has(post.id) ? <LikeFilled/> : <LikeOutlined/>}
                                 onClick={() => handleLikeClick(post.id)}
                             >
                                 {likedPosts.has(post.id) ? 'Đã thích' : 'Thích'}
                             </Button>,
                             <Button
                                 key="comment"
-                                icon={<CommentOutlined />}
+                                icon={<CommentOutlined/>}
                                 onClick={() => handleCommentClick(post)}
                             >
                                 Bình luận
@@ -115,7 +116,7 @@ const HomePosts = () => {
                     >
                         <div className="post-header">
                             <div className="post-info">
-                                <Avatar src={post.avatar} className="post-avatar" />
+                                <Avatar src={post.avatar} className="post-avatar"/>
                                 <div className="post-author-date">
                                     <Title level={4} className="post-author">
                                         {`${post.firstName} ${post.lastName}`}
@@ -125,37 +126,17 @@ const HomePosts = () => {
                                     </Text>
                                 </div>
                             </div>
-                            <Dropdown
-                                overlay={
-                                    <Menu>
-                                        <Menu.Item key="edit" icon={<EditOutlined />} onClick={() => handleEditClick(post.id)}>
-                                            Chỉnh sửa
-                                        </Menu.Item>
-                                        <Menu.Item key="delete" icon={<DeleteOutlined />} onClick={() => handleDeleteClick(post.id)}>
-                                            Xóa
-                                        </Menu.Item>
-                                    </Menu>
-                                }
-                                trigger={['click']}
-                                placement="bottomRight"
-                            >
-                                <Button icon={<MoreOutlined />} className="post-more-btn" />
-                            </Dropdown>
                         </div>
                         <div className="post-images">
-                            {post.postImages && post.postImages.length > 0 && (
-                                <div className="post-images">
-                                    {post.postImages.map((image, index) => (
-                                        <img
-                                            key={index}
-                                            src={decodeAndDecompressImageFile(decodeURIComponent(image.image))}
-                                            alt={`Post Image ${index + 1}`}
-                                            className="post-image"
-                                            onClick={() => handleImageClick(image)}
-                                        />
-                                    ))}
-                                </div>
-                            )}
+                            {post.postImages.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={decodeAndDecompressImageFile(decodeURIComponent(image.image))}
+                                    alt={`Post Image ${index + 1}`}
+                                    className="post-image"
+                                    onClick={() => handleImageClick(image)}
+                                />
+                            ))}
                         </div>
                         <Text className="post-content">{post.content}</Text>
                     </Card>
@@ -170,7 +151,7 @@ const HomePosts = () => {
                 onCancel={handleModalCancel}
                 width={800}
             >
-                {selectedImage && <Image src={selectedImage} alt="Selected" style={{ width: '100%' }} />}
+                {selectedImage && <Image src={selectedImage} alt="Selected" style={{width: '100%'}}/>}
             </Modal>
 
             <Modal
@@ -195,7 +176,7 @@ const HomePosts = () => {
                 <Button
                     type="primary"
                     onClick={handleCommentSubmit}
-                    style={{ marginTop: 10 }}
+                    style={{marginTop: 10}}
                 >
                     Gửi
                 </Button>
@@ -204,4 +185,4 @@ const HomePosts = () => {
     );
 };
 
-export default HomePosts;
+export default FriendsProfile;

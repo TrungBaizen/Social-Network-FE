@@ -191,7 +191,7 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                <MyFriendsPage/>
+                                {/*<MyFriendsPage/>*/}
                                 {/*<MyFriendsList/>*/}
                                 <FriendsList/>
                             </div>

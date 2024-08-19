@@ -10,6 +10,8 @@ import {getProfile} from "../../redux/services/profileService";
 import {useLocation} from "react-router-dom";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
+import HomePosts from "../posts/HomePosts/HomePosts";
+import FriendsProfile from "./FriendsProfile/FriendsProfile";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -165,7 +167,9 @@ const Profile = () => {
                                 <FriendsList/>
                             </div>
                             <div className="right-column">
-                                <PostsFriend/>
+                                {/*<PostsFriend/>*/}
+                                {/*<HomePosts/>*/}
+                                <FriendsProfile/>
                             </div>
                         </div>
                     </div>
