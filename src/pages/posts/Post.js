@@ -24,13 +24,14 @@ const Post = ({post, avatarImage}) => {
     const dispatch = useDispatch();
     const email = JSON.parse(localStorage.getItem('currentUser')).email;
     const id = post.id;
+
     useEffect(() => {
         const fetchDecodedImages = async () => {
             try {
                 const postList = post.postImages;
                 const decodeImageList = postList && postList.length > 0
                     ? await Promise.all(postList.map(async (post) => {
-                        return await decodeAndDecompressImageFile(decodeURIComponent(post.image));
+                        return decodeAndDecompressImageFile(decodeURIComponent(post.image));
                     }))
                     : [];
                 setDecodeImages(decodeImageList);
@@ -145,17 +146,17 @@ const Post = ({post, avatarImage}) => {
                     )}
                 </div>
                 <Text>{post.content}</Text>
-                <div className="post-stats" onClick={showLikesModal}>
-                    {liked ? (
-                        <>
-                            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích
-                        </>
-                    ) : (
-                        <>
-                            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích
-                        </>
-                    )}
-                </div>
+                {/*<div className="post-stats" onClick={showLikesModal}>*/}
+                {/*    {liked ? (*/}
+                {/*        <>*/}
+                {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
+                {/*        </>*/}
+                {/*    ) : (*/}
+                {/*        <>*/}
+                {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
+                {/*        </>*/}
+                {/*    )}*/}
+                {/*</div>*/}
                 <div className="post-actions">
                     <Button
                         className="post-action-button"

@@ -35,60 +35,6 @@ const SearchResults = () => {
             fetchAvatarImages();
         }
     }, [profiles]);
-    // Dữ liệu giả lập cho hồ sơ
-
-    // Dữ liệu giả lập cho bài viết tìm kiếm
-    // const searchPosts = [
-    //     {
-    //         authorName: 'Nguyễn Văn A',
-    //         avatarImage: 'https://randomuser.me/api/portraits/men/1.jpg',
-    //         content: 'Đây là một bài viết tìm kiếm mẫu 1.',
-    //         images: [
-    //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlAWkhN0Z9I1EK0F6wYJn9S-g5UvUntZXXoc0_G7PPMUBp4wrLLNmW_yIUZiULYUmqds&usqp=CAU',
-    //         ],
-    //     },
-    //     {
-    //         authorName: 'Trần Thị B',
-    //         avatarImage: 'https://randomuser.me/api/portraits/women/1.jpg',
-    //         content: 'Đây là một bài viết tìm kiếm mẫu 2.',
-    //         images: [
-    //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlAWkhN0Z9I1EK0F6wYJn9S-g5UvUntZXXoc0_G7PPMUBp4wrLLNmW_yIUZiULYUmqds&usqp=CAU',
-    //         ],
-    //     },
-    //     {
-    //         authorName: 'Lê Văn C',
-    //         avatarImage: 'https://randomuser.me/api/portraits/men/2.jpg',
-    //         content: 'Đây là một bài viết tìm kiếm mẫu 3.',
-    //         images: [
-    //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlAWkhN0Z9I1EK0F6wYJn9S-g5UvUntZXXoc0_G7PPMUBp4wrLLNmW_yIUZiULYUmqds&usqp=CAU',
-    //         ],
-    //     },
-    //     {
-    //         authorName: 'Nguyễn Thị D',
-    //         avatarImage: 'https://randomuser.me/api/portraits/women/2.jpg',
-    //         content: 'Đây là một bài viết tìm kiếm mẫu 4.',
-    //         images: [
-    //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlAWkhN0Z9I1EK0F6wYJn9S-g5UvUntZXXoc0_G7PPMUBp4wrLLNmW_yIUZiULYUmqds&usqp=CAU',
-    //         ],
-    //     },
-    //     {
-    //         authorName: 'Phạm Văn E',
-    //         avatarImage: 'https://randomuser.me/api/portraits/men/3.jpg',
-    //         content: 'Đây là một bài viết tìm kiếm mẫu 5.',
-    //         images: [
-    //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlAWkhN0Z9I1EK0F6wYJn9S-g5UvUntZXXoc0_G7PPMUBp4wrLLNmW_yIUZiULYUmqds&usqp=CAU',
-    //         ],
-    //     },
-    //     {
-    //         authorName: 'Hoàng Thị F',
-    //         avatarImage: 'https://randomuser.me/api/portraits/women/3.jpg',
-    //         content: 'Đây là một bài viết tìm kiếm mẫu 6.',
-    //         images: [
-    //             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZlAWkhN0Z9I1EK0F6wYJn9S-g5UvUntZXXoc0_G7PPMUBp4wrLLNmW_yIUZiULYUmqds&usqp=CAU',
-    //         ],
-    //     },
-    //     // Thêm bài viết nếu cần
-    // ];
 
     const handleViewAllProfiles = () => {
         console.log('View All Profiles clicked');
