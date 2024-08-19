@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
-import {Modal, Button, Typography, Input, Select} from 'antd';
+import {Button, Input, Modal, Select, Typography} from 'antd';
 import {PictureOutlined} from '@ant-design/icons';
 import './CreatePostModal.css';
 import {useDispatch, useSelector} from "react-redux";
-import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {compressAndEncodeImageFile} from "../../EncodeDecodeImage/compressAndEncodeImageFile";
-import async from "async";
 import {createPost} from "../../redux/services/postService";
 
 const {TextArea} = Input;

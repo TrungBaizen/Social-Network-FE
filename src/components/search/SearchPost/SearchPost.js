@@ -1,13 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { Avatar, Card, Typography } from 'antd';
-import { LikeFilled, LikeOutlined } from '@ant-design/icons';
+import React, {useState, useEffect} from 'react';
+import {Avatar, Card, Typography} from 'antd';
+import {LikeFilled, LikeOutlined} from '@ant-design/icons';
 import './SearchPost.css';
+import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
-const { Title, Text } = Typography;
+const {Title, Text} = Typography;
 
-const SearchPost = ({ post }) => {
+const SearchPost = ({post}) => {
+    const [avatarImage, setAvatarImage] = useState('');
+    const [decodeImages, setDecodeImages] = useState([]);
     const [liked, setLiked] = useState(false);
 
+    useEffect(() => {
+        const fetchImage = async () => {
+            try {
+                if (post.imageAvatar) {
+                    const decodeURL = decodeURIComponent(post.imageAvatar);
+                    const imageUrl = await decodeAndDecompressImageFile(decodeURL);
+                    setAvatarImage(imageUrl);
+                } else {
+                    setAvatarImage("https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg");
+                }
+            } catch (error) {
+                console.error('Error decoding image:', error);
+            }
+        };
+        if (post) {
+            fetchImage();
+        }
+    }, [post]);
+
+    useEffect(() => {
+        const fetchDecodedImages = async () => {
+            try {
+                const postList = post.postImages;
+                const decodeImageList = postList && postList.length > 0
+                    ? await Promise.all(postList.map(async (post) => {
+                        return await decodeAndDecompressImageFile(decodeURIComponent(post.image));
+                    }))
+                    : [];
+                setDecodeImages(decodeImageList);
+            } catch (error) {
+                console.error('Error decoding images:', error);
+            }
+        };
+        fetchDecodedImages();
+    }, [post.postImages]);
     const handleLikeClick = () => {
         setLiked(!liked); // Toggle like state
     };
@@ -15,16 +53,16 @@ const SearchPost = ({ post }) => {
     return (
         <Card className="search-post-card">
             <div className="search-post-header">
-                <Avatar src={post.avatarImage || 'https://randomuser.me/api/portraits/men/1.jpg'} />
-                <Title level={4} style={{ marginLeft: 10 }}>
-                    {post.authorName}
+                <Avatar src={avatarImage}/>
+                <Title level={4} style={{marginLeft: 10}}>
+                    {post.firstName + " " + post.lastName}
                 </Title>
             </div>
             <div className="search-post-content">
                 <Text>{post.content}</Text>
                 <div className="search-post-images">
-                    {post.images && post.images.length > 0 ? (
-                        post.images.map((image, index) => (
+                    {decodeImages && decodeImages.length > 0 ? (
+                        decodeImages.map((image, index) => (
                             <img
                                 key={index}
                                 src={image}
@@ -32,19 +70,17 @@ const SearchPost = ({ post }) => {
                                 className="search-post-image"
                             />
                         ))
-                    ) : (
-                        <p>Không có ảnh nào.</p>
-                    )}
+                    ) : null}
                 </div>
             </div>
             <div className="search-post-stats">
                 {liked ? (
                     <>
-                        <LikeFilled style={{ marginRight: 8, color: '#1890ff' }} /> {post.likes + 1} lượt thích
+                        <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích
                     </>
                 ) : (
                     <>
-                        <LikeOutlined style={{ marginRight: 8 }} /> {post.likes} lượt thích
+                        <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích
                     </>
                 )}
             </div>

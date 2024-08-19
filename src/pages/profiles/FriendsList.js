@@ -1,9 +1,9 @@
+
 import React, { useState } from 'react';
 import { Typography, Modal, Input, Button } from 'antd';
 import './FriendsList.css';
 import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import { Link } from "react-router-dom";
-
 const { Title } = Typography;
 const { Search } = Input;
 

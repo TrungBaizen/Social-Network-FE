@@ -3,12 +3,16 @@ import {Card, Avatar, Typography, Button, Modal, Image, Dropdown, Menu, Input, L
 import {LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined} from '@ant-design/icons';
 import axios from 'axios';
 import './FriendsProfile.css';
+import {getAllPostByFollowing, getPostByUserId} from "../../../redux/services/postService";
+import {useDispatch, useSelector} from "react-redux";
+import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {getProfile} from "../../../redux/services/profileService";
+import {useLocation} from "react-router-dom";
 
 const {Title, Text} = Typography;
 const {TextArea} = Input;
 
 const FriendsProfile = () => {
-    const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState(new Set());
     const [selectedImage, setSelectedImage] = useState(null);
     const [showImageModal, setShowImageModal] = useState(false);
@@ -17,12 +21,14 @@ const FriendsProfile = () => {
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const dispatch =useDispatch();
+    const profile = useSelector(({profiles}) => profiles.profile);
+    const posts = useSelector(({posts}) => posts.list);
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/posts');
-                setPosts(response.data);
+                dispatch(getPostByUserId(profile.userId));
                 setLoading(false);
             } catch (error) {
                 setError('Failed to fetch posts');
@@ -31,7 +37,7 @@ const FriendsProfile = () => {
         };
 
         fetchPosts();
-    }, []);
+    }, [profile]);
 
     const handleLikeClick = (postId) => {
         setLikedPosts(prev => {
@@ -125,7 +131,7 @@ const FriendsProfile = () => {
                             {post.postImages.map((image, index) => (
                                 <img
                                     key={index}
-                                    src={image}
+                                    src={decodeAndDecompressImageFile(decodeURIComponent(image.image))}
                                     alt={`Post Image ${index + 1}`}
                                     className="post-image"
                                     onClick={() => handleImageClick(image)}

@@ -3,12 +3,15 @@ import { Card, Avatar, Typography, Button, Modal, Image, Dropdown, Menu, Input, 
 import { LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import './HomePosts.css';
+import {useDispatch, useSelector} from "react-redux";
+import {getAllPostByFollowing} from "../../../redux/services/postService";
+import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 const HomePosts = () => {
-    const [posts, setPosts] = useState([]);
+    // const [posts, setPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState(new Set());
     const [selectedImage, setSelectedImage] = useState(null);
     const [showImageModal, setShowImageModal] = useState(false);
@@ -17,12 +20,13 @@ const HomePosts = () => {
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const dispatch = useDispatch();
+    const posts = useSelector(({ posts }) => posts.listPostHome);
+    const id = JSON.parse(localStorage.getItem('currentUser')).id;
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/posts');
-                setPosts(response.data);
+                dispatch(getAllPostByFollowing(id));
                 setLoading(false);
             } catch (error) {
                 setError('Failed to fetch posts');
@@ -32,6 +36,7 @@ const HomePosts = () => {
 
         fetchPosts();
     }, []);
+
 
     const handleLikeClick = (postId) => {
         setLikedPosts(prev => {
@@ -86,11 +91,11 @@ const HomePosts = () => {
 
     return (
         <div className="home-posts">
-            {posts.length > 0 ? (
+            {posts && posts.length > 0? (
                 posts.map(post => (
                     <Card
                         key={post.id}
-                        className={`post-card ${post.postImages.length === 1 ? 'single-image-post' : post.postImages.length === 2 ? 'two-image-post' : 'multi-image-post'}`}
+                        className={`post-card`}
                         actions={[
                             <Button
                                 key="like"
@@ -138,15 +143,19 @@ const HomePosts = () => {
                             </Dropdown>
                         </div>
                         <div className="post-images">
-                            {post.postImages.map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={image}
-                                    alt={`Post Image ${index + 1}`}
-                                    className="post-image"
-                                    onClick={() => handleImageClick(image)}
-                                />
-                            ))}
+                            {post.postImages && post.postImages.length > 0 && (
+                                <div className="post-images">
+                                    {post.postImages.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={decodeAndDecompressImageFile(decodeURIComponent(image.image))}
+                                            alt={`Post Image ${index + 1}`}
+                                            className="post-image"
+                                            onClick={() => handleImageClick(image)}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <Text className="post-content">{post.content}</Text>
                     </Card>

@@ -1,6 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import getAxios from "./customAxios";
-import async from "async";
 
 export const createPost = createAsyncThunk(
     "posts/createPost",
@@ -45,7 +44,7 @@ export const searchPost=createAsyncThunk(
 export const getAllPostByFollowing=createAsyncThunk(
     "posts/getAllPostByFollowing",
     async (id)=>{
-        let res = await getAxios().get(`post/${id}`);
+        let res = await getAxios().get(`posts/${id}`);
         return res.data
     }
 )

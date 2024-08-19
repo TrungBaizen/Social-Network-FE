@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, theme } from 'antd';
+import {Layout, theme} from 'antd';
 import SiderLeft from '../Layout/SiderLeft';
 import SiderRight from '../Layout/SiderRight';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";

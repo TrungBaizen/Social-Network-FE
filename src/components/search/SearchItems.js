@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import { Select } from 'antd';
+import {Select} from 'antd';
 import './SearchItems.css';
 import {useDispatch, useSelector} from "react-redux";
 import {searchProfile} from "../../redux/services/profileService";
-import {searchPost} from "../../redux/services/postService"; // Import file CSS
+import {searchPost} from "../../redux/services/postService";
+import {useNavigate} from "react-router-dom"; // Import file CSS
 
 
 const SearchItems = () => {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate();
     const contents = useSelector(({ posts }) => posts.listSearch);
     const profiles = useSelector(({ profiles }) => profiles.listSearch);
     // console.log(contents)
@@ -20,17 +22,25 @@ const SearchItems = () => {
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             console.log("Search value on Enter:", searchValue);
-            dispatch(searchProfile(searchValue));
-            dispatch(searchPost(searchValue));
+
+            // Thực hiện các dispatch đồng thời và đợi cho tất cả hoàn tất
+            Promise.all([
+                dispatch(searchProfile(searchValue)),
+                dispatch(searchPost(searchValue))
+            ]).then(() => {
+                // Chuyển hướng sau khi cả hai dispatch hoàn thành
+                navigate("/search-results");
+            });
         }
     };
 
-    useEffect(() => {
-        if (contents.length > 0 || profiles.length > 0) {
-            console.log("Search results for posts:", contents);
-            console.log("Search results for profiles:", profiles);
-        }
-    }, [contents, profiles]);
+
+    // useEffect(() => {
+    //     if (contents.length > 0 || profiles.length > 0) {
+    //         console.log("Search results for posts:", contents);
+    //         console.log("Search results for profiles:", profiles);
+    //     }
+    // }, [contents, profiles]);
     return (
         <Select
             showSearch

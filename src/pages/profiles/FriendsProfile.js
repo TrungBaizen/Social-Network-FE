@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { Layout, Typography, Avatar, Button } from 'antd';
+import {Avatar, Button, Layout, Typography} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import './Profile.css';
-import {EditOutlined, FavoriteBorder, HomeOutlined, PeopleOutline} from "@mui/icons-material";
+import {HomeOutlined} from "@mui/icons-material";
 import FriendsList from "./FriendsList";
 import PostsFriend from "../posts/PostsFriend";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../redux/services/profileService";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
 import HomePosts from "../posts/HomePosts/HomePosts";

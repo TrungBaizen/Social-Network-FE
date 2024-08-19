@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Input, Form, Radio } from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Form, Input, Modal, Radio} from 'antd';
 import TextArea from "antd/es/input/TextArea";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
-import { updateProfile } from "../../redux/services/profileService";
+import {updateProfile} from "../../redux/services/profileService";
 
 const EditPersonalInfoModal = ({ visible, onClose, onSave }) => {
     const dispatch = useDispatch();

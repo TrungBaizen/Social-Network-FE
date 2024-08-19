@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Modal, Form, Input, Button, Upload, Avatar, Typography, Select, Card } from 'antd';
-import { UploadOutlined, LikeOutlined } from '@ant-design/icons';
+import {Avatar, Button, Card, Form, Input, Modal, Select, Typography} from 'antd';
 import './EditPostModal.css';
 import {useSelector} from "react-redux";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile"; // Nhập file CSS
