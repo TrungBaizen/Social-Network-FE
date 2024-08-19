@@ -1,3 +1,4 @@
+/* notification-icons.css */
 .notification-icons {
     display: flex;
     align-items: center;
@@ -13,4 +14,37 @@
     font-size: 16px;
     color: #ffffff; /* Thay đổi màu chữ thành trắng */
     margin-left: 8px; /* Khoảng cách giữa icon và chữ */
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+    .notification-icons {
+        flex-direction: column; /* Chuyển thành cột trên màn hình nhỏ */
+        margin: 0 8px; /* Giảm margin để tiết kiệm không gian */
+    }
+
+    .icon-text {
+        font-size: 14px; /* Giảm kích thước chữ của phần văn bản */
+        margin-left: 4px; /* Giảm khoảng cách giữa icon và chữ */
+    }
+
+    .icon-button {
+        font-size: 18px; /* Tăng kích thước icon để dễ nhìn hơn trên màn hình nhỏ */
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+    .notification-icons {
+        margin: 0 4px; /* Tiếp tục giảm margin */
+        gap: 5px; /* Thêm khoảng cách giữa các phần tử nếu cần */
+    }
+
+    .icon-text {
+        font-size: 12px; /* Giảm kích thước chữ của phần văn bản */
+    }
+
+    .icon-button {
+        font-size: 16px; /* Điều chỉnh kích thước icon để cân bằng với phần văn bản */
+    }
 }

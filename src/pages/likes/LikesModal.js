@@ -1,12 +1,12 @@
 import React from 'react';
-import {Avatar, List, Modal} from 'antd';
+import { Modal, List, Avatar } from 'antd';
 
-const LikesModal = ({ visible, onCancel, likedBy }) => {
+const LikesModal = ({ visible, onClose, likedBy }) => {
     return (
         <Modal
             title="Danh sách người thích"
             visible={visible}
-            onCancel={onCancel}
+            onCancel={onClose}
             footer={null}
             width={400}
         >
