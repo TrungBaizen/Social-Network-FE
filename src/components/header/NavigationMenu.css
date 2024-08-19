@@ -1,3 +1,4 @@
+/* nav-menu.css */
 .nav-menu {
     display: flex;
     align-items: center;
@@ -7,12 +8,14 @@
     border-bottom: 1px solid #dcdcdc; /* Đường viền dưới thanh điều hướng */
 }
 
+/* nav-brand */
 .nav-brand {
     font-weight: bold;
     font-size: 20px;
     color: #ffffff; /* Thay đổi màu chữ thành trắng */
 }
 
+/* search-bar */
 .search-bar {
     display: flex;
     align-items: center;
@@ -34,11 +37,13 @@
     color: #ffffff; /* Thay đổi màu chữ trong thanh tìm kiếm thành trắng */
 }
 
+/* nav-link */
 .nav-link {
     text-decoration: none;
     color: inherit; /* Kế thừa màu chữ từ phần tử chứa */
 }
 
+/* nav-item */
 .nav-item {
     display: flex;
     align-items: center;
@@ -46,4 +51,48 @@
     font-weight: bold;
     font-size: 16px;
     color: #ffffff; /* Thay đổi màu chữ của các nút điều hướng thành trắng */
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-direction: column; /* Chuyển thành cột trên màn hình nhỏ */
+        gap: 10px; /* Giảm khoảng cách giữa các phần tử */
+        padding: 5px 10px; /* Giảm padding để tiết kiệm không gian */
+    }
+
+    .nav-brand {
+        font-size: 18px; /* Giảm kích thước chữ của thương hiệu */
+    }
+
+    .search-bar {
+        width: 100%; /* Đặt thanh tìm kiếm chiếm toàn bộ chiều rộng */
+        margin-top: 10px; /* Thêm khoảng cách phía trên */
+    }
+
+    .nav-item {
+        font-size: 14px; /* Giảm kích thước chữ của các mục điều hướng */
+        justify-content: center; /* Căn giữa các mục điều hướng */
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+    .nav-menu {
+        padding: 5px; /* Tiếp tục giảm padding */
+        gap: 5px; /* Giảm khoảng cách giữa các phần tử */
+    }
+
+    .nav-brand {
+        font-size: 16px; /* Tiếp tục giảm kích thước chữ của thương hiệu */
+    }
+
+    .search-bar {
+        padding: 3px; /* Giảm padding của thanh tìm kiếm */
+        gap: 5px; /* Giảm khoảng cách giữa các phần tử trong thanh tìm kiếm */
+    }
+
+    .nav-item {
+        font-size: 12px; /* Giảm kích thước chữ của các mục điều hướng */
+    }
 }

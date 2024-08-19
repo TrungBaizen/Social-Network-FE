@@ -12,6 +12,7 @@ import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanO
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import MyFriendsPage from "./MyFriendsPage/MyFriendsPage";
 import ContentArea from "../Layout/ContentArea";
+import MyFriendsList from "./MyFriendsPage/MyFriendsList";
 
 const {Content} = Layout;
 const {Title, Text} = Typography;
@@ -191,8 +192,6 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                {/*<MyFriendsPage/>*/}
-                                {/*<MyFriendsList/>*/}
                                 <FriendsList/>
                             </div>
                             <div className="right-column">

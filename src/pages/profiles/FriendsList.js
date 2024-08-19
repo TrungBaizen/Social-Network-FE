@@ -1,9 +1,10 @@
-
 import React, { useState } from 'react';
 import { Typography, Modal, Input, Button } from 'antd';
 import './FriendsList.css';
 import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const { Title } = Typography;
 const { Search } = Input;
 
@@ -11,32 +12,12 @@ const FriendsList = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [isViewingFriends, setIsViewingFriends] = useState(true);
+    const profile = useSelector(({ profiles }) => profiles.profile);
+
+    const currentUserEmail = JSON.parse(localStorage.getItem('currentUser')).email;
 
     // Dữ liệu mẫu cho bạn bè và lời mời kết bạn
-    const friendList = [
-        {
-            userId: '1',
-            firstName: 'Nguyễn',
-            lastName: 'Văn A',
-            email: 'nguyenvana@example.com',
-            imageAvatar: 'path/to/avatar1.jpg'
-        },
-        {
-            userId: '2',
-            firstName: 'Trần',
-            lastName: 'Thị B',
-            email: 'tranthib@example.com',
-            imageAvatar: 'path/to/avatar2.jpg'
-        },
-        {
-            userId: '3',
-            firstName: 'Lê',
-            lastName: 'C',
-            email: 'leC@example.com',
-            imageAvatar: 'path/to/avatar3.jpg'
-        },
-    ];
-
+    const friendList = profile?.friendList || []; // Đảm bảo friendList không phải là null hoặc undefined
     const friendRequests = [
         {
             userId: '4',
@@ -82,6 +63,10 @@ const FriendsList = () => {
         console.log(`Rejected friend request from ${userId}`);
     };
 
+    const generateProfileLink = (email) => {
+        return email === currentUserEmail ? `/profile` : `/friendsprofile?email=${email}`;
+    };
+
     return (
         <div className="friends-container">
             <div className="friends-header">
@@ -90,15 +75,17 @@ const FriendsList = () => {
                 <a onClick={showModal} className="view-all">Xem Tất Cả Bạn Bè</a>
             </div>
             <div className="friends-grid">
-                {friendList.slice(0, 3).map(friend => (
+                {friendList.slice(0, 9).map(friend => (
                     <div key={friend.userId} className="friend-item">
-                        <img
-                            src={decodeAndDecompressImageFile(decodeURIComponent(friend.imageAvatar)) || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
-                            alt={friend.firstName + " " + friend.lastName}
-                            className="friend-img"
-                        />
+                        <Link to={generateProfileLink(friend.email)} style={{ textDecoration: 'none' }} className="friend-link">
+                            <img
+                                src={decodeAndDecompressImageFile(decodeURIComponent(friend.imageAvatar)) || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
+                                alt={friend.firstName + " " + friend.lastName}
+                                className="friend-img"
+                            />
+                        </Link>
                         <div className="friend-name">
-                            <Link to={`/friendsprofile?email=${friend.email}`} className="friend-name">
+                            <Link to={generateProfileLink(friend.email)} style={{ textDecoration: 'none' }} className="friend-link">
                                 {friend.firstName + " " + friend.lastName}
                             </Link>
                         </div>
@@ -132,13 +119,15 @@ const FriendsList = () => {
                         <div className="friends-grid">
                             {filteredFriends.map(friend => (
                                 <div key={friend.userId} className="friend-item">
-                                    <img
-                                        src={decodeAndDecompressImageFile(decodeURIComponent(friend.imageAvatar)) || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
-                                        alt={friend.firstName + " " + friend.lastName}
-                                        className="friend-img"
-                                    />
+                                    <Link to={generateProfileLink(friend.email)} style={{ textDecoration: 'none' }} className="friend-link">
+                                        <img
+                                            src={decodeAndDecompressImageFile(decodeURIComponent(friend.imageAvatar)) || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"}
+                                            alt={friend.firstName + " " + friend.lastName}
+                                            className="friend-img"
+                                        />
+                                    </Link>
                                     <div className="friend-name">
-                                        <Link to={`/friendsprofile?email=${friend.email}`} className="friend-name">
+                                        <Link to={generateProfileLink(friend.email)} style={{ textDecoration: 'none' }} className="friend-link">
                                             {friend.firstName + " " + friend.lastName}
                                         </Link>
                                     </div>

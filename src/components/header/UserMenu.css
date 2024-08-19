@@ -1,18 +1,40 @@
 /* UserMenu.css */
 .avatar-button {
-    background-color: transparent;
+    background-color: transparent; /* Nền trong suốt cho nút avatar */
+    border: none; /* Xóa viền mặc định */
+    cursor: pointer; /* Hiển thị con trỏ chỉ tay khi hover */
 }
 
 .menu-item {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px 20px; /* Khoảng cách bên trong giữa nội dung và cạnh menu */
+    color: #000000; /* Màu chữ mặc định cho các mục menu */
+    font-size: 16px; /* Kích thước chữ cho các mục menu */
 }
 
 .logout-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: red; /* Màu chữ cho Logout, thay đổi theo ý muốn */
+    color: red; /* Màu chữ cho Logout */
     font-weight: bold; /* Bôi đậm chữ */
+    padding: 10px 20px; /* Khoảng cách bên trong giữa nội dung và cạnh mục Logout */
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+    .menu-item, .logout-item {
+        font-size: 14px; /* Giảm kích thước chữ cho các mục menu trên màn hình nhỏ */
+        padding: 8px 16px; /* Giảm padding để tiết kiệm không gian */
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+    .menu-item, .logout-item {
+        font-size: 12px; /* Giảm kích thước chữ thêm cho màn hình rất nhỏ */
+        padding: 6px 12px; /* Tiếp tục giảm padding để phù hợp với không gian nhỏ */
+    }
 }

@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Avatar, Card, Typography} from 'antd';
-import {LikeFilled, LikeOutlined} from '@ant-design/icons';
 import './SearchPost.css';
 import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {Link} from "react-router-dom";
 
 const {Title, Text} = Typography;
 
@@ -10,6 +10,7 @@ const SearchPost = ({post}) => {
     const [avatarImage, setAvatarImage] = useState('');
     const [decodeImages, setDecodeImages] = useState([]);
     const [liked, setLiked] = useState(false);
+    const currentUserEmail = JSON.parse(localStorage.getItem('currentUser')).email;
 
     useEffect(() => {
         const fetchImage = async () => {
@@ -50,13 +51,21 @@ const SearchPost = ({post}) => {
         setLiked(!liked); // Toggle like state
     };
 
+    const generateProfileLink = (email) => {
+        return email === currentUserEmail ? `/profile` : `/friendsprofile?email=${email}`;
+    };
+
     return (
         <Card className="search-post-card">
             <div className="search-post-header">
+                <Link to={generateProfileLink(post.email)} style={{textDecoration: 'none'}}>
                 <Avatar src={avatarImage}/>
-                <Title level={4} style={{marginLeft: 10}}>
-                    {post.firstName + " " + post.lastName}
-                </Title>
+                </Link>
+                <Link to={generateProfileLink(post.email)} style={{textDecoration: 'none'}}>
+                    <Title level={4} style={{marginLeft: 10}}>
+                        {post.firstName + " " + post.lastName}
+                    </Title>
+                </Link>
             </div>
             <div className="search-post-content">
                 <Text>{post.content}</Text>
@@ -73,17 +82,17 @@ const SearchPost = ({post}) => {
                     ) : null}
                 </div>
             </div>
-            <div className="search-post-stats">
-                {liked ? (
-                    <>
-                        <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích
-                    </>
-                ) : (
-                    <>
-                        <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích
-                    </>
-                )}
-            </div>
+            {/*<div className="search-post-stats">*/}
+            {/*    {liked ? (*/}
+            {/*        <>*/}
+            {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
+            {/*        </>*/}
+            {/*    ) : (*/}
+            {/*        <>*/}
+            {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
+            {/*        </>*/}
+            {/*    )}*/}
+            {/*</div>*/}
             <button className="like-button" onClick={handleLikeClick}>
                 {liked ? 'Đã thích' : 'Thích'}
             </button>

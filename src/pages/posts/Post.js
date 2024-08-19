@@ -259,6 +259,7 @@ const Post = ({post, avatarImage}) => {
                 onCancel={handleCancel}
                 post={post}
                 onEdit={handleEditPost}
+                avatarImage={avatarImage}
             />
         </div>
     );

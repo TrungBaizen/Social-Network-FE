@@ -1,26 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './SearchResults.css';
 import SearchPost from './SearchPost/SearchPost';
-import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
-import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
 const SearchResults = () => {
-    const posts = useSelector(({posts}) => posts.listSearch);
-    const profiles = useSelector(({profiles}) => profiles.listSearch);
+    const posts = useSelector(({ posts }) => posts.listSearch);
+    const profiles = useSelector(({ profiles }) => profiles.listSearch);
     const [avatarImages, setAvatarImages] = useState([]);
-    console.log(posts)
+    const currentUserEmail = JSON.parse(localStorage.getItem('currentUser')).email;
+
     useEffect(() => {
         const fetchAvatarImages = async () => {
             try {
-                // Tạo một mảng các promise để giải mã các ảnh
                 const decodedImages = await Promise.all(profiles.map(async (profile) => {
                     if (profile.imageAvatar) {
                         const decodeURL = decodeURIComponent(profile.imageAvatar);
                         const imageUrl = await decodeAndDecompressImageFile(decodeURL);
                         return imageUrl;
                     } else {
-                        // Trả về ảnh mặc định nếu không có imageAvatar
                         return "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg";
                     }
                 }));
@@ -41,6 +40,14 @@ const SearchResults = () => {
         // Chuyển hướng hoặc hiển thị tất cả hồ sơ tại đây
     };
 
+    const generateProfileLink = (email) => {
+        return email === currentUserEmail ? `/profile` : `/friendsprofile?email=${email}`;
+    };
+
+    const filteredPosts = posts.filter(post =>
+        post.email === profiles.email || post.postStatus !== 'PRIVATE'
+    );
+
     return (
         <div className="search-results">
             <div className="results-section">
@@ -50,11 +57,11 @@ const SearchResults = () => {
                         {profiles.length > 0 && profiles.length <= 5 ? (
                             profiles.slice(0, 3).map((profile, index) => (
                                 <div className="profile-item" key={profile.user.email}>
-                                    <Link to={`/friendsprofile?email=${profile.user.email}`}>
+                                    <Link to={generateProfileLink(profile.user.email)}>
                                         <img src={avatarImages[index] || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"} alt={profile.firstName} />
                                     </Link>
                                     <div className="profile-info">
-                                        <Link to={`/friendsprofile?email=${profile.user.email}`}>
+                                        <Link to={generateProfileLink(profile.user.email)}>
                                             <h3>{profile.firstName + " " + profile.lastName}</h3>
                                         </Link>
                                     </div>
@@ -64,11 +71,11 @@ const SearchResults = () => {
                             <>
                                 {profiles.slice(0, 3).map((profile, index) => (
                                     <div className="profile-item" key={profile.user.email}>
-                                        <Link to={`/friendsprofile?email=${profile.user.email}`}>
+                                        <Link to={generateProfileLink(profile.user.email)} style={{textDecoration: 'none'}}>
                                             <img src={avatarImages[index] || "https://images2.thanhnien.vn/528068263637045248/2024/6/24/1685813204821-17191939968261579561198.jpeg"} alt={profile.firstName} />
                                         </Link>
                                         <div className="profile-info">
-                                            <Link to={`/friendsprofile?email=${profile.user.email}`}>
+                                            <Link to={generateProfileLink(profile.user.email)} style={{textDecoration: 'none'}}>
                                                 <h3>{profile.firstName + " " + profile.lastName}</h3>
                                             </Link>
                                         </div>
@@ -83,8 +90,8 @@ const SearchResults = () => {
                 </div>
                 <div className="content-container">
                     <h2>Bài Viết</h2>
-                    {posts.length > 0 ? (
-                        posts.map((post, index) => (
+                    {filteredPosts.length > 0 ? (
+                        filteredPosts.map((post, index) => (
                             <SearchPost key={index} post={post} />
                         ))
                     ) : (
