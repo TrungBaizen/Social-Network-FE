@@ -18,7 +18,7 @@
 .logo {
     display: flex;
     align-items: center;
-    flex: 1; /* Để logo chiếm toàn bộ không gian còn lại */
+    /*flex: 1; !* Để logo chiếm toàn bộ không gian còn lại *!*/
 }
 
 /* Navigation Menu */

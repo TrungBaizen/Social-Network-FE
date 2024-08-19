@@ -3,15 +3,47 @@
     display: flex;
     align-items: center;
     gap: 16px; /* Khoảng cách giữa logo và thanh tìm kiếm */
+    padding: 8px; /* Thêm padding cho bố cục */
 }
 
+/* Logo Typography */
 .logo-typography {
     font-weight: bold;
     color: #ffffff; /* Màu chữ của logo */
     text-decoration: none; /* Xóa gạch chân khi hover */
+    font-size: 1.5rem; /* Kích thước chữ */
 }
 
+/* Search Box */
 .search-box {
     flex-grow: 1; /* Làm cho search-box chiếm không gian còn lại */
     max-width: 400px; /* Đặt giới hạn chiều rộng tối đa */
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 768px) {
+    .app-bar-logo {
+        /*flex-direction: column; !* Thay đổi bố cục thành cột trên màn hình nhỏ *!*/
+        align-items: flex-start; /* Căn lề trái cho các thành phần */
+        gap: 8px; /* Giảm khoảng cách giữa các phần tử */
+    }
+
+    .logo-typography {
+        font-size: 1.2rem; /* Giảm kích thước chữ trên màn hình nhỏ */
+    }
+
+    .search-box {
+        max-width: 100%; /* Chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+    }
+}
+
+/* Responsive cho màn hình rất nhỏ (dưới 480px) */
+@media (max-width: 480px) {
+    .logo-typography {
+        font-size: 1rem; /* Tiếp tục giảm kích thước chữ */
+    }
+
+    .app-bar-logo {
+        padding: 4px; /* Giảm padding để tiết kiệm không gian */
+    }
 }
