@@ -41,7 +41,6 @@ const Profile = () => {
     }, [dispatch, email]);
 
 
-
     useEffect(() => {
         const fetchImage = async () => {
             try {
@@ -69,7 +68,6 @@ const Profile = () => {
             fetchImage();
         }
     }, [profile]);
-
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
