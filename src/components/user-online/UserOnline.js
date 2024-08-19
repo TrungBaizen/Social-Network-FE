@@ -1,8 +1,7 @@
 // UserOnline.js
 import React from 'react';
-import { Badge } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { Menu, Layout } from 'antd';
+import {Badge, Layout, Menu} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 
 const { Sider } = Layout;
 
@@ -13,7 +12,7 @@ const onlineUsers = [
     { key: '4', name: 'Trung Béo' },
     { key: '5', name: 'Tiến Gầy' },
     { key: '6', name: 'Hải Quay Xe' },
-];
+ ];
 
 const UserOnline = ({ collapsed, onCollapse }) => {
     const items = onlineUsers.map(user => ({

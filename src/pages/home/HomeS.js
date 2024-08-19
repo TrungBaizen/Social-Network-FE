@@ -1,12 +1,10 @@
 import React from 'react';
-import { Layout, theme } from 'antd';
+import {Layout, theme} from 'antd';
 import SiderLeft from '../Layout/SiderLeft';
 import SiderRight from '../Layout/SiderRight';
 import ContentArea from '../Layout/ContentArea';
-import FooterComponent from '../Layout/FooterComponent';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 
-// const { Header } = Layout;
 
 const HomeS = () => {
     const {
@@ -33,7 +31,6 @@ const HomeS = () => {
                 </Layout>
                 <SiderRight colorBgContainer={colorBgContainer} />
             </Layout>
-            <FooterComponent />
         </Layout>
     );
 };

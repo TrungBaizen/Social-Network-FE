@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -6,36 +6,31 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { Link, useNavigate } from 'react-router-dom';
-import {useDispatch} from "react-redux";
-import {logout} from "../../redux/services/userService";
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../redux/services/userService';
+import './UserMenu.css';
 
-const settings = [
-    { title: 'Profile', link: '/profile' },
-    { title: 'Account', link: '/account' },
-    { title: 'Dashboard', link: '/dashboard' }
-];
 
 function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const [settings, setSettings] = useState([]);
+    useEffect(() => {
+        const newSettings  = [
+            { title: 'Profile', link: `/profile` },
+            { title: 'Account', link: '/account' },
+            { title: 'Dashboard', link: '/dashboard' },
+            { title: 'Change Password', link: '/changepassword' }
+        ];
+        setSettings(newSettings)
+    }, []);
     const handleLogout = () => {
-        // Lấy thông tin người dùng từ localStorage
-        const user = JSON.parse(localStorage.getItem("currentUser"));
-        if (user) {
-            // Gọi action logout với thông tin người dùng
-            dispatch(logout({ email: user.email }));
-        } else {
-            // Nếu không có thông tin người dùng, chỉ gọi logout mà không có tham số
-            dispatch(logout());
-        }
-        // Xóa thông tin người dùng từ localStorage
-        localStorage.removeItem("currentUser");
-        // Điều hướng đến trang đăng nhập
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        dispatch(logout(user ? { email: user.email } : {}));
+        localStorage.removeItem('currentUser');
         navigate('/login');
     };
-
 
     return (
         <Box sx={{ flexGrow: 0 }}>
@@ -44,7 +39,7 @@ function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
                     onClick={handleOpenUserMenu}
                     className="avatar-button"
                 >
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
                 </IconButton>
             </Tooltip>
             <Menu
@@ -69,15 +64,17 @@ function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
                         onClick={handleCloseUserMenu}
                         component={Link}
                         to={setting.link}
+                        className="menu-item"
                     >
                         <Typography textAlign="center">{setting.title}</Typography>
                     </MenuItem>
                 ))}
                 <MenuItem
                     onClick={() => {
-                        handleCloseUserMenu(); // Đóng menu
-                        handleLogout(); // Xử lý logout
+                        handleCloseUserMenu();
+                        handleLogout();
                     }}
+                    className="logout-item"
                 >
                     <Typography textAlign="center">Logout</Typography>
                 </MenuItem>

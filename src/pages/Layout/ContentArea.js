@@ -1,6 +1,7 @@
 // ContentArea.js
 import React from 'react';
-import { Layout } from 'antd';
+import {Layout} from 'antd';
+import PostPage from "../posts/PostPage";
 
 const { Content } = Layout;
 
@@ -13,7 +14,7 @@ const ContentArea = ({ colorBgContainer, borderRadiusLG }) => (
             borderRadius: borderRadiusLG,
         }}
     >
-        Content
+       <PostPage/>
     </Content>
 );
 

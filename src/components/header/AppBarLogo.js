@@ -1,29 +1,23 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import SearchItems from "../search/SearchItems";
+import './AppBarLogo.css'; // Import file CSS
 
 function AppBarLogo() {
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+        <Box className="app-bar-logo">
             <Typography
                 variant="h6"
                 noWrap
                 component={Link}
                 to="/"
-                sx={{
-                    ml: 2,
-                    fontFamily: 'Arial',
-                    fontWeight: 700,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                }}
+                className="logo-typography"
             >
-                TDH MEDIA
+                TDH
             </Typography>
-            <Box sx={{ ml: 2, flexGrow: 1 }}>
+            <Box className="search-box">
                 <SearchItems />
             </Box>
         </Box>

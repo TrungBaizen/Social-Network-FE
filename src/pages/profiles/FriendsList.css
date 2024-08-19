@@ -1,0 +1,121 @@
+/* Container cho danh sách bạn bè */
+.friends-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    position: sticky; /* Giữ phần danh sách bạn bè ở một vị trí cố định */
+    top: 0; /* Đặt phần tử này để dính ở trên cùng của container cha */
+    z-index: 10; /* Đảm bảo nó nằm trên các phần tử khác */
+    margin-bottom: 20px; /* Khoảng cách dưới cùng để không bị dính vào nội dung phía dưới */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng đổ bóng nhẹ */
+}
+
+/* Tiêu đề và liên kết xem tất cả bạn bè */
+.friends-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.friends-header .ant-typography {
+    margin: 0;
+}
+
+.view-all {
+    font-size: 14px;
+    color: #1890ff; /* Màu xanh lam nhạt */
+    text-decoration: none;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu khi di chuột */
+}
+
+.view-all:hover {
+    color: #40a9ff; /* Màu xanh lam đậm hơn khi di chuột */
+}
+
+/* Lưới danh sách bạn bè */
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+/* Mỗi item trong danh sách bạn bè */
+.friend-item {
+    text-align: center;
+    border: 1px solid #d9d9d9; /* Viền nhẹ xung quanh mỗi item */
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fafafa; /* Nền sáng cho mỗi item */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển động */
+}
+
+.friend-item:hover {
+    transform: translateY(-5px); /* Di chuyển lên nhẹ khi di chuột */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng khi di chuột */
+}
+
+/* Hình ảnh bạn bè */
+.friend-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Tên bạn bè */
+.friend-name {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500; /* Chữ đậm hơn cho tên bạn bè */
+    text-decoration: none;
+}
+
+/* Tiêu đề số lượng bạn bè không tô đậm */
+.friends-header .ant-typography + .ant-typography {
+    font-weight: normal; /* Đảm bảo không tô đậm */
+}
+
+/* Modal */
+.ant-modal-body {
+    padding: 20px;
+}
+
+.modal-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-nav .ant-btn {
+    flex: 1;
+    margin: 0 5px;
+}
+
+/* Định dạng cho các yêu cầu kết bạn */
+.friend-requests {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-request-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.friend-request-actions {
+    margin-left: auto;
+}
+
+.friend-request-actions .ant-btn {
+    margin-left: 10px;
+}

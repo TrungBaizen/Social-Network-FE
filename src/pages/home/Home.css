@@ -1,0 +1,76 @@
+/* Cố định thanh điều hướng trên cùng */
+.home-layout .ant-layout-header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Đảm bảo nó nằm trên cùng */
+}
+
+/* Cố định các phần bên trái và bên phải */
+.home-layout .sider-left,
+.home-layout .sider-right {
+    position: fixed;
+    top: 64px; /* Chiều cao của thanh điều hướng */
+    bottom: 0;
+    z-index: 1000; /* Đảm bảo nó nằm trên cùng */
+}
+
+/* Điều chỉnh chiều rộng cho các màn hình lớn hơn */
+.home-layout .sider-left {
+    left: 0;
+    width: 300px; /* Chiều rộng của SiderLeft */
+}
+
+.home-layout .sider-right {
+    right: 0;
+    width: 300px; /* Chiều rộng của SiderRight */
+}
+
+/* Điều chỉnh layout chính để nội dung có thể cuộn */
+.home-layout .main-layout {
+    padding: 0;
+    height: calc(100vh - 64px); /* Chiều cao còn lại sau khi trừ chiều cao của thanh điều hướng */
+    overflow: hidden; /* Đảm bảo không có cuộn ở phần chính */
+}
+
+/* Nội dung chính có thể cuộn */
+.home-layout .content-layout {
+    overflow-y: auto; /* Cho phép cuộn dọc */
+    padding: 0px 24px 24px 24px;
+    background-color: #ffffff; /* Màu nền của nội dung */
+    height: 100%; /* Đảm bảo chiều cao đầy đủ của phần cuộn */
+}
+
+/* Media Queries cho Màn Hình Điện Thoại */
+@media (max-width: 768px) {
+    /* Ẩn SiderLeft và SiderRight trên màn hình nhỏ */
+    .home-layout .sider-left,
+    .home-layout .sider-right {
+        display: none;
+    }
+
+    /* Điều chỉnh chiều cao của layout chính để phù hợp với không gian còn lại */
+    .home-layout .main-layout {
+        padding-top: 0; /* Không cần padding trên cùng cho màn hình nhỏ */
+    }
+
+    /* Điều chỉnh nội dung để không bị cuộn không cần thiết */
+    .home-layout .content-layout {
+        padding: 0px 16px 16px 16px;
+    }
+}
+
+/* Media Queries cho Màn Hình Di Động Lớn */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Điều chỉnh kích thước của SiderLeft và SiderRight cho màn hình di động lớn */
+    .home-layout .sider-left,
+    .home-layout .sider-right {
+        width: 200px; /* Giảm chiều rộng của SiderLeft và SiderRight */
+    }
+
+    /* Điều chỉnh padding của nội dung chính cho màn hình di động lớn */
+    .home-layout .content-layout {
+        padding: 0px 16px 16px 16px;
+    }
+}

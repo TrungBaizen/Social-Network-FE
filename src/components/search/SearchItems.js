@@ -1,26 +1,62 @@
-import React from 'react';
-import {Input, Space} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Select} from 'antd';
+import './SearchItems.css';
+import {useDispatch, useSelector} from "react-redux";
+import {searchProfile} from "../../redux/services/profileService";
+import {searchPost} from "../../redux/services/postService";
+import {useNavigate} from "react-router-dom"; // Import file CSS
 
-const {Search} = Input;
-const onSearch = (value, _e, info) => {
-    console.log(info?.source, value);
+
+const SearchItems = () => {
+    const dispatch = useDispatch();
+    const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate();
+    const contents = useSelector(({ posts }) => posts.listSearch);
+    const profiles = useSelector(({ profiles }) => profiles.listSearch);
+    // console.log(contents)
+    // console.log(profiles)
+    const handleSearch = (value) => {
+        setSearchValue(value);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            console.log("Search value on Enter:", searchValue);
+
+            // Thực hiện các dispatch đồng thời và đợi cho tất cả hoàn tất
+            Promise.all([
+                dispatch(searchProfile(searchValue)),
+                dispatch(searchPost(searchValue))
+            ]).then(() => {
+                // Chuyển hướng sau khi cả hai dispatch hoàn thành
+                navigate("/search-results");
+            });
+        }
+    };
+
+
+    // useEffect(() => {
+    //     if (contents.length > 0 || profiles.length > 0) {
+    //         console.log("Search results for posts:", contents);
+    //         console.log("Search results for profiles:", profiles);
+    //     }
+    // }, [contents, profiles]);
+    return (
+        <Select
+            showSearch
+            placeholder="Tìm kiếm..."
+            className="search-select"
+            suffixIcon={
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="search-icon">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" x2="16.65" y1="21" y2="16.65" />
+                </svg>
+            }
+            onSearch={handleSearch} // Bắt sự kiện khi người dùng nhập liệu
+            onInputKeyDown={handleKeyDown} // Bắt sự kiện khi người dùng nhấn phím
+        >
+        </Select>
+    );
 };
-
-const SearchItems = () => (
-    <Space
-        direction="vertical"
-        style={{
-            display: 'flex',
-            justifyContent: 'center',
-            width: '100%'
-        }}
-    >
-        <Search
-            placeholder=""
-            onSearch={onSearch}
-            style={{width: 200}}
-        />
-    </Space>
-);
 
 export default SearchItems;

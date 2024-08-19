@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-export default function PersistentDrawer() {
+export default function Navbar() {
     const DrawerList = (
         <Box sx={{ width: 250, height: '100%' }} role="presentation">
             <List>

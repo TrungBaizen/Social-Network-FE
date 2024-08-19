@@ -1,0 +1,84 @@
+/* Đảm bảo tiêu đề modal căn giữa */
+.ant-modal-title {
+    font-size: 24px; /* Tăng kích thước chữ tiêu đề */
+    text-align: center; /* Căn giữa tiêu đề modal */
+}
+
+/* Căn chỉnh avatar và tên người dùng */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px; /* Thêm khoảng cách dưới cùng */
+}
+
+/* Avatar cách xa tên người dùng */
+.post-header .ant-avatar {
+    margin-right: 10px; /* Khoảng cách bên phải avatar */
+}
+
+/* Đảm bảo tên người dùng và select đều căn chỉnh với avatar */
+.post-header .ant-typography {
+    margin: 0;
+}
+
+/* Đặt Select vào bên phải tiêu đề người dùng */
+.ant-select {
+    margin-left: auto; /* Đưa select ra bên phải của container */
+    width: 150px; /* Đặt chiều dài cho Select */
+}
+
+/* Đặt kích thước cho ảnh và khung nhập trạng thái */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa ảnh và khung nhập trạng thái */
+    justify-content: center; /* Căn giữa ảnh và khung nhập trạng thái */
+    gap: 16px; /* Khoảng cách giữa ảnh và khung nhập trạng thái */
+}
+
+/* Đảm bảo rằng ảnh xem trước có kích thước nhỏ hơn */
+.image-preview-list {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo ảnh có thể xuống hàng nếu cần */
+    gap: 10px; /* Khoảng cách giữa các ảnh */
+    justify-content: center; /* Căn giữa các ảnh */
+}
+
+.image-preview img {
+    width: 150px; /* Đặt chiều rộng cố định cho ảnh */
+    height: 100px; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và vừa khít trong khung */
+    border-radius: 4px; /* Thêm góc bo tròn cho ảnh */
+    border: 1px solid #d9d9d9; /* Thêm viền nhẹ cho ảnh */
+}
+
+/* Đảm bảo khung nhập trạng thái có chiều ngang bằng ảnh và nằm giữa modal */
+.status-input {
+    width: 100%; /* Chiều ngang bằng 100% của container */
+    max-width: 800px; /* Đặt chiều rộng tối đa phù hợp với kích thước ảnh */
+    margin: 0 auto; /* Căn giữa khung nhập trạng thái trong Form.Item */
+}
+
+/* Căn chỉnh các phần tử trong Card */
+.post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Căn giữa các phần tử trong card */
+}
+/* Đảm bảo rằng ảnh xem trước có kích thước nhỏ hơn */
+.image-preview {
+    width: 150px; /* Đặt chiều rộng cố định cho ảnh */
+    height: 100px; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và vừa khít trong khung */
+    border-radius: 4px; /* Thêm góc bo tròn cho ảnh */
+    border: 1px solid #d9d9d9; /* Thêm viền nhẹ cho ảnh */
+    margin: 5px; /* Thêm khoảng cách xung quanh ảnh */
+}
+
+/* Đảm bảo các ảnh xem trước được căn giữa trong container */
+.image-preview-list {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo ảnh có thể xuống hàng nếu cần */
+    gap: 10px; /* Khoảng cách giữa các ảnh */
+    justify-content: center; /* Căn giữa các ảnh */
+}

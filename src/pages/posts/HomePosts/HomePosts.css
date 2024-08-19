@@ -1,0 +1,151 @@
+/* General styling for post cards */
+.post-card {
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Post header styling */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    position: relative;
+}
+
+/* Flexbox container for avatar and text */
+.post-info {
+    display: flex;
+    align-items: center;
+}
+
+/* Container for author name and post date */
+.post-author-date {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px; /* Tạo khoảng cách giữa avatar và tên người dùng */
+}
+
+/* More button styling */
+.post-more-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Post images container */
+.post-images {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 150px;
+    margin-bottom: 10px; /* Add margin to create space between images and content */
+}
+
+/* Styling for individual post images */
+.post-image {
+    cursor: pointer;
+    object-fit: cover;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    transition: none; /* Disable any hover transitions */
+}
+
+/* No hover effect */
+.post-image:hover {
+    transform: none; /* Ensure no scale or transform effect on hover */
+    filter: none; /* No change in brightness, contrast, etc. */
+}
+
+/* Layout for single image post */
+.single-image-post .post-images {
+    display: block;
+}
+
+.single-image-post .post-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Layout for two image post */
+.two-image-post .post-images {
+    display: flex;
+    gap: 5px;
+}
+
+.two-image-post .post-image {
+    width: calc(50% - 2.5px);
+    height: 300px;
+}
+
+/* Layout for posts with more than three images (grid display) */
+.multi-image-post .post-images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 150px;
+    gap: 5px;
+    margin-bottom: 10px; /* Ensure space between images and content */
+}
+
+.multi-image-post .post-image:first-child {
+    grid-column: 1 / 3; /* First image spans two columns */
+    grid-row: 1 / 3; /* First image spans two rows */
+    height: 100%;
+}
+
+.multi-image-post .post-image:nth-child(2),
+.multi-image-post .post-image:nth-child(3),
+.multi-image-post .post-image:nth-child(4) {
+    height: 100%;
+}
+
+/* Styling for post content */
+.post-content {
+    margin-top: 10px;
+    clear: both; /* Ensure content is below images */
+    z-index: 1;
+    position: relative;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .two-image-post .post-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .multi-image-post .post-images {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+    }
+
+    .multi-image-post .post-image:first-child {
+        grid-column: 1 / 3;
+        grid-row: 1 / 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .multi-image-post .post-images {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .multi-image-post .post-image {
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+        height: auto;
+    }
+}

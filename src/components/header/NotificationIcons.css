@@ -1,0 +1,16 @@
+.notification-icons {
+    display: flex;
+    align-items: center;
+    margin: 0 16px; /* Căn chỉnh tương tự như trong NavigationMenu */
+}
+
+.icon-button {
+    color: #ffffff; /* Thay đổi màu icon nếu cần */
+}
+
+.icon-text {
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff; /* Thay đổi màu chữ thành trắng */
+    margin-left: 8px; /* Khoảng cách giữa icon và chữ */
+}
