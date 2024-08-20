@@ -1,0 +1,68 @@
+/* Center the modal title */
+.ant-modal-title {
+    font-size: 24px; /* Increase title font size */
+    text-align: center; /* Center align modal title */
+}
+
+/* Align avatar and user name */
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px; /* Add bottom margin */
+}
+
+/* Space avatar from user name */
+.post-header .ant-avatar {
+    margin-right: 10px; /* Right margin for avatar */
+}
+
+/* Ensure user name and select align with avatar */
+.post-header .ant-typography {
+    margin: 0;
+}
+
+/* Align Select to the right of the user name */
+.ant-select {
+    margin-left: auto; /* Move select to the right of container */
+    width: 150px; /* Set width for Select */
+}
+
+/* Center images and status input */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align images and status input */
+    justify-content: center; /* Center align images and status input */
+    gap: 16px; /* Gap between images and status input */
+}
+
+/* Ensure preview images are smaller */
+.image-preview-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow images to wrap if needed */
+    gap: 10px; /* Gap between images */
+    justify-content: center; /* Center align images */
+}
+
+.image-preview img {
+    width: 150px; /* Fixed width for images */
+    height: 100px; /* Fixed height for images */
+    object-fit: cover; /* Ensure image covers box without distortion */
+    border-radius: 4px; /* Rounded corners for images */
+    border: 1px solid #d9d9d9; /* Light border around images */
+    margin: 5px; /* Margin around images */
+}
+
+/* Ensure status input takes full width */
+.status-input {
+    width: 100%; /* Full width of container */
+    max-width: 800px; /* Max width to fit image size */
+    margin: 0 auto; /* Center status input within Form.Item */
+}
+
+/* Align elements within Card */
+.post-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements within card */
+}

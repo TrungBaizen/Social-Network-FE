@@ -1,4 +1,5 @@
-/* ImageModal.css */
+ImageModal.css
+    /* ImageModal.css */
 
 .image-modal .ant-modal-content {
     border-radius: 10px;
@@ -81,3 +82,4 @@
     margin-left: 0;  /* Xóa margin bên trái nếu có */
     width: fit-content; /* Đảm bảo nút không chiếm toàn bộ chiều rộng */
 }
+

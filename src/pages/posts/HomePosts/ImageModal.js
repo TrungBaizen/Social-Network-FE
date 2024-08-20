@@ -87,3 +87,4 @@ ImageModal.defaultProps = {
 };
 
 export default ImageModal;
+

@@ -1,71 +1,69 @@
-import React, {useState} from 'react';
-import {Card, Avatar, Typography, Button, Dropdown, Menu} from 'antd';
-import {LikeOutlined, LikeFilled, CommentOutlined, EditOutlined, DeleteOutlined, MoreOutlined} from '@ant-design/icons';
-import {Link} from 'react-router-dom'; // Import Link for navigation
-import {decodeAndDecompressImageFile} from '../../../EncodeDecodeImage/decodeAndDecompressImageFile';
-import LikesModal from "../../likes/LikesModal";
-import ImageModal from "./ImageModal";
-import './PostDetail.css';
-import EditPostHomeModal from "./EditPostHomeModal/EditPostHomeModal";
+import React, {useState, useEffect} from 'react';
+import {Avatar, Button, Card, Dropdown, Input, List, Menu, Modal, Typography} from 'antd';
+import {CommentOutlined, LikeFilled, LikeOutlined, MoreOutlined} from '@ant-design/icons';
+import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {compressAndEncodeImageFile} from "../../../EncodeDecodeImage/compressAndEncodeImageFile";
-import {deletePost, updatePost} from "../../../redux/services/postService";
 import {useDispatch} from "react-redux";
+import {deletePost, updatePost} from "../../../redux/services/postService";
+import LikesModal from "../../likes/LikesModal";
+import EditPostModal from "./EditPostHomeModal/EditPostHomeModal";
+import './PostDetail.css';
 
 const {Title, Text} = Typography;
+const {TextArea} = Input;
 
-const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick, onPostEdit}) => {
+const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
+    const [newComment, setNewComment] = useState('');
+    const [comments, setComments] = useState(post.comments || []);
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
-    const [isImageModalVisible, setIsImageModalVisible] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [isEditModalVisible, setIsEditModalVisible] = useState(false); // State for EditPostHomeModal
-    const {email} = JSON.parse(localStorage.getItem('currentUser')); // Extract email from localStorage
+    const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+    const [liked, setLiked] = useState(likedPosts.has(post.id));
+    const [decodeImages, setDecodeImages] = useState([]);
     const dispatch = useDispatch();
+    const email = JSON.parse(localStorage.getItem('currentUser')).email;
     const id = post.id;
 
-    // Handle like click
-    const handleLikeClick = (postId) => {
-        onLikeClick(postId);
+    useEffect(() => {
+        const fetchDecodedImages = async () => {
+            try {
+                const postList = post.postImages;
+                const decodeImageList = postList && postList.length > 0
+                    ? await Promise.all(postList.map(async (post) => {
+                        return decodeAndDecompressImageFile(decodeURIComponent(post.image));
+                    }))
+                    : [];
+                setDecodeImages(decodeImageList);
+            } catch (error) {
+                console.error('Error decoding images:', error);
+            }
+        };
+        fetchDecodedImages();
+    }, [post.postImages]);
+
+    const handleCommentChange = (e) => {
+        setNewComment(e.target.value);
     };
 
-    // Handle image click
-    const handleImageClick = (image) => {
-        setSelectedImage(image);
-        setIsImageModalVisible(true);
+    const handleCommentSubmit = () => {
+        if (newComment.trim()) {
+            setComments([...comments, newComment]);
+            setNewComment('');
+        }
     };
 
-    // Handle comment click
-    const handleCommentClick = (post) => {
-        onCommentClick(post);
+    const showPostModal = () => {
+        setIsModalVisible(true);
     };
 
-    // Show likes modal
     const showLikesModal = () => {
         setIsLikesModalVisible(true);
     };
 
-    // Handle closing of likes modal
-    const handleLikesModalClose = () => {
-        setIsLikesModalVisible(false);
+    const showEditModal = () => {
+        setIsEditModalVisible(true);
     };
 
-    // Handle closing of image modal
-    const handleImageModalClose = () => {
-        setIsImageModalVisible(false);
-        setSelectedImage(null);
-    };
-
-    // Expand or collapse images
-    const handleExpandClick = () => {
-        setIsExpanded(!isExpanded);
-    };
-
-    // Open edit modal
-    const handleEditClick = () => {
-        setIsEditModalVisible(true); // Open the EditPostHomeModal
-    };
-
-    // Handle post edit
     const handleEditPost = async (updatedPost) => {
         const urlToFile = async (url, filename) => {
             const response = await fetch(url);
@@ -74,7 +72,7 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick, onPostEdit})
             return file;
         };
         const listImage = await Promise.all(updatedPost.image.map(async (imageUrl, index) => {
-            return await urlToFile(imageUrl, `image-${index}.jpg`); // Bạn có thể thay đổi đuôi file hoặc tên tùy theo yêu cầu
+            return await urlToFile(imageUrl, `image-${index}.jpg`);
         }));
         const postImages = listImage ? await Promise.all(listImage.map(async (file) => {
             return await compressAndEncodeImageFile(file);
@@ -84,137 +82,191 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick, onPostEdit})
             content: updatedPost.content,
             postImages: postImages,
             postStatus: updatedPost.visibility
-        }
+        };
         dispatch(updatePost({post: posts, id}));
         setIsEditModalVisible(false);
     };
 
-    // Like count fallback
-    const likeCount = post.likesCount || 0;
-
-    // Determine image class based on number of images
-    const imageClass = () => {
-        if (!post.postImages) return '';
-        if (post.postImages.length === 1) return 'one-image';
-        if (post.postImages.length === 2) return 'two-images';
-        return 'three-or-more-images';
+    const handleLikeClick = () => {
+        setLiked(!liked);
+        onLikeClick(post.id);
     };
 
-    // Profile link based on ownership
-    const profileLink = email === post.email
-        ? '/profile'
-        : `/friendsprofile?email=${post.email}`;
+    const handleCancel = () => {
+        setIsModalVisible(false);
+        setIsLikesModalVisible(false);
+        setIsEditModalVisible(false);
+    };
 
-    // Render dropdown menu if the post belongs to the current user
-    const renderDropdownMenu = () => (
-        <Dropdown
-            overlay={
-                <Menu>
-                    <Menu.Item key="edit" icon={<EditOutlined/>} onClick={handleEditClick}>
-                        Chỉnh sửa bài viết
-                    </Menu.Item>
-                    <Menu.Item key="delete" icon={<DeleteOutlined/>} onClick={() => dispatch(deletePost(post.id))}>
-                        Xóa bài viết
-                    </Menu.Item>
-                </Menu>
-            }
-            trigger={['click']}
-            placement="bottomRight"
-        >
-            <Button icon={<MoreOutlined/>} className="post-detail-more-btn"/>
-        </Dropdown>
+    const handleMenuClick = (e) => {
+        if (e.key === '1') {
+            showEditModal();
+        } else if (e.key === '2') {
+            dispatch(deletePost(post.id));
+        }
+    };
+
+    const menu = (
+        <Menu onClick={handleMenuClick}>
+            <Menu.Item key="1" icon={<MoreOutlined/>}>Sửa bài viết</Menu.Item>
+            <Menu.Item key="2" icon={<MoreOutlined/>}>Xóa bài viết</Menu.Item>
+        </Menu>
     );
 
     return (
-        <>
-            <Card
-                className="post-detail-card"
-                actions={[
+        <div>
+            <Card className="post-card">
+                <div className="post-header">
+                    <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}/>
+                    <div>
+                        <Title level={4} style={{marginLeft: 10}}>
+                            {post.firstName} {post.lastName}
+                        </Title>
+                        <Text className="post-date">
+                            {new Date(post.createdAt).toLocaleDateString()}
+                        </Text>
+                    </div>
+                    {email === post.email && (
+                        <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
+                            <Button className="more-options-button" onClick={(e) => e.preventDefault()}>
+                                <MoreOutlined/>
+                            </Button>
+                        </Dropdown>
+                    )}
+                </div>
+
+                <Text>{post.content}</Text>
+
+                <div className="post-images">
+                    {decodeImages && decodeImages.length > 0 && (
+                        <div className="post-images">
+                            {decodeImages.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Post Image ${index + 1}`}
+                                    className="post-image"
+                                    onClick={() => showPostModal()}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
+                    {post.likes && post.likes.length > 0 ? (
+                        <>
+                            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                        </>
+                    ) : (
+                        <>
+                            <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                        </>
+                    )}
+                </div>
+                <div className="post-actions">
                     <Button
-                        key="like"
-                        icon={likedPosts.has(post.id) ? <LikeFilled/> : <LikeOutlined/>}
-                        onClick={() => handleLikeClick(post.id)}
+                        className="post-action-button"
+                        icon={liked ? <LikeFilled/> : <LikeOutlined/>}
+                        onClick={handleLikeClick}
                     >
-                        {likedPosts.has(post.id) ? 'Đã thích' : 'Thích'}
-                    </Button>,
+                        {liked ? 'Đã thích' : 'Thích'}
+                    </Button>
                     <Button
-                        key="comment"
+                        className="post-action-button"
                         icon={<CommentOutlined/>}
-                        onClick={() => handleCommentClick(post)}
+                        onClick={showPostModal}
                     >
                         Bình luận
                     </Button>
-                ]}
-            >
-                <div className="post-detail-header d-flex justify-content-between">
-                    <div className="post-info d-flex align-items-center">
-                        <Link to={profileLink} style={{textDecoration: 'none'}}>
-                            <Avatar
-                                src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}
-                                className="post-avatar"
-                            />
-                        </Link>
-                        <div className="post-detail-author-date ml-2">
-                            <Link to={profileLink} style={{textDecoration: 'none'}}>
-                                <Title level={4} className="post-detail-author">
-                                    {`${post.firstName || 'Tên'} ${post.lastName || 'Người dùng'}`}
-                                </Title>
-                            </Link>
-                            <Text className="post-detail-date">
-                                {new Date(post.createdAt).toLocaleDateString()}
-                            </Text>
-                        </div>
-                    </div>
-
-                    {/* Render dropdown only if the post belongs to the current user */}
-                    {email === post.email && renderDropdownMenu()}
-                </div>
-                <Text className="post-detail-content">{post.content}</Text>
-                <div className={`post-detail-images ${imageClass()}`}>
-                    <div className={`post-detail-images-container ${isExpanded ? 'expanded' : ''}`}>
-                        {(post.postImages || []).map((image, index) => (
-                            <div key={index} className="post-detail-image-container">
-                                <img
-                                    src={decodeAndDecompressImageFile(decodeURIComponent(image.image))}
-                                    alt={`Post Image ${index + 1}`}
-                                    className="post-detail-image"
-                                    onClick={() => handleImageClick(image.image)}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="post-detail-like-count-container" onClick={showLikesModal}>
-                    <LikeOutlined className="post-detail-like-icon"/>
-                    <Text className="post-detail-like-count">
-                        {likeCount} lượt thích
-                    </Text>
                 </div>
             </Card>
 
+            <Modal
+                title="Chi tiết bài đăng"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+                width={800}
+            >
+                <Card className="post-card">
+                    <div className="post-header">
+                        <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}/>
+                        <Title level={4} style={{marginLeft: 10}}>
+                            {post.firstName} {post.lastName}
+                        </Title>
+                        <Text className="post-date">
+                            {new Date(post.createdAt).toLocaleDateString()}
+                        </Text>
+                    </div>
+
+                    <Text>{post.content}</Text>
+
+                    <div className="post-images">
+                        {decodeImages && decodeImages.length > 0 ? (
+                            decodeImages.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Post Image ${index + 1}`}
+                                    className="post-image"
+                                    onClick={() => showPostModal()}
+                                />
+                            ))
+                        ) : (
+                            <p>No images available</p>
+                        )}
+                    </div>
+                    <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
+                        {post.likes && post.likes.length > 0 ? (
+                            <>
+                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                            </>
+                        )}
+                    </div>
+
+                    <div className="post-comments">
+                        <Title level={4}>Bình luận:</Title>
+                        <List
+                            dataSource={comments}
+                            renderItem={item => (
+                                <List.Item>{item}</List.Item>
+                            )}
+                        />
+                        <TextArea
+                            rows={4}
+                            value={newComment}
+                            onChange={handleCommentChange}
+                            placeholder="Viết bình luận..."
+                        />
+                        <Button
+                            type="primary"
+                            onClick={handleCommentSubmit}
+                            style={{marginTop: 10}}
+                        >
+                            Gửi
+                        </Button>
+                    </div>
+                </Card>
+            </Modal>
+
             <LikesModal
                 visible={isLikesModalVisible}
-                onClose={handleLikesModalClose}
+                onCancel={handleCancel}
                 likedBy={post.likes || []}
             />
 
-            <ImageModal
-                visible={isImageModalVisible}
-                onClose={handleImageModalClose}
-                image={selectedImage}
-                author={{name: `${post.firstName || 'Tên'} ${post.lastName || 'Người dùng'}`, avatar: post.imageAvatar}}
-                date={new Date(post.createdAt).toLocaleDateString()}
-                comments={post.comments || []}
-            />
-
-            <EditPostHomeModal
+            <EditPostModal
                 visible={isEditModalVisible}
-                onCancel={() => setIsEditModalVisible(false)}
+                onCancel={handleCancel}
+                onSave={handleEditPost}
                 post={post}
-                onEdit={handleEditPost}
-                avatarImage={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))} // Pass the avatar image to EditPostHomeModal
             />
-        </>
+        </div>
     );
 };
 
