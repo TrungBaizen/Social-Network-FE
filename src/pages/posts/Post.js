@@ -6,7 +6,7 @@ import EditPostModal from './EditPostModal';
 import LikesModal from '../likes/LikesModal';
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {useDispatch, useSelector} from "react-redux";
-import {deletePost, updatePost} from "../../redux/services/postService";
+import {deletePost, likePost, unLikePost, updatePost} from "../../redux/services/postService";
 import {compressAndEncodeImageFile} from "../../EncodeDecodeImage/compressAndEncodeImageFile";
 
 const {Title, Text} = Typography;
@@ -23,6 +23,7 @@ const Post = ({post, avatarImage}) => {
     const profile = useSelector(({profiles}) => profiles.profile);
     const dispatch = useDispatch();
     const email = JSON.parse(localStorage.getItem('currentUser')).email;
+    const myId = JSON.parse(localStorage.getItem('currentUser')).id;
     const id = post.id;
 
     useEffect(() => {
@@ -42,6 +43,13 @@ const Post = ({post, avatarImage}) => {
         fetchDecodedImages();
     }, [post.postImages]);
 
+    useEffect(() => {
+        if (post.likes && myId) {
+            // Kiểm tra xem email của người dùng hiện tại có trong danh sách likes không
+            const userHasLiked = post.likes.some(like => like.userId === myId);
+            setLiked(userHasLiked);
+        }
+    }, [post.likes, myId]);
     const handleCommentChange = (e) => {
         setNewComment(e.target.value);
     };
@@ -89,9 +97,28 @@ const Post = ({post, avatarImage}) => {
         setIsEditModalVisible(false);
     };
 
-    const handleLikeClick = () => {
-        setLiked(!liked);
+    const handleLikeClick = async () => {
+        try {
+            if (liked) {
+                // Nếu đã like, gọi API để xóa like
+                const like = post.likes.find(like => like.userId === myId);
+                const likeId = like ? like.id : null; // Trả về `null` nếu không tìm thấy like
+                await dispatch(unLikePost(likeId));
+            } else {
+                const like ={
+                    userId:myId,
+                    firstName:profile.firstName,
+                    lastName:profile.lastName,
+                    postId:post.id
+                }
+                await dispatch(likePost(like));
+            }
+            setLiked(!liked); // Cập nhật trạng thái liked sau khi gọi API
+        } catch (error) {
+            console.error('Error handling like:', error);
+        }
     };
+
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -113,7 +140,6 @@ const Post = ({post, avatarImage}) => {
             <Menu.Item key="2">Xóa bài viết</Menu.Item>
         </Menu>
     );
-
 
     return (
         <div>
@@ -264,7 +290,8 @@ const Post = ({post, avatarImage}) => {
             <LikesModal
                 visible={isLikesModalVisible}
                 onCancel={handleCancel}
-                likedBy={post.likedBy}
+                likes={post.likes || []}
+                avatar={post.imageAvatar}
             />
 
             <EditPostModal

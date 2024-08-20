@@ -3,8 +3,8 @@ import {Avatar, Button, Card, Dropdown, Input, List, Menu, Modal, Typography} fr
 import {CommentOutlined, LikeFilled, LikeOutlined, MoreOutlined} from '@ant-design/icons';
 import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {compressAndEncodeImageFile} from "../../../EncodeDecodeImage/compressAndEncodeImageFile";
-import {useDispatch} from "react-redux";
-import {deletePost, updatePost} from "../../../redux/services/postService";
+import {useDispatch, useSelector} from "react-redux";
+import {deletePost, likePost, unLikePost, updatePost} from "../../../redux/services/postService";
 import LikesModal from "../../likes/LikesModal";
 import EditPostModal from "./EditPostHomeModal/EditPostHomeModal";
 import './PostDetail.css';
@@ -23,6 +23,15 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
     const dispatch = useDispatch();
     const email = JSON.parse(localStorage.getItem('currentUser')).email;
     const id = post.id;
+    const myId = JSON.parse(localStorage.getItem('currentUser')).id;
+    const profile = useSelector(({profiles}) => profiles.profile);
+    useEffect(() => {
+        if (post.likes && myId) {
+            // Kiểm tra xem email của người dùng hiện tại có trong danh sách likes không
+            const userHasLiked = post.likes.some(like => like.userId === myId);
+            setLiked(userHasLiked);
+        }
+    }, [post.likes, myId]);
 
     useEffect(() => {
         const fetchDecodedImages = async () => {
@@ -87,9 +96,26 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
         setIsEditModalVisible(false);
     };
 
-    const handleLikeClick = () => {
-        setLiked(!liked);
-        onLikeClick(post.id);
+    const handleLikeClick = async () => {
+        try {
+            if (liked) {
+                // Nếu đã like, gọi API để xóa like
+                const like = post.likes.find(like => like.userId === myId);
+                const likeId = like ? like.id : null; // Trả về `null` nếu không tìm thấy like
+                await dispatch(unLikePost(likeId));
+            } else {
+                const like ={
+                    userId:myId,
+                    firstName:profile.firstName,
+                    lastName:profile.lastName,
+                    postId:post.id
+                }
+                await dispatch(likePost(like));
+            }
+            setLiked(!liked); // Cập nhật trạng thái liked sau khi gọi API
+        } catch (error) {
+            console.error('Error handling like:', error);
+        }
     };
 
     const handleCancel = () => {
@@ -115,6 +141,7 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
 
     return (
         <div>
+            <h1>PostDetail</h1>
             <Card className="post-card">
                 <div className="post-header">
                     <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}/>
@@ -217,7 +244,8 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
                             <p>No images available</p>
                         )}
                     </div>
-                    <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
+                    <div className="post-detail-like-count-container"
+                         onClick={() => showLikesModal(post.likes)}>
                         {post.likes && post.likes.length > 0 ? (
                             <>
                                 <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
@@ -257,7 +285,8 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
             <LikesModal
                 visible={isLikesModalVisible}
                 onCancel={handleCancel}
-                likedBy={post.likes || []}
+                likes={post.likes || []}
+                avatar={post.imageAvatar}
             />
 
             <EditPostModal

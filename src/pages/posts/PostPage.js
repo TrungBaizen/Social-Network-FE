@@ -13,8 +13,6 @@ const { Title } = Typography;
 
 const PostsPage = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
-    const [likedBy, setLikedBy] = useState([]);
     const dispatch = useDispatch();
     const id = JSON.parse(localStorage.getItem('currentUser')).id;
     const posts = useSelector(({ posts }) => posts.list);
@@ -68,7 +66,6 @@ const PostsPage = () => {
                     <Post
                         key={index}
                         post={post}
-                        // onLikesClick={() => showLikesModal(post.likes)}
                         avatarImage={avatarImage}
                     />
                 ))}
@@ -76,11 +73,6 @@ const PostsPage = () => {
                 <CreatePostModal
                     visible={isModalVisible}
                     onCancel={handleCancel}
-                />
-
-                <LikesModal
-                    visible={isLikesModalVisible}
-                    likedBy={likedBy}
                 />
             </Content>
         </Layout>
