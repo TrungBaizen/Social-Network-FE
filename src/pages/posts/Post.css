@@ -134,3 +134,19 @@
 .post-image:hover {
     transform: scale(1.05); /* (Tùy chọn) Phóng to ảnh một chút khi di chuột qua */
 }
+/* Post.css */
+.post-detail-like-count-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.post-detail-like-icon {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.post-detail-like-count {
+    font-size: 14px;
+    color: gray;
+}

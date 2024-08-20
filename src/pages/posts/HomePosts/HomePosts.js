@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Button, Modal, Image, Input, List } from 'antd';
-import { LikeOutlined, LikeFilled, CommentOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPostByFollowing } from "../../../redux/services/postService";
 import './HomePosts.css';
