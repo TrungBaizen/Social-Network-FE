@@ -23,6 +23,7 @@
 
 /* Đặt Select vào bên phải tiêu đề người dùng */
 .ant-select {
+    margin-left: auto; /* Đưa select ra bên phải của container */
     width: 150px; /* Đặt chiều dài cho Select */
 }
 
@@ -35,10 +36,20 @@
     gap: 16px; /* Khoảng cách giữa ảnh và khung nhập trạng thái */
 }
 
-/* Đảm bảo rằng ảnh xem trước có kích thước phù hợp */
+/* Đảm bảo rằng ảnh xem trước có kích thước nhỏ hơn */
+.image-preview-list {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo ảnh có thể xuống hàng nếu cần */
+    gap: 10px; /* Khoảng cách giữa các ảnh */
+    justify-content: center; /* Căn giữa các ảnh */
+}
+
 .image-preview img {
-    max-width: 100%; /* Đảm bảo ảnh xem trước không vượt quá chiều ngang của container */
-    height: auto;
+    width: 150px; /* Đặt chiều rộng cố định cho ảnh */
+    height: 100px; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và vừa khít trong khung */
+    border-radius: 4px; /* Thêm góc bo tròn cho ảnh */
+    border: 1px solid #d9d9d9; /* Thêm viền nhẹ cho ảnh */
 }
 
 /* Đảm bảo khung nhập trạng thái có chiều ngang bằng ảnh và nằm giữa modal */
@@ -53,4 +64,21 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Căn giữa các phần tử trong card */
+}
+/* Đảm bảo rằng ảnh xem trước có kích thước nhỏ hơn */
+.image-preview {
+    width: 150px; /* Đặt chiều rộng cố định cho ảnh */
+    height: 100px; /* Đặt chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và vừa khít trong khung */
+    border-radius: 4px; /* Thêm góc bo tròn cho ảnh */
+    border: 1px solid #d9d9d9; /* Thêm viền nhẹ cho ảnh */
+    margin: 5px; /* Thêm khoảng cách xung quanh ảnh */
+}
+
+/* Đảm bảo các ảnh xem trước được căn giữa trong container */
+.image-preview-list {
+    display: flex;
+    flex-wrap: wrap; /* Đảm bảo ảnh có thể xuống hàng nếu cần */
+    gap: 10px; /* Khoảng cách giữa các ảnh */
+    justify-content: center; /* Căn giữa các ảnh */
 }

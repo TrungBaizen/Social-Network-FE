@@ -6,9 +6,9 @@ import Tooltip from '@mui/material/Tooltip';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { Link, useNavigate } from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import { logout } from '../../redux/services/userService';
+import {Link, useNavigate} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../redux/services/userService';
 import './UserMenu.css';
 
 

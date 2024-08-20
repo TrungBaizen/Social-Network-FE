@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Layout, Typography, Avatar, Button} from 'antd';
 import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-import PostPage from "../posts/PostPage";
 import './Profile.css';
+<<<<<<< HEAD
 import {EditOutlined, HomeOutlined} from "@mui/icons-material";
+=======
+import {EditOutlined, HomeOutlined, PeopleOutline} from "@mui/icons-material";
+>>>>>>> master
 import EditPersonalInfoModal from "./EditPersonalInfoModal";
 import FriendsList from "./FriendsList";
 import ImageModal from "./ImageModal/ImageModal";
@@ -11,6 +14,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+<<<<<<< HEAD
+=======
+import MyFriendsPage from "./MyFriendsPage/MyFriendsPage";
+import ContentArea from "../Layout/ContentArea";
+import MyFriendsList from "./MyFriendsPage/MyFriendsList";
+
+>>>>>>> master
 const {Content} = Layout;
 const {Title, Text} = Typography;
 
@@ -116,6 +126,15 @@ const Profile = () => {
                             />
                             <div className="profile-info">
                                 <Title level={2}>{profile.firstName} {profile.lastName}</Title>
+                                <div className="row">
+                                    <div className="profile-description">
+                                        <div>Bài Viết</div>
+                                        <div>Bạn Bè</div>
+                                        <div>Reels</div>
+                                        <div>Ảnh</div>
+                                        <div>Video</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="profile-content">
@@ -160,7 +179,11 @@ const Profile = () => {
                                         ) : (
                                             <>
                                                 <WomanOutlined className="info-icon"/>
+<<<<<<< HEAD
                                                 <Text>Nam</Text>
+=======
+                                                <Text>Nữ</Text>
+>>>>>>> master
                                             </>
                                         )}
                                     </div>
@@ -183,7 +206,12 @@ const Profile = () => {
                                 <FriendsList/>
                             </div>
                             <div className="right-column">
+<<<<<<< HEAD
                                 <PostPage/>
+=======
+                               {/*<ContentHome/>*/}
+                                <ContentArea/>
+>>>>>>> master
                             </div>
                         </div>
                     </div>

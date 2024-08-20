@@ -1,6 +1,6 @@
 import React from 'react';
-import { Modal, Button, Dropdown, Menu } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import {Button, Dropdown, Menu, Modal} from 'antd';
+import {UploadOutlined} from '@ant-design/icons';
 import './ImageModal.css';
 import {compressAndEncodeImageFile} from "../../../EncodeDecodeImage/compressAndEncodeImageFile"; // Import file CSS
 

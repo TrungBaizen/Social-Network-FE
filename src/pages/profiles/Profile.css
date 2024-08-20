@@ -164,4 +164,106 @@
         width: 80px;
         height: 80px;
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+/* Tablets (576px - 768px) */
+@media (min-width: 576px) and (max-width: 768px) {
+    .profile-container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-info {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .profile-navigation {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .profile-navigation div {
+        margin: 10px 5px;
+    }
+
+    .profile-content {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .left-column-info,
+    .right-column {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .profile-header .ant-avatar {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* Desktops (768px - 1200px) */
+@media (min-width: 768px) and (max-width: 1200px) {
+    .profile-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .profile-content {
+        flex-direction: row;
+    }
+
+    .left-column-info,
+    .right-column {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .profile-header .ant-avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+.profile-description {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, auto)); /* Điều chỉnh độ rộng tối thiểu cho mỗi mục */
+    gap: 16px; /* Khoảng cách giữa các mục */
+}
+.profile-description div {
+    display: inline-block;
+    margin-right: 16px; /* Khoảng cách giữa các mục */
+    padding: 8px 16px; /* Khoảng cách bên trong của mỗi mục */
+    text-align: center;
+    white-space: nowrap; /* Giữ cho các mục không bị xuống dòng */
+}
+.row {
+    display: flex;
+    justify-content: space-between; /* Chia đều khoảng cách giữa các mục */
+}
+
+.profile-description {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    text-align: center;
+}
+
+.profile-description div {
+    flex: 1; /* Đảm bảo mỗi mục chiếm cùng một lượng không gian */
+    padding: 8px 16px;
+    box-sizing: border-box;
+}
+>>>>>>> master

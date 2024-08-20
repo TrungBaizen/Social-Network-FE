@@ -1,9 +1,9 @@
 // components/NotificationDropdown.js
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Menu, Badge, Dropdown } from 'antd';
-import { BellOutlined } from '@ant-design/icons';
-import { fetchNotifications } from '/src/redux/reducers/notificationReducer';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Badge, Dropdown, Menu} from 'antd';
+import {BellOutlined} from '@ant-design/icons';
+import {fetchNotifications} from '/src/redux/reducers/notificationReducer';
 
 const NotificationDropdown = () => {
     const dispatch = useDispatch();

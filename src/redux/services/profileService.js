@@ -1,6 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import getAxios from "./customAxios";
-import async from "async";
 
 export const getProfile = createAsyncThunk(
     "profiles/getProfile",
@@ -23,6 +22,14 @@ export const updateCover = createAsyncThunk(
     async ({image, id}) => {
         let res = await getAxios().post(`profiles/imagecover/${id}`, image)
         return res.data()
+    }
+)
+
+export const searchProfile=createAsyncThunk(
+    "profiles/searchProfile",
+    async(name)=>{
+        let res = await getAxios().get(`profiles/search?name=${name}`)
+        return res.data
     }
 )
 

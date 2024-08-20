@@ -1,6 +1,6 @@
 // reducers/notificationReducer.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchNotificationsFromAPI } from '../services/notificationService';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {fetchNotificationsFromAPI} from '../services/notificationService';
 
 export const fetchNotifications = createAsyncThunk(
     'notifications/fetchNotifications',

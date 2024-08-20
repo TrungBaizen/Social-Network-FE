@@ -1,10 +1,46 @@
-import React from 'react';
-import { Select } from 'antd';
-import './SearchItems.css'; // Import file CSS
+import React, {useEffect, useState} from 'react';
+import {Select} from 'antd';
+import './SearchItems.css';
+import {useDispatch, useSelector} from "react-redux";
+import {searchProfile} from "../../redux/services/profileService";
+import {searchPost} from "../../redux/services/postService";
+import {useNavigate} from "react-router-dom"; // Import file CSS
 
-const { Option } = Select;
 
 const SearchItems = () => {
+    const dispatch = useDispatch();
+    const [searchValue, setSearchValue] = useState('');
+    const navigate = useNavigate();
+    const contents = useSelector(({ posts }) => posts.listSearch);
+    const profiles = useSelector(({ profiles }) => profiles.listSearch);
+    // console.log(contents)
+    // console.log(profiles)
+    const handleSearch = (value) => {
+        setSearchValue(value);
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            console.log("Search value on Enter:", searchValue);
+
+            // Thực hiện các dispatch đồng thời và đợi cho tất cả hoàn tất
+            Promise.all([
+                dispatch(searchProfile(searchValue)),
+                dispatch(searchPost(searchValue))
+            ]).then(() => {
+                // Chuyển hướng sau khi cả hai dispatch hoàn thành
+                navigate("/search-results");
+            });
+        }
+    };
+
+
+    // useEffect(() => {
+    //     if (contents.length > 0 || profiles.length > 0) {
+    //         console.log("Search results for posts:", contents);
+    //         console.log("Search results for profiles:", profiles);
+    //     }
+    // }, [contents, profiles]);
     return (
         <Select
             showSearch
@@ -16,6 +52,11 @@ const SearchItems = () => {
                     <line x1="21" x2="16.65" y1="21" y2="16.65" />
                 </svg>
             }
+<<<<<<< HEAD
+=======
+            onSearch={handleSearch} // Bắt sự kiện khi người dùng nhập liệu
+            onInputKeyDown={handleKeyDown} // Bắt sự kiện khi người dùng nhấn phím
+>>>>>>> master
         >
         </Select>
     );
