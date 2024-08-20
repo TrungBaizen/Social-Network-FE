@@ -158,7 +158,6 @@ const Post = ({ post, avatarImage }) => {
                         </div>
                     )}
                 </div>
-                <Text>{post.content}</Text>
                 <div className="post-detail-like-count-container" onClick={()=>showLikesModal(post.likes)}>
                     {post.likes && post.likes.length > 0 ? (
                         <>
@@ -225,7 +224,6 @@ const Post = ({ post, avatarImage }) => {
                             <p>No images available</p>
                         )}
                     </div>
-                    <Text>{post.content}</Text>
                     <div className="post-detail-like-count-containerpost-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
                         {post.likes && post.likes.length > 0 ? (
                             <>
