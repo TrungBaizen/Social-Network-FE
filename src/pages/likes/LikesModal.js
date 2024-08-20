@@ -1,23 +1,23 @@
 import React from 'react';
 import { Modal, List, Avatar } from 'antd';
 
-const LikesModal = ({ visible, onClose, likedBy }) => {
+const LikesModal = ({ visible, onCancel, likedBy }) => {
     return (
         <Modal
             title="Danh sách người thích"
             visible={visible}
-            onCancel={onClose}
+            onCancel={onCancel}
             footer={null}
             width={400}
         >
             <List
                 itemLayout="horizontal"
                 dataSource={likedBy}
-                renderItem={(user) => (
+                renderItem={(likedBy) => (
                     <List.Item>
                         <List.Item.Meta
-                            avatar={<Avatar src={user.avatar} />} // Sử dụng URL avatar thực tế nếu có
-                            title={user.name} // Hiển thị tên người dùng
+                            avatar={<Avatar src={likedBy.imageAvatar} />} // Sử dụng URL avatar thực tế nếu có
+                            title={likedBy.firstName + likedBy.lastName} // Hiển thị tên người dùng
                         />
                     </List.Item>
                 )}

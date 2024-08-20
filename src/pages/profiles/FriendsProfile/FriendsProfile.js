@@ -105,13 +105,13 @@ const FriendsProfile = () => {
          post.postStatus !== 'PRIVATE'
     );
     return (
-        <div className="home-posts">
+        <div className="FriendsProfile-home-posts">
             {filteredPosts.length > 0 ? (
                 filteredPosts.map(post => (
                     (post.content || (post.postImages && post.postImages.length > 0)) && (
                         <Card
                             key={post.id}
-                            className={`post-card ${post.postImages && post.postImages.length === 1 ? 'single-image-post' : post.postImages && post.postImages.length === 2 ? 'two-image-post' : 'multi-image-post'}`}
+                            className={`FriendsProfile-post-card ${post.postImages && post.postImages.length === 1 ? 'FriendsProfile-single-image-post' : post.postImages && post.postImages.length === 2 ? 'FriendsProfile-two-image-post' : 'FriendsProfile-multi-image-post'}`}
                             actions={[
                                 <Button
                                     key="like"
@@ -129,33 +129,33 @@ const FriendsProfile = () => {
                                 </Button>
                             ]}
                         >
-                            <div className="post-header">
-                                <div className="post-info">
-                                    <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))} className="post-avatar" />
-                                    <div className="post-author-date">
-                                        <Title level={4} className="post-author">
+                            <div className="FriendsProfile-post-header">
+                                <div className="FriendsProfile-post-info">
+                                    <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))} className="FriendsProfile-post-avatar" />
+                                    <div className="FriendsProfile-post-author-date">
+                                        <Title level={4} className="FriendsProfile-post-author">
                                             {`${post.firstName} ${post.lastName}`}
                                         </Title>
-                                        <Text className="post-date">
+                                        <Text className="FriendsProfile-post-date">
                                             {new Date(post.createdAt).toLocaleDateString()}
                                         </Text>
                                     </div>
                                 </div>
                             </div>
                             {post.postImages && post.postImages.length > 0 && (
-                                <div className="post-images">
+                                <div className="FriendsProfile-post-images">
                                     {post.postImages.map((image, index) => (
                                         <img
                                             key={index}
                                             src={decodeAndDecompressImageFile(decodeURIComponent(image.image))}
                                             alt={`Post Image ${index + 1}`}
-                                            className="post-image"
+                                            className="FriendsProfile-post-image"
                                             onClick={() => handleImageClick(decodeAndDecompressImageFile(decodeURIComponent(image.image)))}
                                         />
                                     ))}
                                 </div>
                             )}
-                            <Text className="post-content">{post.content}</Text>
+                            <Text className="FriendsProfile-post-content">{post.content}</Text>
                         </Card>
                     )
                 ))

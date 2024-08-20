@@ -86,7 +86,7 @@ const HomePosts = () => {
     if (error) return <Text>Lỗi: {error}</Text>;
 
     return (
-        <div className="home-posts">
+        <div className="HomePosts-home-posts">
             {filteredPosts && filteredPosts.length > 0 ? (
                 filteredPosts.map(post => (
                     <PostDetail

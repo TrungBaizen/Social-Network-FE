@@ -57,7 +57,8 @@ const Post = ({post, avatarImage}) => {
         setIsModalVisible(true);
     };
 
-    const showLikesModal = () => {
+    const showLikesModal = (likes) => {
+        console.log(likes)
         setIsLikesModalVisible(true);
     };
 
@@ -113,6 +114,7 @@ const Post = ({post, avatarImage}) => {
         </Menu>
     );
 
+
     return (
         <div>
             <Card className="post-card">
@@ -152,17 +154,17 @@ const Post = ({post, avatarImage}) => {
                     )}
                 </div>
                 <Text>{post.content}</Text>
-                {/*<div className="post-stats" onClick={showLikesModal}>*/}
-                {/*    {liked ? (*/}
-                {/*        <>*/}
-                {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
-                {/*        </>*/}
-                {/*    ) : (*/}
-                {/*        <>*/}
-                {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
-                {/*        </>*/}
-                {/*    )}*/}
-                {/*</div>*/}
+                <div className="post-stats" onClick={()=>showLikesModal(post.likes)}>
+                    {post.likes && post.likes.length > 0 ? (
+                        <>
+                            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                        </>
+                    ) : (
+                        <>
+                            <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                        </>
+                    )}
+                </div>
                 <div className="post-actions">
                     <Button
                         className="post-action-button"
@@ -212,17 +214,17 @@ const Post = ({post, avatarImage}) => {
                         )}
                     </div>
                     <Text>{post.content}</Text>
-                    {/*<div className="post-stats">*/}
-                    {/*    {liked ? (*/}
-                    {/*        <>*/}
-                    {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
-                    {/*        </>*/}
-                    {/*    ) : (*/}
-                    {/*        <>*/}
-                    {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
-                    {/*        </>*/}
-                    {/*    )}*/}
-                    {/*</div>*/}
+                    <div className="post-stats" onClick={() => showLikesModal(post.likes)}>
+                        {post.likes && post.likes.length > 0 ? (
+                            <>
+                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                            </>
+                        )}
+                    </div>
                     <div className="post-comments">
                         <Title level={4}>Bình luận:</Title>
                         <List
