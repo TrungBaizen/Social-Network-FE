@@ -39,6 +39,10 @@ const postSlice = createSlice({
             if (indexHome !== -1) {
                 state.listPostHome[indexHome] = payload; // Thay thế bài viết cũ bằng bài viết mới
             }
+            const indexSearch = state.listSearch.findIndex(post => post.id === payload.id);
+            if (indexSearch !== -1) {
+                state.listSearch[indexSearch] = payload; // Thay thế bài viết cũ bằng bài viết mới
+            }
         })
         builder.addCase(searchPost.fulfilled,(state,{payload})=>{
             state.listSearch = payload;
@@ -68,6 +72,16 @@ const postSlice = createSlice({
                 // Đẩy payload vào mảng likes
                 state.listPostHome[indexHome].likes.push(payload);
             }
+
+            const indexSearch = state.listSearch.findIndex(post => post.id === payload.postId);
+            if (indexSearch !== -1) {
+                // Nếu likes là null hoặc không được khởi tạo, khởi tạo nó như một mảng trống
+                if (!state.listSearch[indexSearch].likes) {
+                    state.listSearch[indexSearch].likes = [];
+                }
+                // Đẩy payload vào mảng likes
+                state.listSearch[indexSearch].likes.push(payload);
+            }
         });
         builder.addCase(unLikePost.fulfilled, (state, { payload }) => {
             // Xử lý danh sách post
@@ -80,6 +94,11 @@ const postSlice = createSlice({
             const indexHome = state.listPostHome.findIndex(post => post.id === payload.postId);
             if (indexHome !== -1) {
                 state.listPostHome[indexHome].likes = state.listPostHome[indexHome].likes.filter(like => like.userId !== payload.userId);
+            }
+
+            const indexSearch = state.listSearch.findIndex(post => post.id === payload.postId);
+            if (indexSearch !== -1) {
+                state.listSearch[indexSearch].likes = state.listSearch[indexSearch].likes.filter(like => like.userId !== payload.userId);
             }
         });
 

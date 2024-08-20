@@ -1,43 +1,220 @@
-/* SearchPost.css */
+/* Card bài viết */
 .search-post-card {
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #fff;
+    position: relative !important;
+    padding: 10px !important;
 }
 
+/* Tiêu đề bài viết */
 .search-post-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 12px;
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
 }
 
+/* Ảnh đại diện */
+.search-post-header .ant-avatar {
+    border-radius: 50% !important;
+}
+
+/* Tên người dùng */
+.search-post-header .ant-typography {
+    margin-left: 10px !important;
+}
+
+/* Các ảnh trong bài viết */
 .search-post-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
 }
 
+/* Ảnh trong bài viết */
 .search-post-image {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    border-radius: 8px;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: transform 0.3s ease !important;
 }
 
-.search-post-stats {
-    margin-top: 10px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
+.search-post-image:hover {
+    transform: scale(1.05) !important;
 }
 
-.like-button {
-    background: none;
-    border: none;
-    color: #1890ff;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
+/* Thống kê lượt thích và bình luận */
+.search-post-detail-like-count-container {
+    display: flex !important;
+    align-items: center !important;
+    margin-top: 10px !important;
+}
+
+.search-post-detail-like-count-container .anticon {
+    font-size: 16px !important;
+    margin-right: 5px !important;
+}
+
+.search-post-detail-like-count-container .like-count {
+    font-size: 14px !important;
+    color: gray !important;
+}
+
+/* Các nút hành động */
+.search-post-actions {
+    margin-top: 10px !important;
+}
+
+.search-post-action-button {
+    margin-right: 10px !important;
+}
+
+/* Nút tuỳ chọn thêm */
+.more-options-button {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    margin-left: auto !important;
+}
+
+/* Nút tuỳ chọn thêm - căn giữa biểu tượng */
+.more-options-button .anticon {
+    vertical-align: middle !important;
+}
+
+/* Nội dung bài viết nếu không có ảnh */
+.search-post-card.no-image .search-post-content {
+    text-align: left !important;
+}
+
+/* Modal chi tiết bài đăng */
+.ant-modal {
+    width: 800px !important;
+}
+
+/* Bình luận */
+.search-post-comments {
+    margin-top: 10px !important;
+}
+
+.search-post-comments .ant-typography {
+    margin-bottom: 10px !important;
+}
+
+.search-post-comments .ant-input-textarea {
+    margin-top: 10px !important;
+}
+
+/* Các nút bình luận */
+.ant-btn {
+    font-size: 16px !important;
+}
+
+/* Màn hình nhỏ (tối đa 768px) */
+@media only screen and (max-width: 768px) {
+    .search-post-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .search-post-header .ant-typography {
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .more-options-button {
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+    }
+
+    .search-post-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .search-post-action-button {
+        margin-right: 0 !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+/* Màn hình rất nhỏ (tối đa 576px) */
+@media only screen and (max-width: 576px) {
+    .search-post-header {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .search-post-image {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .search-post-detail-like-count-container {
+        justify-content: center !important;
+        margin-top: 5px !important;
+    }
+
+    .search-post-actions {
+        flex-direction: column !important;
+        align-items: center !important;
+        margin-top: 5px !important;
+    }
+
+    .search-post-action-button {
+        width: 100% !important;
+        margin-bottom: 5px !important;
+    }
+
+    .more-options-button {
+        margin-top: 10px !important;
+    }
+}
+
+/* Bài viết với nhiều ảnh */
+.search-post-card.single-image .search-post-images,
+.search-post-card.double-image .search-post-images,
+.search-post-card.triple-image .search-post-images,
+.search-post-card.quadriple-image .search-post-images,
+.search-post-card.multi-image .search-post-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+/* Bài viết với 1 ảnh */
+.search-post-card.single-image .search-post-image {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Bài viết với 2 ảnh */
+.search-post-card.double-image .search-post-image {
+    width: calc(50% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+}
+
+/* Bài viết với 3 ảnh */
+.search-post-card.triple-image .search-post-image {
+    width: calc(33.33% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+}
+
+/* Bài viết với 4 ảnh */
+.search-post-card.quadriple-image .search-post-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh */
+}
+
+/* Bài viết với 5 ảnh trở lên */
+.search-post-card.multi-image .search-post-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh đầu tiên */
+}
+
+.search-post-card.multi-image .search-post-image:nth-of-type(n+5) {
+    display: none !important; /* Ẩn các ảnh từ thứ 5 trở đi */
 }

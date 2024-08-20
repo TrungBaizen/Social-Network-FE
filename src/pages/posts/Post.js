@@ -163,11 +163,7 @@ const Post = ({post, avatarImage}) => {
                         </Button>
                     </Dropdown>
                 </div>
-
-                {/* Hiển thị nội dung bài đăng trước */}
                 <Text>{post.content}</Text>
-
-                {/* Hiển thị ảnh sau nội dung */}
                 <div className="post-images">
                     {decodeImages && decodeImages.length > 0 && (
                         <div className="post-images">
