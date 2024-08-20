@@ -141,7 +141,6 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
 
     return (
         <div>
-            <h1>PostDetail</h1>
             <Card className="post-card">
                 <div className="post-header">
                     <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}/>
