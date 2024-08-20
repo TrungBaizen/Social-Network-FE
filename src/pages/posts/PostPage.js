@@ -6,7 +6,7 @@ import LikesModal from '../likes/LikesModal';
 import './PostPage.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getPostByUserId} from "../../redux/services/postService";
-import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile"; // Thêm file CSS riêng
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -63,14 +63,14 @@ const PostsPage = () => {
 
 
     return (
-        <Layout style={{ minHeight: '100vh', backgroundColor: '#f0f2f5' }}>
-            <Content style={{ padding: '24px', margin: '0 auto', maxWidth: '1200px' }}>
-                <div className="create-post-container">
+        <Layout className="posts-page-custom">
+            <Content className="posts-content-custom">
+                <div className="create-post-container-custom">
                     <Avatar
                         src={avatarImage}
                         size={40}
                     />
-                    <Button type="primary" onClick={showCreatePostModal} className="create-post-button">
+                    <Button type="primary" onClick={showCreatePostModal} className="create-post-button-custom">
                         Tạo bài viết
                     </Button>
                 </div>
