@@ -19,11 +19,11 @@ const AvatarSection = ({ avatar, name, visibility, onVisibilityChange }) => (
 
 const StatusInput = () => (
     <Form.Item
-        label="Trạng thái"
+        label="Nội dung"
         name="content"
-        rules={[{required: true, message: 'Vui lòng nhập trạng thái!' }]}
+        rules={[{required: true, message: 'Vui lòng nhập nội dung!' }]}
     >
-        <TextArea rows={4} placeholder="Nhập trạng thái bài viết" className="status-input" />
+        <TextArea rows={4} placeholder="Nhập nội dung bài viết" className="status-input" />
     </Form.Item>
 );
 

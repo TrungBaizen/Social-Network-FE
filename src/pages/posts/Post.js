@@ -6,8 +6,8 @@ import EditPostModal from './EditPostModal';
 import LikesModal from '../likes/LikesModal';
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {useDispatch, useSelector} from "react-redux";
-import {deletePost, updatePost} from "../../redux/services/postService";
-import {compressAndEncodeImageFile} from "../../EncodeDecodeImage/compressAndEncodeImageFile"; // Nhập modal danh sách người thích
+import {deletePost, likePost, unLikePost, updatePost} from "../../redux/services/postService";
+import {compressAndEncodeImageFile} from "../../EncodeDecodeImage/compressAndEncodeImageFile";
 
 const {Title, Text} = Typography;
 const {TextArea} = Input;
@@ -18,11 +18,12 @@ const Post = ({post, avatarImage}) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-    const [liked, setLiked] = useState(false); // Trạng thái thích bài viết
+    const [liked, setLiked] = useState(false);
     const [decodeImages, setDecodeImages] = useState([]);
-    const profile = useSelector(({ profiles }) => profiles.profile);
+    const profile = useSelector(({profiles}) => profiles.profile);
     const dispatch = useDispatch();
     const email = JSON.parse(localStorage.getItem('currentUser')).email;
+    const myId = JSON.parse(localStorage.getItem('currentUser')).id;
     const id = post.id;
 
     useEffect(() => {
@@ -42,6 +43,13 @@ const Post = ({post, avatarImage}) => {
         fetchDecodedImages();
     }, [post.postImages]);
 
+    useEffect(() => {
+        if (post.likes && myId) {
+            // Kiểm tra xem email của người dùng hiện tại có trong danh sách likes không
+            const userHasLiked = post.likes.some(like => like.userId === myId);
+            setLiked(userHasLiked);
+        }
+    }, [post.likes, myId]);
     const handleCommentChange = (e) => {
         setNewComment(e.target.value);
     };
@@ -57,7 +65,8 @@ const Post = ({post, avatarImage}) => {
         setIsModalVisible(true);
     };
 
-    const showLikesModal = () => {
+    const showLikesModal = (likes) => {
+        console.log(likes)
         setIsLikesModalVisible(true);
     };
 
@@ -69,28 +78,47 @@ const Post = ({post, avatarImage}) => {
         const urlToFile = async (url, filename) => {
             const response = await fetch(url);
             const blob = await response.blob();
-            const file = new File([blob], filename, { type: blob.type });
+            const file = new File([blob], filename, {type: blob.type});
             return file;
         };
         const listImage = await Promise.all(updatedPost.image.map(async (imageUrl, index) => {
-            return await urlToFile(imageUrl, `image-${index}.jpg`); // Bạn có thể thay đổi đuôi file hoặc tên tùy theo yêu cầu
+            return await urlToFile(imageUrl, `image-${index}.jpg`);
         }));
         const postImages = listImage ? await Promise.all(listImage.map(async (file) => {
             return await compressAndEncodeImageFile(file);
         })) : [];
         const posts = {
-            email:email,
-            content:updatedPost.content,
-            postImages:postImages,
-            postStatus:updatedPost.visibility
-        }
-        dispatch(updatePost({post:posts,id}));
+            email: email,
+            content: updatedPost.content,
+            postImages: postImages,
+            postStatus: updatedPost.visibility
+        };
+        dispatch(updatePost({post: posts, id}));
         setIsEditModalVisible(false);
     };
 
-    const handleLikeClick = () => {
-        setLiked(!liked); // Đảo trạng thái thích
+    const handleLikeClick = async () => {
+        try {
+            if (liked) {
+                // Nếu đã like, gọi API để xóa like
+                const like = post.likes.find(like => like.userId === myId);
+                const likeId = like ? like.id : null; // Trả về `null` nếu không tìm thấy like
+                await dispatch(unLikePost(likeId));
+            } else {
+                const like ={
+                    userId:myId,
+                    firstName:profile.firstName,
+                    lastName:profile.lastName,
+                    postId:post.id
+                }
+                await dispatch(likePost(like));
+            }
+            setLiked(!liked); // Cập nhật trạng thái liked sau khi gọi API
+        } catch (error) {
+            console.error('Error handling like:', error);
+        }
     };
+
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -126,7 +154,6 @@ const Post = ({post, avatarImage}) => {
                             {new Date(post.createdAt).toLocaleDateString()}
                         </Text>
                     </div>
-
                     <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
                         <Button
                             className="more-options-button"
@@ -136,6 +163,7 @@ const Post = ({post, avatarImage}) => {
                         </Button>
                     </Dropdown>
                 </div>
+                <Text>{post.content}</Text>
                 <div className="post-images">
                     {decodeImages && decodeImages.length > 0 && (
                         <div className="post-images">
@@ -145,24 +173,23 @@ const Post = ({post, avatarImage}) => {
                                     src={image}
                                     alt={`Post Image ${index + 1}`}
                                     className="post-image"
-                                    onClick={() => showPostModal(image)} // Call showPostModal with the image URL
+                                    onClick={() => showPostModal(image)}
                                 />
                             ))}
                         </div>
                     )}
                 </div>
-                <Text>{post.content}</Text>
-                {/*<div className="post-stats" onClick={showLikesModal}>*/}
-                {/*    {liked ? (*/}
-                {/*        <>*/}
-                {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
-                {/*        </>*/}
-                {/*    ) : (*/}
-                {/*        <>*/}
-                {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
-                {/*        </>*/}
-                {/*    )}*/}
-                {/*</div>*/}
+                <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
+                    {post.likes && post.likes.length > 0 ? (
+                        <>
+                            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                        </>
+                    ) : (
+                        <>
+                            <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                        </>
+                    )}
+                </div>
                 <div className="post-actions">
                     <Button
                         className="post-action-button"
@@ -171,7 +198,11 @@ const Post = ({post, avatarImage}) => {
                     >
                         {liked ? 'Đã thích' : 'Thích'}
                     </Button>
-                    <Button className="post-action-button" icon={<CommentOutlined/>} onClick={showPostModal}>
+                    <Button
+                        className="post-action-button"
+                        icon={<CommentOutlined/>}
+                        onClick={showPostModal}
+                    >
                         Bình luận
                     </Button>
                 </div>
@@ -187,15 +218,18 @@ const Post = ({post, avatarImage}) => {
                 <Card className="post-card">
                     <div className="post-header">
                         <Avatar src={avatarImage}/>
-                            <Title level={4} style={{marginLeft: 10}}>
-                                {profile.firstName + " " + profile.lastName}
-                            </Title>
+                        <Title level={4} style={{marginLeft: 10}}>
+                            {profile.firstName + " " + profile.lastName}
+                        </Title>
                         <div>
                             <Text className="post-date">
                                 {new Date(post.createdAt).toLocaleDateString()}
                             </Text>
                         </div>
                     </div>
+
+                    <Text>{post.content}</Text>
+
                     <div className="post-images">
                         {decodeImages && decodeImages.length > 0 ? (
                             decodeImages.map((image, index) => (
@@ -204,25 +238,26 @@ const Post = ({post, avatarImage}) => {
                                     src={image}
                                     alt={`Post Image ${index + 1}`}
                                     className="post-image"
-                                    onClick={() => showPostModal(image)} // Call showPostModal with the image URL
+                                    onClick={() => showPostModal(image)}
                                 />
                             ))
                         ) : (
                             <p>No images available</p>
                         )}
                     </div>
-                    <Text>{post.content}</Text>
-                    {/*<div className="post-stats">*/}
-                    {/*    {liked ? (*/}
-                    {/*        <>*/}
-                    {/*            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes + 1} lượt thích*/}
-                    {/*        </>*/}
-                    {/*    ) : (*/}
-                    {/*        <>*/}
-                    {/*            <LikeOutlined style={{marginRight: 8}}/> {post.likes} lượt thích*/}
-                    {/*        </>*/}
-                    {/*    )}*/}
-                    {/*</div>*/}
+                    <div className="post-detail-like-count-containerpost-detail-like-count-container"
+                         onClick={() => showLikesModal(post.likes)}>
+                        {post.likes && post.likes.length > 0 ? (
+                            <>
+                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                            </>
+                        )}
+                    </div>
+
                     <div className="post-comments">
                         <Title level={4}>Bình luận:</Title>
                         <List
@@ -251,7 +286,8 @@ const Post = ({post, avatarImage}) => {
             <LikesModal
                 visible={isLikesModalVisible}
                 onCancel={handleCancel}
-                likedBy={post.likedBy} // Cung cấp danh sách người thích bài viết
+                likes={post.likes || []}
+                avatar={post.imageAvatar}
             />
 
             <EditPostModal

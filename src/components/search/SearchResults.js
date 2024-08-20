@@ -45,9 +45,10 @@ const SearchResults = () => {
     };
 
     const filteredPosts = posts.filter(post =>
-        post.email === profiles.email || post.postStatus !== 'PRIVATE'
+        post.email === currentUserEmail || post.postStatus !== 'PRIVATE'
     );
 
+    console.log(filteredPosts)
     return (
         <div className="search-results">
             <div className="results-section">

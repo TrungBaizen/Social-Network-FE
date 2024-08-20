@@ -1,56 +1,56 @@
-.gradient-custom-2 {
-    /* Gradient and background color styles */
-    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));
-    background-color: #9de2ff;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+/*.gradient-custom-2 {*/
+/*    !* Gradient and background color styles *!*/
+/*    background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1));*/
+/*    background-color: #9de2ff;*/
+/*    min-height: 100vh;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
 
-.card-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/*.card-container {*/
+/*    width: 100%;*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*}*/
 
-.card-custom {
-    width: 100%;
-    height: auto;
-}
+/*.card-custom {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*}*/
 
-.banner-container {
-    background-color: #000;
-    height: 200px;
-}
+/*.banner-container {*/
+/*    background-color: #000;*/
+/*    height: 200px;*/
+/*}*/
 
-.img-thumbnail-custom {
-    width: 150px;
-    height: 150px;
-}
+/*.img-thumbnail-custom {*/
+/*    width: 150px;*/
+/*    height: 150px;*/
+/*}*/
 
-.edit-button-custom {
-    height: 36px;
-}
+/*.edit-button-custom {*/
+/*    height: 36px;*/
+/*}*/
 
-.text-custom {
-    margin-top: 130px;
-}
+/*.text-custom {*/
+/*    margin-top: 130px;*/
+/*}*/
 
-.text-black {
-    color: #000;
-}
+/*.text-black {*/
+/*    color: #000;*/
+/*}*/
 
-.img-thumbnail {
-    object-fit: cover;
-    z-index: 1;
-}
-/* Thêm vào CSS của bạn để đảm bảo modal hiển thị đúng */
-.mdb-modal-dialog {
-    z-index: 1050; /* Đảm bảo modal hiển thị trên các phần tử khác */
-}
+/*.img-thumbnail {*/
+/*    object-fit: cover;*/
+/*    z-index: 1;*/
+/*}*/
+/*!* Thêm vào CSS của bạn để đảm bảo modal hiển thị đúng *!*/
+/*.mdb-modal-dialog {*/
+/*    z-index: 1050; !* Đảm bảo modal hiển thị trên các phần tử khác *!*/
+/*}*/
 
-.mdb-modal-content {
-    max-height: 80vh; /* Đảm bảo modal không chiếm quá nhiều không gian trên màn hình */
-    overflow: auto; /* Thêm thanh cuộn nếu nội dung quá lớn */
-}
+/*.mdb-modal-content {*/
+/*    max-height: 80vh; !* Đảm bảo modal không chiếm quá nhiều không gian trên màn hình *!*/
+/*    overflow: auto; !* Thêm thanh cuộn nếu nội dung quá lớn *!*/
+/*}*/

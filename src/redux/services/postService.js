@@ -48,3 +48,19 @@ export const getAllPostByFollowing=createAsyncThunk(
         return res.data
     }
 )
+
+export const likePost=createAsyncThunk(
+    "posts/likePost",
+    async (like)=>{
+        let res = await getAxios().post(`posts/likes`,like);
+        return res.data
+    }
+)
+
+export const unLikePost=createAsyncThunk(
+    "posts/unLikePost",
+    async (likeId)=>{
+        let res = await getAxios().delete(`posts/likes/${likeId}`);
+        return res.data
+    }
+)

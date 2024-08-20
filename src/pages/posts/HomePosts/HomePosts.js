@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Button, Modal, Image, Input, List } from 'antd';
-import { LikeOutlined, LikeFilled, CommentOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPostByFollowing } from "../../../redux/services/postService";
 import './HomePosts.css';
@@ -86,7 +85,7 @@ const HomePosts = () => {
     if (error) return <Text>Lỗi: {error}</Text>;
 
     return (
-        <div className="home-posts">
+        <div className="HomePosts-home-posts">
             {filteredPosts && filteredPosts.length > 0 ? (
                 filteredPosts.map(post => (
                     <PostDetail

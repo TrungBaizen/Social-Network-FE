@@ -4,13 +4,11 @@ import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
 import './Profile.css';
 import {HomeOutlined} from "@mui/icons-material";
 import FriendsList from "./FriendsList";
-import PostsFriend from "../posts/PostsFriend";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile} from "../../redux/services/profileService";
 import {useLocation} from "react-router-dom";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
-import HomePosts from "../posts/HomePosts/HomePosts";
 import FriendsProfile from "./FriendsProfile/FriendsProfile";
 
 const { Content } = Layout;

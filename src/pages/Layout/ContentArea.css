@@ -1,0 +1,7 @@
+/* ContentArea.css */
+.content-area {
+    padding: 0 24px;
+    min-height: 280px;
+    background: var(--colorBgContainer);
+    border-radius: var(--borderRadiusLG);
+}
