@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, Button, Card, Dropdown, Input, List, Menu, Modal, Typography } from 'antd';
-import { CommentOutlined, LikeFilled, LikeOutlined, MoreOutlined } from '@ant-design/icons';
+import React, {useEffect, useState} from 'react';
+import {Avatar, Button, Card, Dropdown, Input, List, Menu, Modal, Typography} from 'antd';
+import {CommentOutlined, LikeFilled, LikeOutlined, MoreOutlined} from '@ant-design/icons';
 import './Post.css';
 import EditPostModal from './EditPostModal';
 import LikesModal from '../likes/LikesModal';
-import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
-import { useDispatch, useSelector } from "react-redux";
-import { deletePost, updatePost } from "../../redux/services/postService";
-import { compressAndEncodeImageFile } from "../../EncodeDecodeImage/compressAndEncodeImageFile";
+import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import {useDispatch, useSelector} from "react-redux";
+import {deletePost, updatePost} from "../../redux/services/postService";
+import {compressAndEncodeImageFile} from "../../EncodeDecodeImage/compressAndEncodeImageFile";
 
-const { Title, Text } = Typography;
-const { TextArea } = Input;
+const {Title, Text} = Typography;
+const {TextArea} = Input;
 
-const Post = ({ post, avatarImage }) => {
+const Post = ({post, avatarImage}) => {
     const [newComment, setNewComment] = useState('');
     const [comments, setComments] = useState(post.comments || []);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -20,7 +20,7 @@ const Post = ({ post, avatarImage }) => {
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
     const [liked, setLiked] = useState(false);
     const [decodeImages, setDecodeImages] = useState([]);
-    const profile = useSelector(({ profiles }) => profiles.profile);
+    const profile = useSelector(({profiles}) => profiles.profile);
     const dispatch = useDispatch();
     const email = JSON.parse(localStorage.getItem('currentUser')).email;
     const id = post.id;
@@ -70,7 +70,7 @@ const Post = ({ post, avatarImage }) => {
         const urlToFile = async (url, filename) => {
             const response = await fetch(url);
             const blob = await response.blob();
-            const file = new File([blob], filename, { type: blob.type });
+            const file = new File([blob], filename, {type: blob.type});
             return file;
         };
         const listImage = await Promise.all(updatedPost.image.map(async (imageUrl, index) => {
@@ -85,7 +85,7 @@ const Post = ({ post, avatarImage }) => {
             postImages: postImages,
             postStatus: updatedPost.visibility
         };
-        dispatch(updatePost({ post: posts, id }));
+        dispatch(updatePost({post: posts, id}));
         setIsEditModalVisible(false);
     };
 
@@ -119,22 +119,21 @@ const Post = ({ post, avatarImage }) => {
         <div>
             <Card className="post-card">
                 <div className="post-header">
-                    <Avatar src={avatarImage} />
+                    <Avatar src={avatarImage}/>
                     <div>
-                        <Title level={4} style={{ marginLeft: 10 }}>
+                        <Title level={4} style={{marginLeft: 10}}>
                             {profile.firstName + " " + profile.lastName}
                         </Title>
                         <Text className="post-date">
                             {new Date(post.createdAt).toLocaleDateString()}
                         </Text>
                     </div>
-
                     <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
                         <Button
                             className="more-options-button"
                             onClick={(e) => e.preventDefault()}
                         >
-                            <MoreOutlined />
+                            <MoreOutlined/>
                         </Button>
                     </Dropdown>
                 </div>
@@ -158,7 +157,7 @@ const Post = ({ post, avatarImage }) => {
                         </div>
                     )}
                 </div>
-                <div className="post-detail-like-count-container" onClick={()=>showLikesModal(post.likes)}>
+                <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
                     {post.likes && post.likes.length > 0 ? (
                         <>
                             <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
@@ -172,14 +171,14 @@ const Post = ({ post, avatarImage }) => {
                 <div className="post-actions">
                     <Button
                         className="post-action-button"
-                        icon={liked ? <LikeFilled /> : <LikeOutlined />}
+                        icon={liked ? <LikeFilled/> : <LikeOutlined/>}
                         onClick={handleLikeClick}
                     >
                         {liked ? 'Đã thích' : 'Thích'}
                     </Button>
                     <Button
                         className="post-action-button"
-                        icon={<CommentOutlined />}
+                        icon={<CommentOutlined/>}
                         onClick={showPostModal}
                     >
                         Bình luận
@@ -196,8 +195,8 @@ const Post = ({ post, avatarImage }) => {
             >
                 <Card className="post-card">
                     <div className="post-header">
-                        <Avatar src={avatarImage} />
-                        <Title level={4} style={{ marginLeft: 10 }}>
+                        <Avatar src={avatarImage}/>
+                        <Title level={4} style={{marginLeft: 10}}>
                             {profile.firstName + " " + profile.lastName}
                         </Title>
                         <div>
@@ -224,7 +223,8 @@ const Post = ({ post, avatarImage }) => {
                             <p>No images available</p>
                         )}
                     </div>
-                    <div className="post-detail-like-count-containerpost-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
+                    <div className="post-detail-like-count-containerpost-detail-like-count-container"
+                         onClick={() => showLikesModal(post.likes)}>
                         {post.likes && post.likes.length > 0 ? (
                             <>
                                 <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
@@ -253,7 +253,7 @@ const Post = ({ post, avatarImage }) => {
                         <Button
                             type="primary"
                             onClick={handleCommentSubmit}
-                            style={{ marginTop: 10 }}
+                            style={{marginTop: 10}}
                         >
                             Gửi
                         </Button>
