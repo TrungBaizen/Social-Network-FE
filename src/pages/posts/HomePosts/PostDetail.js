@@ -291,7 +291,7 @@ const PostDetail = ({post, likedPosts, onLikeClick, onCommentClick}) => {
             <EditPostModal
                 visible={isEditModalVisible}
                 onCancel={handleCancel}
-                onSave={handleEditPost}
+                onEdit={handleEditPost}
                 post={post}
             />
         </div>
