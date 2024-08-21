@@ -236,6 +236,29 @@ const PostDetail = ({post, likedPosts}) => {
         setSelectedReplyImages2(prevImages => prevImages.filter((_, i) => i !== index));
     };
 
+    const countTotalComments = (comments) => {
+        let total = 0;
+
+        const countReplies = (replies) => {
+            replies.forEach(reply => {
+                total++;
+                if (reply.replies && reply.replies.length > 0) {
+                    countReplies(reply.replies);
+                }
+            });
+        };
+
+        comments.forEach(comment => {
+            total++;
+            if (comment.commentChildren && comment.commentChildren.length > 0) {
+                countReplies(comment.commentChildren);
+            }
+        });
+
+        return total;
+    };
+
+    const totalComments = post.comments ? countTotalComments(post.comments) : 0;
     return (
         <div>
             <Card className="post-card">
@@ -291,7 +314,7 @@ const PostDetail = ({post, likedPosts}) => {
                          onClick={showPostModal}>
                         {post.comments && post.comments.length > 0 ? (
                             <>
-                                <CommentOutlined style={{marginRight: 8, marginLeft: 16}}/> {post.comments.length} bình
+                                <CommentOutlined style={{marginRight: 8, marginLeft: 16}}/> {totalComments} bình
                                 luận
                             </>
                         ) : (
