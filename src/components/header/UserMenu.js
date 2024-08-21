@@ -76,7 +76,7 @@ function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
                     }}
                     className="logout-item"
                 >
-                    <Typography textAlign="center">Logout</Typography>
+                    <Typography textAlign="center">Đăng Xuất</Typography>
                 </MenuItem>
             </Menu>
         </Box>
