@@ -12,6 +12,16 @@ const onlineUsers = [
     { key: '4', name: 'Trung Béo' },
     { key: '5', name: 'Tiến Gầy' },
     { key: '6', name: 'Hải Quay Xe' },
+    { key: '2', name: 'Tùng Chùa' },
+    { key: '3', name: 'Nam Rô' },
+    { key: '4', name: 'Trung Béo' },
+    { key: '5', name: 'Tiến Gầy' },
+    { key: '6', name: 'Hải Quay Xe' },
+    { key: '2', name: 'Tùng Chùa' },
+    { key: '3', name: 'Nam Rô' },
+    { key: '4', name: 'Trung Béo' },
+    { key: '5', name: 'Tiến Gầy' },
+    { key: '6', name: 'Hải Quay Xe' },
 ];
 
 const SiderRight = () => (

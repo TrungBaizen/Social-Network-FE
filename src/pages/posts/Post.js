@@ -267,11 +267,14 @@ const Post = ({post, avatarImage}) => {
             <Card className={`post-card ${getImageClassName()}`}>
                 <div className="post-header">
                     <Avatar src={avatarImage}/>
-                    <div>
-                        <Title level={4} style={{marginLeft: 10}}>
+                    <div style={{margin: 0}}>
+                        <Title
+                            level={4}
+                            style={{margin: 0, padding: 0}}
+                        >
                             {post.firstName + " " + post.lastName}
                         </Title>
-                        <Text className="post-date">
+                        <Text style={{margin: 0, padding: 0, color: '#888'}}>
                             {new Date(post.createdAt).toLocaleDateString()}
                         </Text>
                     </div>
