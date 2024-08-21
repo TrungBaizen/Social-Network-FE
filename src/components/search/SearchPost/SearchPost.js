@@ -234,78 +234,78 @@ const SearchPost = ({post}) => {
                 </div>
             </Card>
 
-            {/*<Modal*/}
-            {/*    title="Chi tiết bài đăng"*/}
-            {/*    visible={isModalVisible}*/}
-            {/*    onCancel={handleCancel}*/}
-            {/*    footer={null}*/}
-            {/*    width={800}*/}
-            {/*>*/}
-            {/*    <Card className="search-post-card">*/}
-            {/*        <div className="search-post-header">*/}
-            {/*            <Avatar src={avatarImage}/>*/}
-            {/*            <Title level={4} style={{marginLeft: 10}}>*/}
-            {/*                {post.firstName} {post.lastName}*/}
-            {/*            </Title>*/}
-            {/*            <Text className="post-date">*/}
-            {/*                {new Date(post.createdAt).toLocaleDateString()}*/}
-            {/*            </Text>*/}
-            {/*        </div>*/}
+            <Modal
+                title="Chi tiết bài đăng"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+                width={800}
+            >
+                <Card className="search-post-card">
+                    <div className="search-post-header">
+                        <Avatar src={avatarImage}/>
+                        <Title level={4} style={{marginLeft: 10}}>
+                            {post.firstName} {post.lastName}
+                        </Title>
+                        <Text className="post-date">
+                            {new Date(post.createdAt).toLocaleDateString()}
+                        </Text>
+                    </div>
 
-            {/*        <Text>{post.content}</Text>*/}
+                    <Text>{post.content}</Text>
 
-            {/*        <div className="search-post-images">*/}
-            {/*            {decodeImages.length > 0 ? (*/}
-            {/*                decodeImages.map((image, index) => (*/}
-            {/*                    <img*/}
-            {/*                        key={index}*/}
-            {/*                        src={image}*/}
-            {/*                        alt={`Post Image ${index + 1}`}*/}
-            {/*                        className="search-post-image"*/}
-            {/*                        onClick={showPostModal}*/}
-            {/*                    />*/}
-            {/*                ))*/}
-            {/*            ) : (*/}
-            {/*                <p>No images available</p>*/}
-            {/*            )}*/}
-            {/*        </div>*/}
+                    <div className="search-post-images">
+                        {decodeImages.length > 0 ? (
+                            decodeImages.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Post Image ${index + 1}`}
+                                    className="search-post-image"
+                                    onClick={showPostModal}
+                                />
+                            ))
+                        ) : (
+                            <p>No images available</p>
+                        )}
+                    </div>
 
-            {/*        <div className="search-post-detail-like-count-container" onClick={showLikesModal}>*/}
-            {/*            {post.likes && post.likes.length > 0 ? (*/}
-            {/*                <>*/}
-            {/*                    <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích*/}
-            {/*                </>*/}
-            {/*            ) : (*/}
-            {/*                <>*/}
-            {/*                    <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích*/}
-            {/*                </>*/}
-            {/*            )}*/}
-            {/*        </div>*/}
+                    <div className="search-post-detail-like-count-container" onClick={showLikesModal}>
+                        {post.likes && post.likes.length > 0 ? (
+                            <>
+                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                            </>
+                        )}
+                    </div>
 
-            {/*        <div className="search-post-comments">*/}
-            {/*            <Title level={4}>Bình luận:</Title>*/}
-            {/*            <List*/}
-            {/*                dataSource={comments}*/}
-            {/*                renderItem={item => (*/}
-            {/*                    <List.Item>{item}</List.Item>*/}
-            {/*                )}*/}
-            {/*            />*/}
-            {/*            <TextArea*/}
-            {/*                rows={4}*/}
-            {/*                value={newComment}*/}
-            {/*                onChange={handleCommentChange}*/}
-            {/*                placeholder="Viết bình luận..."*/}
-            {/*            />*/}
-            {/*            <Button*/}
-            {/*                type="primary"*/}
-            {/*                onClick={handleCommentSubmit}*/}
-            {/*                style={{marginTop: 10}}*/}
-            {/*            >*/}
-            {/*                Gửi*/}
-            {/*            </Button>*/}
-            {/*        </div>*/}
-            {/*    </Card>*/}
-            {/*</Modal>*/}
+                    <div className="search-post-comments">
+                        <Title level={4}>Bình luận:</Title>
+                        <List
+                            dataSource={comments}
+                            renderItem={item => (
+                                <List.Item>{item}</List.Item>
+                            )}
+                        />
+                        <TextArea
+                            rows={4}
+                            value={newComment}
+                            onChange={handleCommentChange}
+                            placeholder="Viết bình luận..."
+                        />
+                        <Button
+                            type="primary"
+                            onClick={handleCommentSubmit}
+                            style={{marginTop: 10}}
+                        >
+                            Gửi
+                        </Button>
+                    </div>
+                </Card>
+            </Modal>
 
             <LikesModal
                 visible={isLikesModalVisible}

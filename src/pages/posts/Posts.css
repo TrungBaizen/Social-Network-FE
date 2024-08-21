@@ -1,0 +1,220 @@
+/* Card bài viết */
+.posts-post-card {
+    position: relative !important;
+    padding: 10px !important;
+}
+
+/* Tiêu đề bài viết */
+.posts-post-header {
+    display: flex !important;
+    align-items: center !important;
+    position: relative !important;
+}
+
+/* Ảnh đại diện */
+.posts-post-header .ant-avatar {
+    border-radius: 50% !important;
+}
+
+/* Tên người dùng */
+.posts-post-header .ant-typography {
+    margin-left: 10px !important;
+}
+
+/* Các ảnh trong bài viết */
+.posts-post-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin-top: 10px !important;
+}
+
+/* Ảnh trong bài viết */
+.posts-post-image {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: transform 0.3s ease !important;
+}
+
+.posts-post-image:hover {
+    transform: scale(1.05) !important;
+}
+
+/* Thống kê lượt thích và bình luận */
+.posts-post-detail-like-count-container {
+    display: flex !important;
+    align-items: center !important;
+    margin-top: 10px !important;
+}
+
+.posts-post-detail-like-count-container .anticon {
+    font-size: 16px !important;
+    margin-right: 5px !important;
+}
+
+.posts-post-detail-like-count-container .like-count {
+    font-size: 14px !important;
+    color: gray !important;
+}
+
+/* Các nút hành động */
+.posts-post-actions {
+    margin-top: 10px !important;
+}
+
+.posts-post-action-button {
+    margin-right: 10px !important;
+}
+
+/* Nút tuỳ chọn thêm */
+.more-options-button {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    cursor: pointer !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    color: #000 !important;
+    margin-left: auto !important;
+}
+
+/* Nút tuỳ chọn thêm - căn giữa biểu tượng */
+.more-options-button .anticon {
+    vertical-align: middle !important;
+}
+
+/* Nội dung bài viết nếu không có ảnh */
+.posts-post-card.no-image .posts-post-content {
+    text-align: left !important;
+}
+
+/* Modal chi tiết bài đăng */
+.ant-modal {
+    width: 800px !important;
+}
+
+/* Bình luận */
+.posts-post-comments {
+    margin-top: 10px !important;
+}
+
+.posts-post-comments .ant-typography {
+    margin-bottom: 10px !important;
+}
+
+.posts-post-comments .ant-input-textarea {
+    margin-top: 10px !important;
+}
+
+/* Các nút bình luận */
+.ant-btn {
+    font-size: 16px !important;
+}
+
+/* Màn hình nhỏ (tối đa 768px) */
+@media only screen and (max-width: 768px) {
+    .posts-post-header {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .posts-post-header .ant-typography {
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    .more-options-button {
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+    }
+
+    .posts-post-actions {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .posts-post-action-button {
+        margin-right: 0 !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+/* Màn hình rất nhỏ (tối đa 576px) */
+@media only screen and (max-width: 576px) {
+    .posts-post-header {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .posts-post-image {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .posts-post-detail-like-count-container {
+        justify-content: center !important;
+        margin-top: 5px !important;
+    }
+
+    .posts-post-actions {
+        flex-direction: column !important;
+        align-items: center !important;
+        margin-top: 5px !important;
+    }
+
+    .posts-post-action-button {
+        width: 100% !important;
+        margin-bottom: 5px !important;
+    }
+
+    .more-options-button {
+        margin-top: 10px !important;
+    }
+}
+
+/* Bài viết với nhiều ảnh */
+.posts-post-card.single-image .posts-post-images,
+.posts-post-card.double-image .posts-post-images,
+.posts-post-card.triple-image .posts-post-images,
+.posts-post-card.quadriple-image .posts-post-images,
+.posts-post-card.multi-image .posts-post-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+/* Bài viết với 1 ảnh */
+.posts-post-card.single-image .posts-post-image {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Bài viết với 2 ảnh */
+.posts-post-card.double-image .posts-post-image {
+    width: calc(50% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+}
+
+/* Bài viết với 3 ảnh */
+.posts-post-card.triple-image .posts-post-image {
+    width: calc(33.33% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+}
+
+/* Bài viết với 4 ảnh */
+.posts-post-card.quadriple-image .posts-post-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh */
+}
+
+/* Bài viết với 5 ảnh trở lên */
+.posts-post-card.multi-image .posts-post-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh đầu tiên */
+}
+
+.posts-post-card.multi-image .posts-post-image:nth-of-type(n+5) {
+    display: none !important; /* Ẩn các ảnh từ thứ 5 trở đi */
+}

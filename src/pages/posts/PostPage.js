@@ -7,6 +7,7 @@ import './PostPage.css';
 import {useDispatch, useSelector} from "react-redux";
 import {getPostByUserId} from "../../redux/services/postService";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import SearchPost from "../../components/search/SearchPost/SearchPost";
 
 const { Content } = Layout;
 const { Title } = Typography;

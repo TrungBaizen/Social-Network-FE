@@ -81,7 +81,7 @@ const CreatePostModal = ({visible, onCancel}) => {
                 style={{marginTop: 20}}
             />
             <div style={{marginTop: 20, display: 'flex', alignItems: 'center'}}>
-                <label htmlFor="file-upload" className="custom-file-upload">
+                <label htmlFor="file-upload" className="CreatePostModal-custom-file-upload">
                     <PictureOutlined style={{marginRight: 10}}/>
                     Ảnh/video
                 </label>
