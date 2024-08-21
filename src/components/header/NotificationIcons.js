@@ -1,47 +1,4 @@
-// import React from 'react';
-// import Box from '@mui/material/Box';
-// import IconButton from '@mui/material/IconButton';
-// import Badge from '@mui/material/Badge';
-// import MailIcon from '@mui/icons-material/Mail';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
-// import Typography from '@mui/material/Typography';
-// import './NotificationIcons.css';
-//
-// function NotificationIcons() {
-//     return (
-//         <>
-//             <Box className="notification-icons">
-//                 <IconButton
-//                     aria-label="show 4 new mails"
-//                     color="inherit"
-//                     className="icon-button"
-//                 >
-//                     <Badge badgeContent={4} color="secondary">
-//                         <MailIcon />
-//                     </Badge>
-//                 </IconButton>
-//                 <Typography className="icon-text">Messages</Typography>
-//             </Box>
-//             <Box className="notification-icons">
-//                 <IconButton
-//                     aria-label="show 11 new notifications"
-//                     color="inherit"
-//                     className="icon-button"
-//                 >
-//                     <Badge badgeContent={11} color="secondary">
-//                         <NotificationsIcon />
-//                     </Badge>
-//                 </IconButton>
-//                 <Typography className="icon-text">Notifications</Typography>
-//             </Box>
-//         </>
-//     );
-// }
-//
-// export default NotificationIcons;
-
-
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
@@ -54,17 +11,17 @@ import './NotificationIcons.css';
 
 function NotificationIcons() {
     const [anchorEl, setAnchorEl] = useState(null);
-    const [notifications, setNotifications] = useState([]); // Mock notifications data
-    const [messages, setMessages] = useState([]); // Mock messages data
+    const [notifications, setNotifications] = useState([]); // Dữ liệu thông báo mô phỏng
+    const [messages, setMessages] = useState([]); // Dữ liệu tin nhắn mô phỏng
 
     const handleClickNotifications = (event) => {
         setAnchorEl(event.currentTarget);
-        // Fetch notifications if necessary
+        // Lấy thông báo nếu cần
     };
 
     const handleClickMessages = (event) => {
         setAnchorEl(event.currentTarget);
-        // Fetch messages if necessary
+        // Lấy tin nhắn nếu cần
     };
 
     const handleClose = () => {
@@ -77,7 +34,7 @@ function NotificationIcons() {
         <>
             <Box className="notification-icons">
                 <IconButton
-                    aria-label="show 4 new mails"
+                    aria-label="hiển thị 4 tin nhắn mới"
                     color="inherit"
                     className="icon-button"
                     onClick={handleClickMessages}
@@ -86,11 +43,11 @@ function NotificationIcons() {
                         <MailIcon />
                     </Badge>
                 </IconButton>
-                <Typography className="icon-text">Messages</Typography>
+                <Typography className="icon-text">Tin nhắn</Typography>
             </Box>
             <Box className="notification-icons">
                 <IconButton
-                    aria-label="show 11 new notifications"
+                    aria-label="hiển thị 11 thông báo mới"
                     color="inherit"
                     className="icon-button"
                     onClick={handleClickNotifications}
@@ -99,7 +56,7 @@ function NotificationIcons() {
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
-                <Typography className="icon-text">Notifications</Typography>
+                <Typography className="icon-text">Thông báo</Typography>
                 <Menu
                     anchorEl={anchorEl}
                     open={menuOpen}
@@ -112,7 +69,7 @@ function NotificationIcons() {
                             </MenuItem>
                         ))
                     ) : (
-                        <MenuItem onClick={handleClose}>No Notifications</MenuItem>
+                        <MenuItem onClick={handleClose}>Không có thông báo</MenuItem>
                     )}
                 </Menu>
             </Box>
