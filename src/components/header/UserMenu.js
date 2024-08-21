@@ -18,10 +18,10 @@ function UserMenu({ anchorElUser, handleOpenUserMenu, handleCloseUserMenu }) {
     const [settings, setSettings] = useState([]);
     useEffect(() => {
         const newSettings  = [
-            { title: 'Profile', link: `/profile` },
-            { title: 'Account', link: '/account' },
-            { title: 'Dashboard', link: '/dashboard' },
-            { title: 'Change Password', link: '/changepassword' }
+            { title: 'Trang Cá Nhân', link: `/profile` },
+            { title: 'Bạn Bè', link: '/account' },
+            { title: 'Trang Chủ', link: '/' },
+            { title: 'Đổi Mật Khẩu', link: '/changepassword' }
         ];
         setSettings(newSettings)
     }, []);

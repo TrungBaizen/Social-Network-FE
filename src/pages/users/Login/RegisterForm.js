@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,14 +14,14 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import {ErrorMessage, Field, Form, Formik} from 'formik';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import {useDispatch, useSelector} from "react-redux";
-import {toast} from "react-toastify";
-import {signup} from "../../../redux/services/userService";
-import {getAllGender} from "../../../redux/services/genderService";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { signup } from "../../../redux/services/userService";
+import { getAllGender } from "../../../redux/services/genderService";
 
 const defaultTheme = createTheme();
 
@@ -35,27 +35,26 @@ const generateYears = () => {
 };
 
 const validationSchema = Yup.object({
-    firstName: Yup.string().required('Required'),
-    lastName: Yup.string().required('Required'),
-    email: Yup.string().email('Invalid email address').required('Required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Required'),
-    gender: Yup.string().required('Required'),
-    day: Yup.number().required('Required').min(1, 'Invalid day').max(31, 'Invalid day'),
-    month: Yup.number().required('Required').min(1, 'Invalid month').max(12, 'Invalid month'),
-    year: Yup.number().required('Required').min(1900, 'Invalid year').max(new Date().getFullYear(), 'Invalid year'),
+    firstName: Yup.string().required('Bắt buộc'),
+    lastName: Yup.string().required('Bắt buộc'),
+    email: Yup.string().email('Địa chỉ email không hợp lệ').required('Bắt buộc'),
+    password: Yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').required('Bắt buộc'),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp').required('Bắt buộc'),
+    gender: Yup.string().required('Bắt buộc'),
+    day: Yup.number().required('Bắt buộc').min(1, 'Ngày không hợp lệ').max(31, 'Ngày không hợp lệ'),
+    month: Yup.number().required('Bắt buộc').min(1, 'Tháng không hợp lệ').max(12, 'Tháng không hợp lệ'),
+    year: Yup.number().required('Bắt buộc').min(1900, 'Năm không hợp lệ').max(new Date().getFullYear(), 'Năm không hợp lệ'),
 });
 
 export default function SignUp() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const genders =  useSelector(({genders})=>{
-        return genders.list
-    })
+    const genders = useSelector(({ genders }) => genders.list);
 
     useEffect(() => {
-        dispatch(getAllGender())
+        dispatch(getAllGender());
     }, [dispatch]);
+
     const handleSubmit = async (values, { setSubmitting }) => {
         const birthDate = `${values.year}-${String(values.month).padStart(2, '0')}-${String(values.day).padStart(2, '0')}`;
         const user = {
@@ -76,7 +75,6 @@ export default function SignUp() {
         setSubmitting(false);
     };
 
-
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main" maxWidth="xs">
@@ -93,7 +91,7 @@ export default function SignUp() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Đăng ký
                     </Typography>
                     <Formik
                         initialValues={{
@@ -121,7 +119,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             id="firstName"
-                                            label="First Name"
+                                            label="Tên"
                                             autoFocus
                                             helperText={<ErrorMessage name="firstName" />}
                                             error={Boolean(errors.firstName && touched.firstName)}
@@ -133,7 +131,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             id="lastName"
-                                            label="Last Name"
+                                            label="Họ"
                                             name="lastName"
                                             autoComplete="family-name"
                                             helperText={<ErrorMessage name="lastName" />}
@@ -146,7 +144,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             id="email"
-                                            label="Email Address"
+                                            label="Địa chỉ Email"
                                             name="email"
                                             autoComplete="email"
                                             helperText={<ErrorMessage name="email" />}
@@ -159,7 +157,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             name="password"
-                                            label="Password"
+                                            label="Mật khẩu"
                                             type="password"
                                             id="password"
                                             autoComplete="new-password"
@@ -173,7 +171,7 @@ export default function SignUp() {
                                             required
                                             fullWidth
                                             name="confirmPassword"
-                                            label="Confirm Password"
+                                            label="Xác nhận mật khẩu"
                                             type="password"
                                             id="confirmPassword"
                                             autoComplete="new-password"
@@ -183,10 +181,10 @@ export default function SignUp() {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <FormControl fullWidth required error={Boolean(errors.gender && touched.gender)}>
-                                            <InputLabel id="gender-label">Gender</InputLabel>
-                                            <Field as={Select} labelId="gender-label" id="gender" name="gender" label="Gender">
-                                                {genders.map((gender,index) => (
-                                                        <MenuItem key={index} value={gender}>{gender}</MenuItem>
+                                            <InputLabel id="gender-label">Giới tính</InputLabel>
+                                            <Field as={Select} labelId="gender-label" id="gender" name="gender" label="Giới tính">
+                                                {genders.map((gender, index) => (
+                                                    <MenuItem key={index} value={gender}>{gender}</MenuItem>
                                                 ))}
                                             </Field>
                                             <ErrorMessage name="gender" component="div" style={{ color: 'red' }} />
@@ -194,8 +192,8 @@ export default function SignUp() {
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FormControl fullWidth required error={Boolean(errors.day && touched.day)}>
-                                            <InputLabel id="day-label">Day</InputLabel>
-                                            <Field as={Select} labelId="day-label" id="day" name="day" label="Day">
+                                            <InputLabel id="day-label">Ngày</InputLabel>
+                                            <Field as={Select} labelId="day-label" id="day" name="day" label="Ngày">
                                                 {[...Array(31).keys()].map(day => (
                                                     <MenuItem key={day + 1} value={day + 1}>{day + 1}</MenuItem>
                                                 ))}
@@ -205,9 +203,9 @@ export default function SignUp() {
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FormControl fullWidth required error={Boolean(errors.month && touched.month)}>
-                                            <InputLabel id="month-label">Month</InputLabel>
-                                            <Field as={Select} labelId="month-label" id="month" name="month" label="Month">
-                                                {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month, index) => (
+                                            <InputLabel id="month-label">Tháng</InputLabel>
+                                            <Field as={Select} labelId="month-label" id="month" name="month" label="Tháng">
+                                                {['Tháng Một', 'Tháng Hai', 'Tháng Ba', 'Tháng Tư', 'Tháng Năm', 'Tháng Sáu', 'Tháng Bảy', 'Tháng Tám', 'Tháng Chín', 'Tháng Mười', 'Tháng Mười Một', 'Tháng Mười Hai'].map((month, index) => (
                                                     <MenuItem key={index} value={index + 1}>{month}</MenuItem>
                                                 ))}
                                             </Field>
@@ -216,8 +214,8 @@ export default function SignUp() {
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FormControl fullWidth required error={Boolean(errors.year && touched.year)}>
-                                            <InputLabel id="year-label">Year</InputLabel>
-                                            <Field as={Select} labelId="year-label" id="year" name="year" label="Year">
+                                            <InputLabel id="year-label">Năm</InputLabel>
+                                            <Field as={Select} labelId="year-label" id="year" name="year" label="Năm">
                                                 {generateYears().map(year => (
                                                     <MenuItem key={year} value={year}>{year}</MenuItem>
                                                 ))}
@@ -233,12 +231,12 @@ export default function SignUp() {
                                     sx={{ mt: 3, mb: 2 }}
                                     disabled={isSubmitting}
                                 >
-                                    Sign Up
+                                    Đăng ký
                                 </Button>
                                 <Grid container justifyContent="flex-end">
                                     <Grid item>
-                                        <Link component={RouterLink} to="/login" variant="body2">
-                                            Already have an account? Sign in
+                                        <Link to="/login" variant="body2" component={RouterLink}>
+                                            Đã có tài khoản? Đăng nhập
                                         </Link>
                                     </Grid>
                                 </Grid>
