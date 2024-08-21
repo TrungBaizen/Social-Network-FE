@@ -1,3 +1,5 @@
+
+
 import React, {useEffect, useState} from 'react';
 import {Avatar, Button, Card, Dropdown, Input, List, Menu, Modal, Typography} from 'antd';
 import {CommentOutlined, LikeFilled, LikeOutlined, MoreOutlined} from '@ant-design/icons';
@@ -153,7 +155,7 @@ const Post = ({post, avatarImage}) => {
 
     return (
         <div>
-            <Card className="post-card">
+            <Card className={`post-card ${getImageClassName()}`}>
                 <div className="post-header">
                     <Avatar src={avatarImage}/>
                     <div>
@@ -218,80 +220,80 @@ const Post = ({post, avatarImage}) => {
                 </div>
             </Card>
 
-            {/*<Modal*/}
-            {/*    title="Chi tiết bài đăng"*/}
-            {/*    visible={isModalVisible}*/}
-            {/*    onCancel={handleCancel}*/}
-            {/*    footer={null}*/}
-            {/*    width={800}*/}
-            {/*>*/}
-            {/*    <Card className="post-card">*/}
-            {/*        <div className="post-header">*/}
-            {/*            <Avatar src={avatarImage}/>*/}
-            {/*            <Title level={4} style={{marginLeft: 10}}>*/}
-            {/*                {profile.firstName + " " + profile.lastName}*/}
-            {/*            </Title>*/}
-            {/*            <div>*/}
-            {/*                <Text className="post-date">*/}
-            {/*                    {new Date(post.createdAt).toLocaleDateString()}*/}
-            {/*                </Text>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
+            <Modal
+                title="Chi tiết bài đăng"
+                visible={isModalVisible}
+                onCancel={handleCancel}
+                footer={null}
+                width={800}
+            >
+                <Card className="post-card">
+                    <div className="post-header">
+                        <Avatar src={avatarImage}/>
+                        <Title level={4} style={{marginLeft: 10}}>
+                            {profile.firstName + " " + profile.lastName}
+                        </Title>
+                        <div>
+                            <Text className="post-date">
+                                {new Date(post.createdAt).toLocaleDateString()}
+                            </Text>
+                        </div>
+                    </div>
 
-            {/*        <Text>{post.content}</Text>*/}
+                    <Text>{post.content}</Text>
 
-            {/*        <div className="post-images">*/}
-            {/*            {decodeImages && decodeImages.length > 0 ? (*/}
-            {/*                decodeImages.map((image, index) => (*/}
-            {/*                    <img*/}
-            {/*                        key={index}*/}
-            {/*                        src={image}*/}
-            {/*                        alt={`Post Image ${index + 1}`}*/}
-            {/*                        className="post-image"*/}
-            {/*                        onClick={() => showPostModal(image)}*/}
-            {/*                    />*/}
-            {/*                ))*/}
-            {/*            ) : (*/}
-            {/*                <p>No images available</p>*/}
-            {/*            )}*/}
-            {/*        </div>*/}
-            {/*        <div className="post-detail-like-count-containerpost-detail-like-count-container"*/}
-            {/*             onClick={() => showLikesModal(post.likes)}>*/}
-            {/*            {post.likes && post.likes.length > 0 ? (*/}
-            {/*                <>*/}
-            {/*                    <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích*/}
-            {/*                </>*/}
-            {/*            ) : (*/}
-            {/*                <>*/}
-            {/*                    <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích*/}
-            {/*                </>*/}
-            {/*            )}*/}
-            {/*        </div>*/}
+                    <div className="post-images">
+                        {decodeImages && decodeImages.length > 0 ? (
+                            decodeImages.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Post Image ${index + 1}`}
+                                    className="post-image"
+                                    onClick={() => showPostModal(image)}
+                                />
+                            ))
+                        ) : (
+                            <p>No images available</p>
+                        )}
+                    </div>
+                    <div className="post-detail-like-count-containerpost-detail-like-count-container"
+                         onClick={() => showLikesModal(post.likes)}>
+                        {post.likes && post.likes.length > 0 ? (
+                            <>
+                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                            </>
+                        )}
+                    </div>
 
-            {/*        <div className="post-comments">*/}
-            {/*            <Title level={4}>Bình luận:</Title>*/}
-            {/*            <List*/}
-            {/*                dataSource={comments}*/}
-            {/*                renderItem={item => (*/}
-            {/*                    <List.Item>{item}</List.Item>*/}
-            {/*                )}*/}
-            {/*            />*/}
-            {/*            <TextArea*/}
-            {/*                rows={4}*/}
-            {/*                value={newComment}*/}
-            {/*                onChange={handleCommentChange}*/}
-            {/*                placeholder="Viết bình luận..."*/}
-            {/*            />*/}
-            {/*            <Button*/}
-            {/*                type="primary"*/}
-            {/*                onClick={handleCommentSubmit}*/}
-            {/*                style={{marginTop: 10}}*/}
-            {/*            >*/}
-            {/*                Gửi*/}
-            {/*            </Button>*/}
-            {/*        </div>*/}
-            {/*    </Card>*/}
-            {/*</Modal>*/}
+                    <div className="post-comments">
+                        <Title level={4}>Bình luận:</Title>
+                        <List
+                            dataSource={comments}
+                            renderItem={item => (
+                                <List.Item>{item}</List.Item>
+                            )}
+                        />
+                        <TextArea
+                            rows={4}
+                            value={newComment}
+                            onChange={handleCommentChange}
+                            placeholder="Viết bình luận..."
+                        />
+                        <Button
+                            type="primary"
+                            onClick={handleCommentSubmit}
+                            style={{marginTop: 10}}
+                        >
+                            Gửi
+                        </Button>
+                    </div>
+                </Card>
+            </Modal>
 
             <LikesModal
                 visible={isLikesModalVisible}
@@ -312,4 +314,3 @@ const Post = ({post, avatarImage}) => {
 };
 
 export default Post;
-
