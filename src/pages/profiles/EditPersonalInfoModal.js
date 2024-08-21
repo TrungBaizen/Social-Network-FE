@@ -46,6 +46,7 @@ const EditPersonalInfoModal = ({ visible, onClose, onSave }) => {
             gender: result.gender
         };
         dispatch(updateProfile({ profile: profile, id }));
+        onClose()
     };
 
     const handleDateChange = (value, field) => {
