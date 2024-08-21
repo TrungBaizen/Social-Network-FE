@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Modal, Image, Input, List } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
-import {commentPost, getAllPostByFollowing} from "../../../redux/services/postService";
+import {commentPost, deleteCommentPost, getAllPostByFollowing} from "../../../redux/services/postService";
 import './HomePosts.css';
 import { decodeAndDecompressImageFile } from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import PostDetail from "./PostDetail";
@@ -48,19 +48,8 @@ const HomePosts = () => {
     if (loading) return <Text>Đang tải...</Text>;
     if (error) return <Text>Lỗi: {error}</Text>;
 
-    const test = () => {
-      const comment = {
-          content:"Tuyệt vời",
-          userId:2,
-          parentCommentId:12,
-          postId:40
-      }
-      dispatch(commentPost(comment));
-        console.log(posts)
-    }
     return (
         <div className="HomePosts-home-posts">
-            <button onClick={test}>Ấn vào tao</button>
             {filteredPosts && filteredPosts.length > 0 ? (
                 filteredPosts.map(post => (
                     <PostDetail

@@ -4,7 +4,14 @@ import {CommentOutlined, LikeFilled, LikeOutlined, MoreOutlined} from '@ant-desi
 import {decodeAndDecompressImageFile} from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import {compressAndEncodeImageFile} from "../../../EncodeDecodeImage/compressAndEncodeImageFile";
 import {useDispatch, useSelector} from "react-redux";
-import {deletePost, likePost, unLikePost, updatePost} from "../../../redux/services/postService";
+import {
+    commentPost,
+    deleteCommentPost,
+    deletePost,
+    likePost,
+    unLikePost,
+    updatePost
+} from "../../../redux/services/postService";
 import LikesModal from "../../likes/LikesModal";
 import EditPostModal from "./EditPostHomeModal/EditPostHomeModal";
 import './PostDetail.css';
@@ -14,7 +21,6 @@ const {TextArea} = Input;
 
 const PostDetail = ({post, likedPosts}) => {
     const [newComment, setNewComment] = useState('');
-    const [comments, setComments] = useState(post.comments || []);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isLikesModalVisible, setIsLikesModalVisible] = useState(false);
     const [isEditModalVisible, setIsEditModalVisible] = useState(false);
@@ -54,10 +60,23 @@ const PostDetail = ({post, likedPosts}) => {
         setNewComment(e.target.value);
     };
 
-    const handleCommentSubmit = () => {
+    const handleCommentSubmit = async () => {
+        const imageComments = selectedReplyImages2 ? await Promise.all(selectedReplyImages2.map(async (file) => {
+            return await compressAndEncodeImageFile(file);
+        })) : [];
+        const commentImages = imageComments.map(image => ({image}));
+        const comment = {
+            content: newComment,
+            userId: myId,
+            postId: post.id,
+            commentImages: commentImages
+        }
+        dispatch(commentPost(comment));
         if (newComment.trim()) {
-            setComments([...comments, newComment]);
             setNewComment('');
+        }
+        if (setSelectedReplyImages2 !== []) {
+            setSelectedReplyImages2([]);
         }
     };
 
@@ -134,12 +153,29 @@ const PostDetail = ({post, likedPosts}) => {
         }
     };
 
+    const handleMenuClick2 = (e, commentId) => {
+        if (e.key === 'edit') {
+            console.log("Edit comment")
+        } else if (e.key === 'delete') {
+            console.log(commentId)
+            // dispatch(deleteCommentPost(commentId))
+        }
+    };
+
     const menu = (
         <Menu onClick={handleMenuClick}>
             <Menu.Item key="1" icon={<MoreOutlined/>}>Sửa bài viết</Menu.Item>
             <Menu.Item key="2" icon={<MoreOutlined/>}>Xóa bài viết</Menu.Item>
         </Menu>
     );
+
+    const menu2 = (commentId) => (
+        <Menu onClick={(e) => handleMenuClick2(e, commentId)}>
+            <Menu.Item key="edit">Sửa bình luận</Menu.Item>
+            <Menu.Item key="delete">Xóa bình luận</Menu.Item>
+        </Menu>
+    );
+
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -162,9 +198,20 @@ const PostDetail = ({post, likedPosts}) => {
         setReplyContent(e.target.value);
     };
 
-    const handleReplySubmit = (commentId) => {
-        // Xử lý logic gửi bình luận con ở đây
-        console.log(`Replying to comment ${commentId}: ${replyContent}`);
+    const handleReplySubmit =async (commentId) => {
+        const imageComments = selectedReplyImages ? await Promise.all(selectedReplyImages.map(async (file) => {
+            return await compressAndEncodeImageFile(file);
+        })) : [];
+        const commentImages = imageComments.map(image => ({image}));
+        const comment = {
+            content: replyContent,
+            userId: myId,
+            parentCommentId:commentId,
+            postId: post.id,
+            commentImages: commentImages
+        }
+        dispatch(commentPost(comment));
+        setIsOpen(true)
         setSelectedReplyImages([])
         setReplyContent('');
         setReplyingTo(null);
@@ -316,9 +363,31 @@ const PostDetail = ({post, likedPosts}) => {
                                     <List.Item key={item.id} style={{display: 'block', marginBottom: '15px'}}>
                                         <List.Item.Meta
                                             avatar={<Avatar
-                                                src={decodeAndDecompressImageFile(decodeURIComponent(item.imageAvatar))}/>}
-                                            title={`${item.firstName} ${item.lastName}`}
-                                            description={item.content}
+                                                src={decodeAndDecompressImageFile(decodeURIComponent(item.avatar))}/>}
+                                            title={<>
+                                                {`${item.firstName} ${item.lastName}`}
+                                                {myId === item.userId && ( // Kiểm tra xem người dùng có phải là tác giả bình luận không
+                                                    <Dropdown overlay={menu2(item.id)} trigger={['click']}
+                                                              style={{marginLeft: 10}}>
+                                                        <Button type="link">...</Button>
+                                                    </Dropdown>
+                                                )}
+                                            </>}
+                                            description={<>
+                                                {item.content}
+                                                {item.commentImages && item.commentImages.length > 0 && (
+                                                    <div style={{ marginTop: 10 }}>
+                                                        {item.commentImages.map((imgSrc, index) => (
+                                                            <img
+                                                                key={index}
+                                                                src={decodeAndDecompressImageFile(decodeURIComponent(imgSrc.image))}
+                                                                alt={`Description Image ${index}`}
+                                                                style={{ width: '100%', marginBottom: 10 }} // Thay đổi kích thước và khoảng cách tùy chỉnh nếu cần
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                )}
+                                            </>}
                                         />
                                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                             <Button type="link" onClick={() => handleReply(item.id)}
@@ -327,7 +396,7 @@ const PostDetail = ({post, likedPosts}) => {
                                             </Button>
                                             {item.commentChildren && item.commentChildren.length > 0 && (
                                                 <Button type="link" onClick={toggleChildren} style={{fontSize: '12px'}}>
-                                                    {isOpen ? 'Ẩn bình luận con' : 'Hiển thị bình luận con'}
+                                                    {isOpen ? 'Ẩn phản hồi' : 'Hiển thị phản hồi'}
                                                 </Button>
                                             )}
                                         </div>
@@ -342,9 +411,32 @@ const PostDetail = ({post, likedPosts}) => {
                                                     }}>
                                                         <List.Item.Meta
                                                             avatar={<Avatar
-                                                                src={decodeAndDecompressImageFile(decodeURIComponent(child.imageAvatar))}/>}
-                                                            title={`${child.firstName} ${child.lastName}`}
-                                                            description={child.content}
+                                                                src={decodeAndDecompressImageFile(decodeURIComponent(item.avatar))}/>}
+                                                            title={<>
+                                                                {`${item.firstName} ${item.lastName}`}
+                                                                {myId === item.userId && ( // Kiểm tra xem người dùng có phải là tác giả bình luận không
+                                                                    <Dropdown overlay={menu2(item.id)}
+                                                                              trigger={['click']}
+                                                                              style={{marginLeft: 10}}>
+                                                                        <Button type="link">...</Button>
+                                                                    </Dropdown>
+                                                                )}
+                                                            </>}
+                                                            description={<>
+                                                                {child.content}
+                                                                {child.commentImages && child.commentImages.length > 0 && (
+                                                                    <div style={{ marginTop: 10 }}>
+                                                                        {child.commentImages.map((imgSrc, index) => (
+                                                                            <img
+                                                                                key={index}
+                                                                                src={decodeAndDecompressImageFile(decodeURIComponent(imgSrc.image))}
+                                                                                alt={`Description Image ${index}`}
+                                                                                style={{ width: '100%', marginBottom: 10 }} // Thay đổi kích thước và khoảng cách tùy chỉnh nếu cần
+                                                                            />
+                                                                        ))}
+                                                                    </div>
+                                                                )}
+                                                            </>}
                                                         />
                                                     </List.Item>
                                                 )}
