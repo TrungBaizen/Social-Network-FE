@@ -27,10 +27,10 @@ const defaultTheme = createTheme();
 
 const validationSchema = Yup.object({
     email: Yup.string()
-        .email('Invalid email address')
-        .required('Required'),
+        .email('Địa chỉ email không hợp lệ')
+        .required('Yêu cầu nhập email'),
     password: Yup.string()
-        .min(6, 'Password must be at least 6 characters')
+        .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
     // .matches(/[A-Z]/, 'Password must contain an uppercase letter')
     // .matches(/[a-z]/, 'Password must contain a lowercase letter')
     // .matches(/[0-9]/, 'Password must contain a number')
@@ -112,7 +112,7 @@ export default function Login() {
                         <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Đăng nhập
                     </Typography>
                     <Formik
                         initialValues={{
@@ -132,7 +132,7 @@ export default function Login() {
                                     fullWidth
                                     id="email"
                                     name="email"
-                                    label="Email Address"
+                                    label="Địa chỉ Email"
                                     autoComplete="email"
                                     autoFocus
                                 />
@@ -143,7 +143,7 @@ export default function Login() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="Mật khẩu"
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
@@ -151,7 +151,7 @@ export default function Login() {
                                 <ErrorMessage name="password" component="div" style={{color: 'red'}}/>
                                 <FormControlLabel
                                     control={<Field as={Checkbox} name="remember" color="primary"/>}
-                                    label="Remember me"
+                                    label="Nhớ mật khẩu"
                                 />
                                 <Button
                                     type="submit"
@@ -160,24 +160,24 @@ export default function Login() {
                                     sx={{mt: 3, mb: 2}}
                                     disabled={isSubmitting}
                                 >
-                                    Sign In
+                                    Đăng Nhập
                                 </Button>
                                 <GoogleLogin
                                     onSuccess={succesOAuth}
                                     onError={() => {
-                                        console.log('Login Failed');
+                                        console.log('Đăng nhập thất bại!');
                                     }}
                                     auto_select={false}
                                 />
                                 <Grid container>
                                     <Grid item xs>
                                         <Link component={RouterLink} to="/forgot-password" variant="body2">
-                                            Forgot password?
+                                            Quên mật khẩu?
                                         </Link>
                                     </Grid>
                                     <Grid item>
                                         <Link component={RouterLink} to="/register" variant="body2">
-                                            {"Don't have an account? Sign Up"}
+                                            {"Chưa có tài khoản? Đăng ký"}
                                         </Link>
                                     </Grid>
                                 </Grid>

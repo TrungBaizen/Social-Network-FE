@@ -1,5 +1,5 @@
 import React from 'react';
-import {FcBusinessman, FcContacts, FcHighPriority, FcPortraitMode} from 'react-icons/fc'; // Import các biểu tượng phù hợp
+import {FcBusinessman, FcFilm, FcGallery, FcBookmark, FcContacts} from 'react-icons/fc'; // Nhập các biểu tượng phù hợp
 import {Layout, Menu} from 'antd';
 import './SiderLeft.css';
 
@@ -8,30 +8,29 @@ const { Sider } = Layout;
 const items2 = [
     {
         key: '1',
-        icon: <FcBusinessman />,
-        label: 'Account',
+        icon: <FcContacts />, // Biểu tượng cho "Bạn Bè"
+        label: 'Bạn Bè',
     },
     {
         key: '2',
-        icon: <FcContacts />, // Biểu tượng nhóm gần nhất
-        label: 'Group',
+        icon: <FcGallery />, // Biểu tượng cho "Kỷ Niệm"
+        label: 'Kỷ Niệm',
     },
     {
         key: '3',
-        icon: <FcPortraitMode />,
-        label: 'Author Profile',
+        icon: <FcBookmark />, // Biểu tượng cho "Đã Lưu"
+        label: 'Đã Lưu',
     },
     {
         key: '4',
-        icon: <FcHighPriority />, // Biểu tượng nổi bật gần nhất
-        label: 'Popular Group',
+        icon: <FcBusinessman />, // Biểu tượng cho "Nhóm"
+        label: 'Nhóm',
     },
     {
         key: '5',
-        icon: <FcBusinessman />, // Sử dụng lại biểu tượng cho "Bạn Bè" nếu không có biểu tượng khác
-        label: 'Bạn Bè',
+        icon: <FcFilm />, // Biểu tượng cho "Video"
+        label: 'Video',
     },
-    // Thêm các mục khác nếu cần
 ];
 
 const SiderLeft = ({ colorBgContainer }) => (

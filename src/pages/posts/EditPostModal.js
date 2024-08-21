@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {Avatar, Button, Card, Form, Input, Modal, Select, Typography} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Card, Form, Input, Modal, Select, Typography } from 'antd';
 import './EditPostModal.css';
-import {useSelector} from "react-redux";
-import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile"; // Nhập file CSS
+import { useSelector } from "react-redux";
+import { decodeAndDecompressImageFile } from "../../EncodeDecodeImage/decodeAndDecompressImageFile"; // Nhập file CSS
 
 const { Title, Text } = Typography;
 const { Option } = Select;
 const { TextArea } = Input;
 
 const AvatarSection = ({ avatar, name, visibility, onVisibilityChange }) => (
-    <div className="post-header">
-        <Avatar src={avatar}/>
-        <Title level={4} style={{marginLeft: 10}}>
+    <div className="EditPostModal-post-header">
+        <Avatar src={avatar} />
+        <Title level={4} style={{ marginLeft: 10 }}>
             {name}
         </Title>
     </div>
@@ -21,17 +21,17 @@ const StatusInput = () => (
     <Form.Item
         label="Nội dung"
         name="content"
-        rules={[{required: true, message: 'Vui lòng nhập nội dung!' }]}
+        rules={[{ required: true, message: 'Vui lòng nhập nội dung!' }]}
     >
-        <TextArea rows={4} placeholder="Nhập nội dung bài viết" className="status-input" />
+        <TextArea rows={4} placeholder="Nhập nội dung bài viết" className="EditPostModal-status-input" />
     </Form.Item>
 );
 
-const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
+const EditPostModal = ({ visible, onCancel, post, onEdit, avatarImage }) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
     const [previewImage, setPreviewImage] = useState([]);
-    const profile = useSelector(({profiles}) => profiles.profile);
+    const profile = useSelector(({ profiles }) => profiles.profile);
 
     const handleFinish = (values) => {
         const updatedPost = {
@@ -78,10 +78,10 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
             footer={null}
             width={800}
         >
-            <Card className="post-card">
+            <Card className="EditPostModal-post-card">
                 <AvatarSection
                     avatar={avatarImage}
-                    name={profile.firstName + " "+ profile.lastName}
+                    name={profile.firstName + " " + profile.lastName}
                 />
                 <Form
                     form={form}
@@ -93,25 +93,25 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
                         label="Trạng thái"
                         rules={[{ required: true, message: 'Vui lòng chọn trạng thái!' }]}
                     >
-                        <Select>
+                        <Select className="EditPostModal-select">
                             <Option value="PUBLIC">Công khai</Option>
                             <Option value="PRIVATE">Chỉ mình tôi</Option>
                         </Select>
                     </Form.Item>
                     <StatusInput />
-                    <div>
+                    <div className="EditPostModal-image-container">
                         <input
                             type="file"
                             multiple
                             onChange={handleUploadChange}
                         />
-                        <div className="image-preview-list">
+                        <div className="EditPostModal-image-preview-list">
                             {previewImage.map((image, index) => (
                                 <img
                                     key={index}
                                     src={image}
                                     alt={`preview-${index}`}
-                                    className="image-preview"
+                                    className="EditPostModal-image-preview"
                                 />
                             ))}
                         </div>
@@ -122,7 +122,6 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
                         </Button>
                     </Form.Item>
                 </Form>
-
             </Card>
         </Modal>
     );

@@ -8,22 +8,22 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {ErrorMessage, Field, Form, Formik} from 'formik';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import {Link as RouterLink, useNavigate} from 'react-router-dom';
-import {toast, ToastContainer} from 'react-toastify';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from "@mui/material/Link";
-import {useDispatch} from "react-redux";
-import {forgotPassword} from "../../../redux/services/userService";
+import { useDispatch } from "react-redux";
+import { forgotPassword } from "../../../redux/services/userService";
 
 const defaultTheme = createTheme();
 
 const validationSchema = Yup.object({
     email: Yup.string()
-        .email('Invalid email address')
-        .required('Required'),
+        .email('Địa chỉ email không hợp lệ')
+        .required('Bắt buộc'),
 });
 
 export default function ForgotPassword() {
@@ -39,14 +39,14 @@ export default function ForgotPassword() {
             } else {
                 if (resultAction.payload) {
                     // Nếu lỗi đã được gửi từ API
-                    throw new Error(resultAction.payload.message || 'An error occurred');
+                    throw new Error(resultAction.payload.message || 'Đã xảy ra lỗi');
                 } else {
                     // Nếu lỗi là một đối tượng lỗi chung chung
-                    throw new Error(resultAction.error.message || 'An error occurred');
+                    throw new Error(resultAction.error.message || 'Đã xảy ra lỗi');
                 }
             }
         } catch (error) {
-            toast.error('An error occurred. Please try again.');
+            toast.error('Đã xảy ra lỗi. Vui lòng thử lại.');
         }
         setSubmitting(false);
     };
@@ -67,7 +67,7 @@ export default function ForgotPassword() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Forgot Password
+                        Quên Mật Khẩu
                     </Typography>
                     <Formik
                         initialValues={{ email: '' }}
@@ -83,7 +83,7 @@ export default function ForgotPassword() {
                                     fullWidth
                                     id="email"
                                     name="email"
-                                    label="Email Address"
+                                    label="Địa chỉ Email"
                                     autoComplete="email"
                                     autoFocus
                                     helperText={<ErrorMessage name="email" />}
@@ -96,7 +96,7 @@ export default function ForgotPassword() {
                                     sx={{ mt: 3, mb: 2 }}
                                     disabled={isSubmitting}
                                 >
-                                    Send Reset Instructions
+                                    Gửi Hướng Dẫn Đặt Lại Mật Khẩu
                                 </Button>
                                 <Grid container>
                                     <Grid item xs>
@@ -105,7 +105,7 @@ export default function ForgotPassword() {
                                             to="/login"
                                             variant="body2"
                                         >
-                                            {"Remember your password? Sign In"}
+                                            {"Nhớ mật khẩu? Đăng nhập"}
                                         </Link>
                                     </Grid>
                                     <Grid item>
@@ -114,7 +114,7 @@ export default function ForgotPassword() {
                                             to="/register"
                                             variant="body2"
                                         >
-                                            {"Don't have an account? Sign Up"}
+                                            {"Chưa có tài khoản? Đăng ký"}
                                         </Link>
                                     </Grid>
                                 </Grid>

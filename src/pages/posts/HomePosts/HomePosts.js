@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Button, Modal, Image, Input, List } from 'antd';
+import { Typography, Modal, Image, Input, List } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPostByFollowing } from "../../../redux/services/postService";
+import {commentPost, deleteCommentPost, getAllPostByFollowing} from "../../../redux/services/postService";
 import './HomePosts.css';
 import { decodeAndDecompressImageFile } from "../../../EncodeDecodeImage/decodeAndDecompressImageFile";
 import PostDetail from "./PostDetail";
@@ -13,9 +13,6 @@ const HomePosts = () => {
     const [likedPosts, setLikedPosts] = useState(new Set());
     const [selectedPost, setSelectedPost] = useState(null);
     const [showImageModal, setShowImageModal] = useState(false);
-    const [commentModalVisible, setCommentModalVisible] = useState(false);
-    const [selectedPostComments, setSelectedPostComments] = useState([]);
-    const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const profile = useSelector(({ profiles }) => profiles.profile);
@@ -38,44 +35,11 @@ const HomePosts = () => {
         fetchPosts();
     }, [dispatch, id]);
 
-    const handleLikeClick = (postId) => {
-        setLikedPosts(prev => {
-            const updatedLikes = new Set(prev);
-            updatedLikes.has(postId) ? updatedLikes.delete(postId) : updatedLikes.add(postId);
-            return updatedLikes;
-        });
-    };
-
-    const handleImageClick = (post) => {
-        setSelectedPost(post);
-        setShowImageModal(true);
-    };
-
     const handleModalCancel = () => {
         setShowImageModal(false);
         setSelectedPost(null);
     };
 
-    const handleCommentClick = (post) => {
-        setSelectedPostComments(post.comments || []);
-        setCommentModalVisible(true);
-    };
-
-    const handleCommentModalCancel = () => {
-        setCommentModalVisible(false);
-        setNewComment('');
-    };
-
-    const handleCommentChange = (e) => {
-        setNewComment(e.target.value);
-    };
-
-    const handleCommentSubmit = () => {
-        if (newComment.trim()) {
-            setSelectedPostComments(prev => [...prev, newComment]);
-            setNewComment('');
-        }
-    };
 
     const filteredPosts = posts.filter(post =>
         post.email === profile.email || post.postStatus !== 'PRIVATE'
@@ -92,9 +56,6 @@ const HomePosts = () => {
                         key={post.id}
                         post={post}
                         likedPosts={likedPosts}
-                        onLikeClick={handleLikeClick}
-                        onImageClick={handleImageClick}
-                        onCommentClick={handleCommentClick}
                     />
                 ))
             ) : (
@@ -116,33 +77,7 @@ const HomePosts = () => {
                 )}
             </Modal>
 
-            <Modal
-                title="Bình luận"
-                visible={commentModalVisible}
-                onCancel={handleCommentModalCancel}
-                footer={null}
-                width={800}
-            >
-                <List
-                    dataSource={selectedPostComments}
-                    renderItem={item => (
-                        <List.Item>{item}</List.Item>
-                    )}
-                />
-                <TextArea
-                    rows={4}
-                    value={newComment}
-                    onChange={handleCommentChange}
-                    placeholder="Viết bình luận..."
-                />
-                <Button
-                    type="primary"
-                    onClick={handleCommentSubmit}
-                    style={{ marginTop: 10 }}
-                >
-                    Gửi
-                </Button>
-            </Modal>
+
         </div>
     );
 };

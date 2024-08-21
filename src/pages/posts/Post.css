@@ -138,7 +138,6 @@
 .post-detail-like-count-container {
     display: flex;
     align-items: center;
-    margin-top: 10px;
 }
 
 .post-detail-like-icon {
