@@ -204,3 +204,19 @@
         width: calc(33.33% - 10px); /* Mỗi ảnh chiếm một phần ba chiều rộng của container với khoảng cách nhỏ */
     }
 }
+.post-comments {
+    margin-top: 20px;
+}
+
+.post-comments .ant-list-item-meta-title {
+    font-weight: bold;
+}
+
+.post-comments .ant-list-item-meta-description {
+    margin-top: 5px;
+}
+
+.post-comments .ant-list-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 0;
+}
