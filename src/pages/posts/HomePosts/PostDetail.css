@@ -81,3 +81,112 @@
         align-items: flex-start;
     }
 }
+/* Bài viết với nhiều ảnh */
+.getImagePostDetailClassName.single-image .getImagePostDetailClassName-images,
+.getImagePostDetailClassName.double-image .getImagePostDetailClassName-images,
+.getImagePostDetailClassName.triple-image .getImagePostDetailClassName-images,
+.getImagePostDetailClassName.quadriple-image .getImagePostDetailClassName-images,
+.getImagePostDetailClassName.multi-image .getImagePostDetailClassName-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+/* Bài viết với 1 ảnh */
+.getImagePostDetailClassName.single-image .getImagePostDetailClassName-image {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* Bài viết với 2 ảnh */
+.getImagePostDetailClassName.double-image .getImagePostDetailClassName-image {
+    width: calc(50% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+}
+
+/* Bài viết với 3 ảnh */
+.getImagePostDetailClassName.triple-image .getImagePostDetailClassName-image {
+    width: calc(33.33% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+}
+
+/* Bài viết với 4 ảnh */
+.getImagePostDetailClassName.quadriple-image .getImagePostDetailClassName-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh */
+}
+
+/* Bài viết với 5 ảnh trở lên */
+.getImagePostDetailClassName.multi-image .getImagePostDetailClassName-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh đầu tiên */
+}
+
+.getImagePostDetailClassName.multi-image .getImagePostDetailClassName-image:nth-of-type(n+5) {
+    display: none !important; /* Ẩn các ảnh từ thứ 5 trở đi */
+}
+/* Bài viết với nhiều ảnh */
+.postdetail-post-card.single-image .post-images,
+.postdetail-post-card.double-image .post-images,
+.postdetail-post-card.triple-image .post-images,
+.postdetail-post-card.quadriple-image .post-images,
+.postdetail-post-card.multi-image .post-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+/* Bài viết với 1 ảnh */
+.postdetail-post-card.single-image .post-image {
+    width: 50% !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto; /* Canh giữa hình ảnh */
+    max-width: 600px; /* Chiều rộng tối đa */
+    min-width: 300px; /* Chiều rộng tối thiểu */
+    max-height: 400px; /* Chiều cao tối đa */
+    min-height: 200px; /* Chiều cao tối thiểu */
+}
+
+/* Bài viết với 2 ảnh */
+.postdetail-post-card.double-image .post-images {
+    display: flex !important;
+    gap: 10px !important; /* Thêm khoảng cách giữa các ảnh */
+}
+
+.postdetail-post-card.double-image .post-image {
+    width: calc(40% - 10px) !important; /* Chiều rộng của mỗi ảnh với khoảng cách giữa chúng */
+    height: auto !important;
+    max-width: 500px; /* Chiều rộng tối đa */
+    min-width: 250px; /* Chiều rộng tối thiểu */
+    max-height: 350px; /* Chiều cao tối đa */
+    min-height: 175px; /* Chiều cao tối thiểu */
+}
+
+/* Bài viết với 3 ảnh */
+.postdetail-post-card.triple-image .post-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.postdetail-post-card.triple-image .post-image {
+    width: calc(33.33% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+    height: auto !important;
+    max-width: 400px; /* Chiều rộng tối đa */
+    min-width: 200px; /* Chiều rộng tối thiểu */
+    max-height: 300px; /* Chiều cao tối đa */
+    min-height: 150px; /* Chiều cao tối thiểu */
+}
+
+/* Bài viết với 4 ảnh */
+.postdetail-post-card.quadriple-image .post-images {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+}
+
+.postdetail-post-card.quadriple-image .post-image {
+    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh */
+    height: auto !important;
+    max-width: 300px; /* Chiều rộng tối đa */
+    min-width: 150px; /* Chiều rộng tối thiểu */
+    max-height: 250px; /* Chiều cao tối đa */
+    min-height: 125px; /* Chiều cao tối thiểu */
+}

@@ -257,11 +257,19 @@ const PostDetail = ({post, likedPosts}) => {
 
         return total;
     };
-
+    // Determine the appropriate CSS class based on the number of images
+    const getImagePostDetailClassName = () => {
+        const imageCount = post.postImages?.length || 0;
+        if (imageCount === 1) return 'single-image';
+        if (imageCount === 2) return 'double-image';
+        if (imageCount === 3) return 'triple-image';
+        if (imageCount >= 4) return 'quadriple-image';
+        return '';
+    };
     const totalComments = post.comments ? countTotalComments(post.comments) : 0;
     return (
         <div>
-            <Card className="post-card">
+            <Card className={`postdetail-post-card ${getImagePostDetailClassName()}`}>
                 <div className="post-header">
                     <Avatar src={decodeAndDecompressImageFile(decodeURIComponent(post.imageAvatar))}/>
                     <div>

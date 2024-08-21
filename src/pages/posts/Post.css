@@ -164,26 +164,53 @@
 .post-card.single-image .post-image {
     width: 100% !important;
     height: auto !important;
+    max-width: 600px; /* Kích thước tối đa của ảnh */
+    max-height: 400px; /* Chiều cao tối đa của ảnh */
+    min-width: 300px; /* Kích thước tối thiểu của ảnh */
+    min-height: 200px; /* Chiều cao tối thiểu của ảnh */
 }
 
 /* Bài viết với 2 ảnh */
 .post-card.double-image .post-image {
-    width: calc(50% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+    display: flex !important;
+    gap: 10px !important; /* Thêm khoảng cách giữa các ảnh */
+    width: calc(40% - 10px) !important; /* Chiều rộng của mỗi ảnh với khoảng cách giữa chúng */
+    height: auto !important;
+    max-width: 500px; /* Chiều rộng tối đa */
+    min-width: 250px; /* Chiều rộng tối thiểu */
+    max-height: 350px; /* Chiều cao tối đa */
+    min-height: 175px; /* Chiều cao tối thiểu */
 }
 
 /* Bài viết với 3 ảnh */
 .post-card.triple-image .post-image {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
     width: calc(33.33% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+    height: auto !important;
+    max-width: 400px; /* Chiều rộng tối đa */
+    min-width: 200px; /* Chiều rộng tối thiểu */
+    max-height: 300px; /* Chiều cao tối đa */
+    min-height: 150px; /* Chiều cao tối thiểu */
 }
 
 /* Bài viết với 4 ảnh */
 .post-card.quadriple-image .post-image {
     width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh */
+    max-width: 140px; /* Kích thước tối đa của ảnh */
+    max-height: 120px; /* Chiều cao tối đa của ảnh */
+    min-width: 70px; /* Kích thước tối thiểu của ảnh */
+    min-height: 60px; /* Chiều cao tối thiểu của ảnh */
 }
 
 /* Bài viết với 5 ảnh trở lên */
 .post-card.multi-image .post-image {
     width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh đầu tiên */
+    max-width: 140px; /* Kích thước tối đa của ảnh */
+    max-height: 120px; /* Chiều cao tối đa của ảnh */
+    min-width: 70px; /* Kích thước tối thiểu của ảnh */
+    min-height: 60px; /* Chiều cao tối thiểu của ảnh */
 }
 
 .post-card.multi-image .post-image:nth-of-type(n+5) {
