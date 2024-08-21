@@ -1,10 +1,9 @@
-//hoan chinh
 
 // import React, { useEffect, useState } from 'react';
 // import { Avatar, Button, Layout, Typography, Dropdown, Menu, message } from 'antd';
 // import { DownOutlined } from '@ant-design/icons';
 // import ResponsiveAppBar from "../../components/header/ResponsiveAppBar";
-// import './Profile.css';
+// import './FriendsProfile.css';
 // import { useDispatch, useSelector } from "react-redux";
 // import { getProfile } from "../../redux/services/profileService";
 // import { useLocation } from "react-router-dom";
@@ -12,6 +11,7 @@
 // import { CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined } from "@ant-design/icons";
 // import axios from 'axios';
 // import FriendsProfile from "./FriendsProfile/FriendsProfile";
+// import FriendsList from "./FriendsList";
 //
 // const { Content } = Layout;
 // const { Title, Text } = Typography;
@@ -29,6 +29,45 @@
 //     const [avatarImage, setAvatarImage] = useState('');
 //     const currentUserId = JSON.parse(localStorage.getItem('currentUser'))?.id;
 //     const [profileUserId, setProfileUserId] = useState(null);
+//     const [hasReceivedRequest, setHasReceivedRequest] = useState(false);
+//     const [pendingRequests, setPendingRequests] = useState([]);
+//
+//     useEffect(() => {
+//         if (profileUserId && currentUserId) {
+//             const checkRequestStatus = async () => {
+//                 try {
+//                     const response = await axios.get('http://localhost:8080/friends/has-sent-request', {
+//                         params: {
+//                             senderId: profileUserId,
+//                             receiverId: currentUserId
+//                         }
+//                     });
+//                     console.log('setHasReceivedRequest', response.data);
+//                     setHasReceivedRequest(response.data);
+//                 } catch (error) {
+//                     console.error('Error checking if request has been sent:', error);
+//                 }
+//             };
+//
+//             checkRequestStatus();
+//
+//             const fetchPendingRequests = async () => {
+//                 try {
+//                     const response = await axios.get('http://localhost:8080/friends/pending-requests', {
+//                         params: { userId: currentUserId }
+//                     });
+//                     console.log('setPendingRequests', response.data);
+//                     setPendingRequests(response.data);
+//                 } catch (error) {
+//                     console.error('Error fetching pending requests:', error);
+//                 }
+//             };
+//
+//             fetchPendingRequests();
+//         }
+//     }, [profileUserId, currentUserId]);
+//
+//
 //
 //     useEffect(() => {
 //         dispatch(getProfile(email));
@@ -192,41 +231,77 @@
 //     };
 //
 //
-// const handleUnfollow = async () => {
-//     if (profileUserId && currentUserId) {
+//     const handleUnfollow = async () => {
+//         if (profileUserId && currentUserId) {
+//             try {
+//                 await axios.delete('http://localhost:8080/friends/unfollow', {
+//                     params: {
+//                         userId: currentUserId,
+//                         followedId: profileUserId
+//                     }
+//                 });
+//                 setIsFollowing(false);
+//                 message.success('Hủy theo dõi người dùng thành công!');
+//             } catch (error) {
+//                 console.error('Error unfollowing user:', error);
+//             }
+//         } else {
+//             console.error('User IDs are not defined');
+//         }
+//     };
+//
+//     const acceptFriendRequest = async (requestId) => {
 //         try {
-//             await axios.delete('http://localhost:8080/friends/unfollow', {
+//             const response = await axios.post('http://localhost:8080/friends/accept-request?requestId=' + requestId);
+//             console.log('Request accepted successfully:', response.data);
+//         } catch (error) {
+//             console.error('Error accepting friend request:', error.response?.data || error.message);
+//         }
+//     };
+//
+//     const rejectFriendRequest = async (requestId) => {
+//         try {
+//             const response = await axios.post('http://localhost:8080/friends/reject-request', {
 //                 params: {
-//                     userId: currentUserId,
-//                     followedId: profileUserId
+//                     requestId: requestId
 //                 }
 //             });
-//             setIsFollowing(false);
-//             message.success('Hủy theo dõi người dùng thành công!');
+//             console.log('Request rejected successfully:', response.data);
 //         } catch (error) {
-//             console.error('Error unfollowing user:', error);
+//             console.error('Error rejecting friend request:', error.response?.data || error.message);
 //         }
-//     } else {
-//         console.error('User IDs are not defined');
-//     }
-// };
+//     };
 //
 //
-// const followMenu = (
-//     <Menu>
-//         <Menu.Item onClick={handleUnfollow}>
-//             Bỏ theo dõi
-//         </Menu.Item>
-//     </Menu>
-// );
 //
-// const unfriendMenu = (
-//     <Menu>
-//         <Menu.Item onClick={handleUnfriend}>
-//             Hủy kết bạn
-//         </Menu.Item>
-//     </Menu>
-// );
+//     const followMenu = (
+//         <Menu>
+//             <Menu.Item onClick={handleUnfollow}>
+//                 Bỏ theo dõi
+//             </Menu.Item>
+//         </Menu>
+//     );
+//
+//     const unfriendMenu = (
+//         <Menu>
+//             <Menu.Item onClick={handleUnfriend}>
+//                 Hủy kết bạn
+//             </Menu.Item>
+//         </Menu>
+//     );
+//
+//
+//
+//     const requestMenu = (requestId) => (
+//         <Menu>
+//             <Menu.Item onClick={() => acceptFriendRequest(requestId)}>
+//                 Đồng Ý
+//             </Menu.Item>
+//             <Menu.Item onClick={() => rejectFriendRequest(requestId)}>
+//                 Từ Chối
+//             </Menu.Item>
+//         </Menu>
+//     );
 //
 //     return (
 //         <Layout style={{ minHeight: '100vh' }}>
@@ -243,16 +318,20 @@
 //                         </div>
 //                         <div className="profile-header d-flex justify-content-between">
 //                             <div className="d-flex justify-content-start">
-//                                 <Avatar size={64} src={avatarImage}/>
+//                                 <Avatar size={64} src={avatarImage} />
 //                                 <div className="profile-info">
 //                                     <Title level={2}>{profile.firstName} {profile.lastName}</Title>
 //                                 </div>
 //                             </div>
 //                             <div className="profile-actions d-flex align-items-center">
-//
-//
 //                                 <div className="friend-action me-2">
-//                                     {isRequestSent ? (
+//                                     {hasReceivedRequest ? (
+//                                         <Dropdown overlay={requestMenu(pendingRequests && pendingRequests.length > 0 ? pendingRequests[0].id : null)} trigger={['click']}>
+//                                             <Button type="default">
+//                                                 Phản hồi yêu cầu <DownOutlined/>
+//                                             </Button>
+//                                         </Dropdown>
+//                                     ) : isRequestSent ? (
 //                                         <Button
 //                                             type="default"
 //                                             onClick={handleCancelRequest}
@@ -274,6 +353,7 @@
 //                                         </Button>
 //                                     )}
 //                                 </div>
+//
 //                                 <div className="follow-action">
 //                                     {isFollowing ? (
 //                                         <Dropdown overlay={followMenu} trigger={['click']}>
@@ -294,7 +374,6 @@
 //                         </div>
 //                     </div>
 //
-//
 //                     <div className="profile-content">
 //                         <div className="left-column-info">
 //                             <Title level={4}>Giới thiệu</Title>
@@ -313,18 +392,19 @@
 //                                     )}
 //                                 </div>
 //                                 <div className="info-item">
-//                                     <EnvironmentOutlined className="info-icon"/>
+//                                     <EnvironmentOutlined className="info-icon" />
 //                                     <Text>{profile.address}</Text>
 //                                 </div>
 //                                 <div className="info-item">
-//                                     {profile.gender === 'male' ? <ManOutlined className="info-icon"/> :
-//                                         <WomanOutlined className="info-icon"/>}
+//                                     {profile.gender === 'male' ? <ManOutlined className="info-icon" /> :
+//                                         <WomanOutlined className="info-icon" />}
 //                                     <Text>{profile.gender === 'male' ? 'Nam' : 'Nữ'}</Text>
 //                                 </div>
 //                                 <div className="info-item">
-//                                     <ToolOutlined className="info-icon"/>
+//                                     <ToolOutlined className="info-icon" />
 //                                     <Text>{profile.occupation}</Text>
 //                                 </div>
+//                                 <FriendsList/>
 //                             </div>
 //                         </div>
 //                         <FriendsProfile/>
@@ -334,9 +414,17 @@
 //             </Layout>
 //         </Layout>
 //     );
+//
 // };
 //
 // export default Profile;
+//
+
+
+
+
+
+
 
 
 
@@ -760,6 +848,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
 
 
 
