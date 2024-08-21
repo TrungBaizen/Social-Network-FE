@@ -164,10 +164,8 @@
         width: 80px;
         height: 80px;
     }
-<<<<<<< HEAD
 }
-=======
-}
+
 
 /* Tablets (576px - 768px) */
 @media (min-width: 576px) and (max-width: 768px) {
@@ -266,4 +264,3 @@
     padding: 8px 16px;
     box-sizing: border-box;
 }
->>>>>>> master

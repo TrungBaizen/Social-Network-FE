@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import HomeIcon from "@mui/icons-material/Home";
 import GroupIcon from "@mui/icons-material/Group";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import "./NavigationMenu.css"; // Tạo file CSS riêng để tách biệt phần kiểu dáng
+import "./NavigationMenu.css";
 
 const pages = [
     { title: 'Home', icon: <HomeIcon />, link: '/' },

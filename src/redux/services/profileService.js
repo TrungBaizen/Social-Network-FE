@@ -1,5 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import getAxios from "./customAxios";
+import axios from "axios";
 
 export const getProfile = createAsyncThunk(
     "profiles/getProfile",
@@ -31,7 +32,7 @@ export const searchProfile=createAsyncThunk(
         let res = await getAxios().get(`profiles/search?name=${name}`)
         return res.data
     }
-)
+);
 
 export const updateProfile = createAsyncThunk(
     "profiles/updateProfile",
@@ -39,4 +40,5 @@ export const updateProfile = createAsyncThunk(
         let res = await getAxios().post(`profiles/${id}`, profile)
         return res.data
     }
-)
+);
+

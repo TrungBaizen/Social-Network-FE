@@ -30,34 +30,21 @@ const StatusInput = () => (
 const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
-<<<<<<< HEAD
-    // const [previewImage, setPreviewImage] = useState(post.image);
-=======
     const [previewImage, setPreviewImage] = useState([]);
     const profile = useSelector(({profiles}) => profiles.profile);
->>>>>>> master
 
     const handleFinish = (values) => {
         const updatedPost = {
             ...post,
             ...values,
-            // image: fileList.length > 0 ? fileList[0].url : previewImage
+            image: fileList.length > 0 ? fileList[0].url : previewImage
         };
         onEdit(updatedPost);
     };
-<<<<<<< HEAD
-
-    const handleUploadChange = ({ fileList }) => {
-        setFileList(fileList);
-        if (fileList.length > 0) {
-            // setPreviewImage(fileList[0].url);
-        }
-=======
     const handleUploadChange = (event) => {
         const files = Array.from(event.target.files); // Chuyển FileList thành mảng
         const previewNewList = files.map(file => URL.createObjectURL(file));
         setPreviewImage(previewNewList);
->>>>>>> master
     };
     useEffect(() => {
         form.setFieldsValue({
@@ -93,15 +80,8 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
         >
             <Card className="post-card">
                 <AvatarSection
-<<<<<<< HEAD
-                    // avatar={post.user.avatar}
-                    // name={post.user.name}
-                    visibility={post.visibility || 'public'}
-                    onVisibilityChange={(value) => form.setFieldsValue({ visibility: value })}
-=======
                     avatar={avatarImage}
                     name={profile.firstName + " "+ profile.lastName}
->>>>>>> master
                 />
                 <Form
                     form={form}
@@ -119,13 +99,6 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
                         </Select>
                     </Form.Item>
                     <StatusInput />
-<<<<<<< HEAD
-                    <ImageUpload
-                        // previewImage={previewImage}
-                        fileList={fileList}
-                        onUploadChange={handleUploadChange}
-                    />
-=======
                     <div>
                         <input
                             type="file"
@@ -143,7 +116,6 @@ const EditPostModal = ({ visible, onCancel, post, onEdit,avatarImage }) => {
                             ))}
                         </div>
                     </div>
->>>>>>> master
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Cập nhật

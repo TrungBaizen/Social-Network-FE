@@ -32,40 +32,6 @@ const CreatePostModal = ({visible, onCancel}) => {
         setSelectedFiles(files);
     };
 
-<<<<<<< HEAD
-    const handleSubmit = () => {
-        const formData = new FormData();
-        formData.append('postContent', postContent);
-        if (selectedFile) {
-            formData.append('file', selectedFile);
-        }
-
-        fetch('http://localhost:8080/posts/{id}', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => {
-                // Kiểm tra phản hồi từ server
-                if (response.ok) {
-                     if (response.headers.get('content-type')?.includes('application/json')) {
-                        return response.json(); // Phân tích JSON
-                    } else {
-                        return response.text(); // Nếu không phải JSON, trả về dạng văn bản
-                    }
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .then(data => {
-                console.log('Success:', data);
-                setPostContent('');
-                setSelectedFile(null);
-                onCancel();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-=======
     const handleSubmit =async () => {
         // Tạo danh sách các URL của ảnh đã chọn
         const postImages = selectedFiles ? await Promise.all(selectedFiles.map(async (file) => {
@@ -82,7 +48,6 @@ const CreatePostModal = ({visible, onCancel}) => {
         setSelectedFiles([]);
         setVisibility('PRIVATE');
         onCancel();
->>>>>>> master
     };
 
     const handleSelectChange = (value) => {

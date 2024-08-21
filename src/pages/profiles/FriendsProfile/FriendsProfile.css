@@ -158,3 +158,60 @@
         height: auto;
     }
 }
+
+.friends-container {
+    padding: 20px;
+}
+
+.friends-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.friends-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    overflow-y: auto; /* Thêm thuộc tính này để cho phép cuộn dọc nếu cần */
+    max-height: 500px; /* Điều chỉnh chiều cao tối đa của lưới bạn bè */
+}
+
+.friend-item {
+    flex: 1 1 calc(33.333% - 16px); /* Đặt kích thước của từng mục bạn bè và khoảng cách giữa chúng */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.friend-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.friend-name {
+    margin-top: 10px;
+}
+
+.modal-nav {
+    margin-bottom: 20px;
+}
+
+.view-all {
+    color: #1890ff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.friend-requests {
+    /* Thêm kiểu dáng cho phần yêu cầu kết bạn nếu cần */
+}
+

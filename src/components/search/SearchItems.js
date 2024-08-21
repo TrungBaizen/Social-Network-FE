@@ -52,11 +52,8 @@ const SearchItems = () => {
                     <line x1="21" x2="16.65" y1="21" y2="16.65" />
                 </svg>
             }
-<<<<<<< HEAD
-=======
             onSearch={handleSearch} // Bắt sự kiện khi người dùng nhập liệu
             onInputKeyDown={handleKeyDown} // Bắt sự kiện khi người dùng nhấn phím
->>>>>>> master
         >
         </Select>
     );
