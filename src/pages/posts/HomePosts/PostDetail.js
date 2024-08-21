@@ -157,8 +157,7 @@ const PostDetail = ({post, likedPosts}) => {
         if (e.key === 'edit') {
             console.log("Edit comment")
         } else if (e.key === 'delete') {
-            console.log(commentId)
-            // dispatch(deleteCommentPost(commentId))
+            dispatch(deleteCommentPost(commentId))
         }
     };
 
@@ -237,6 +236,29 @@ const PostDetail = ({post, likedPosts}) => {
         setSelectedReplyImages2(prevImages => prevImages.filter((_, i) => i !== index));
     };
 
+    const countTotalComments = (comments) => {
+        let total = 0;
+
+        const countReplies = (replies) => {
+            replies.forEach(reply => {
+                total++;
+                if (reply.replies && reply.replies.length > 0) {
+                    countReplies(reply.replies);
+                }
+            });
+        };
+
+        comments.forEach(comment => {
+            total++;
+            if (comment.commentChildren && comment.commentChildren.length > 0) {
+                countReplies(comment.commentChildren);
+            }
+        });
+
+        return total;
+    };
+
+    const totalComments = post.comments ? countTotalComments(post.comments) : 0;
     return (
         <div>
             <Card className="post-card">
@@ -276,17 +298,31 @@ const PostDetail = ({post, likedPosts}) => {
                         </div>
                     )}
                 </div>
-
-                <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
-                    {post.likes && post.likes.length > 0 ? (
-                        <>
-                            <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
-                        </>
-                    ) : (
-                        <>
-                            <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
-                        </>
-                    )}
+                <div className="post-detail-interaction-container">
+                    <div className="post-detail-like-count-container" onClick={() => showLikesModal(post.likes)}>
+                        {post.likes && post.likes.length > 0 ? (
+                            <>
+                                <LikeFilled style={{marginRight: 8, color: '#1890ff'}}/> {post.likes.length} lượt thích
+                            </>
+                        ) : (
+                            <>
+                                <LikeOutlined style={{marginRight: 8}}/> 0 lượt thích
+                            </>
+                        )}
+                    </div>
+                    <div className="post-detail-comment-count-container"
+                         onClick={showPostModal}>
+                        {post.comments && post.comments.length > 0 ? (
+                            <>
+                                <CommentOutlined style={{marginRight: 8, marginLeft: 16}}/> {totalComments} bình
+                                luận
+                            </>
+                        ) : (
+                            <>
+                                <CommentOutlined style={{marginRight: 8, marginLeft: 16}}/> 0 bình luận
+                            </>
+                        )}
+                    </div>
                 </div>
                 <div className="post-actions">
                     <Button
@@ -415,7 +451,7 @@ const PostDetail = ({post, likedPosts}) => {
                                                             title={<>
                                                                 {`${item.firstName} ${item.lastName}`}
                                                                 {myId === item.userId && ( // Kiểm tra xem người dùng có phải là tác giả bình luận không
-                                                                    <Dropdown overlay={menu2(item.id)}
+                                                                    <Dropdown overlay={menu2(child.id)}
                                                                               trigger={['click']}
                                                                               style={{marginLeft: 10}}>
                                                                         <Button type="link">...</Button>

@@ -1,209 +1,40 @@
-/* Card chứa chi tiết bài viết */
-.post-detail-card {
-    position: relative;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    margin-bottom: 15px;
-    overflow: hidden; /* Đảm bảo nội dung không bị tràn ra ngoài card */
-}
-
-/* Tiêu đề bài viết */
-.post-detail-header {
+/* Container cho các hành động tương tác (lượt thích và bình luận) */
+.post-detail-interaction-container {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    gap: 16px; /* Khoảng cách giữa các nút */
 }
 
-/* Avatar trong tiêu đề bài viết */
-.post-detail-header .ant-avatar {
-    border-radius: 50%;
-    border: 2px solid #ddd;
-    width: 40px;
-    height: 40px;
-}
-
-/* Thông tin trong tiêu đề bài viết */
-.post-detail-header .post-info {
-    margin-left: 15px;
-}
-
-/* Tiêu đề bài viết */
-.post-detail-author {
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-/* Ngày đăng bài */
-.post-detail-date {
-    color: #777;
+/* Container cho lượt thích và bình luận */
+.post-detail-like-count-container,
+.post-detail-comment-count-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     font-size: 14px;
-    margin-top: 4px;
+    color: #595959;
+    transition: color 0.3s ease;
+    height: 24px; /* Đặt độ cao cố định để đảm bảo nút có cùng chiều cao */
 }
 
-/* Nội dung bài viết */
-.post-detail-content {
-    margin-top: 10px;
-    line-height: 1.5;
-    color: #333;
-}
-
-/* Ảnh bài viết */
-.post-detail-images {
-    margin-top: 10px;
-    position: relative; /* Đảm bảo ảnh được đặt tương đối trong card */
-}
-
-/* Container cho ảnh bài viết */
-.post-detail-images-container {
-    display: flex; /* Sử dụng flexbox để căn giữa ảnh */
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-    flex-wrap: wrap; /* Đảm bảo các ảnh sẽ tự động xuống dòng nếu không đủ không gian */
-}
-
-/* Ảnh bài viết */
-.post-detail-image-container {
-    margin: 5px;
-    overflow: hidden;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-/* Ảnh bài viết trong container */
-.post-detail-image {
-    max-width: 100%;
-    max-height: 400px; /* Giới hạn chiều cao tối đa của ảnh */
-    height: auto;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-/* Nút mở rộng ảnh */
-.post-detail-expand-button {
-    margin-top: 10px;
-    display: block;
-    background-color: #f0f0f0;
-    border: none;
-    color: #333;
-    cursor: pointer;
-    padding: 5px 10px;
-    text-align: center;
-    border-radius: 4px;
-}
-
-/* Biểu tượng thích */
-.post-detail-like-icon {
-    margin-right: 5px;
+/* Hiệu ứng hover */
+.post-detail-like-count-container:hover,
+.post-detail-comment-count-container:hover {
     color: #1890ff;
 }
 
-/* Số lượng thích */
-.post-detail-like-count {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Nút thêm, chỉnh sửa, và xóa bài viết */
-.post-detail-more-btn {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    color: #333;
+/* Biểu tượng tương tác */
+.interaction-icon {
+    margin-right: 8px;
     font-size: 16px;
-}
-
-/* Hiệu ứng khi di chuột qua nút thêm */
-.post-detail-more-btn:hover {
-    color: #007bff; /* Màu sắc khi di chuột */
-}
-
-/* Container số lượng thích và biểu tượng thích */
-.post-detail-like-count-container {
-    margin-top: 10px;
-    cursor: pointer;
     display: flex;
-    align-items: center;
+    align-items: center; /* Căn giữa biểu tượng và chữ */
+    height: 100%; /* Đảm bảo icon có cùng chiều cao với container */
 }
 
-/* Các lớp cho container ảnh bài viết */
-.post-detail-images-container.one-image {
-    display: flex;
-    justify-content: center;
-}
-
-.post-detail-images-container.two-images {
-    display: flex;
-    justify-content: space-between;
-}
-
-.post-detail-images-container.three-or-more-images {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-/* Ảnh bài viết trong container */
-.post-detail-image-container.one-image {
-    width: calc(100% - 10px); /* Đảm bảo ảnh không vượt quá chiều rộng của container */
-}
-
-.post-detail-image-container.two-images {
-    width: calc(50% - 10px); /* Đảm bảo ảnh có kích thước đồng đều và cách nhau 10px */
-}
-
-.post-detail-image-container.three-or-more-images {
-    width: calc(33.33% - 10px); /* Đảm bảo ảnh có kích thước đồng đều và cách nhau 10px */
-}
-
-/* Media Queries */
-
-/* Giao diện cho màn hình điện thoại di động */
-@media (max-width: 576px) {
-    .post-detail-image-container.one-image,
-    .post-detail-image-container.two-images,
-    .post-detail-image-container.three-or-more-images {
-        width: calc(100% - 10px); /* Ảnh chiếm toàn bộ chiều rộng của container với khoảng cách nhỏ */
-    }
-
-    .post-detail-image {
-        max-height: 300px; /* Giới hạn chiều cao tối đa cho điện thoại di động */
-    }
-}
-
-/* Giao diện cho màn hình máy tính bảng */
-@media (min-width: 576px) and (max-width: 768px) {
-    .post-detail-image-container.one-image,
-    .post-detail-image-container.two-images {
-        width: calc(50% - 10px); /* Mỗi ảnh chiếm một nửa chiều rộng của container với khoảng cách nhỏ */
-    }
-
-    .post-detail-image-container.three-or-more-images {
-        width: calc(50% - 10px); /* Mỗi ảnh chiếm một nửa chiều rộng của container với khoảng cách nhỏ */
-    }
-
-    .post-detail-image {
-        max-height: 350px; /* Giới hạn chiều cao tối đa cho máy tính bảng */
-    }
-}
-
-/* Giao diện cho màn hình máy tính để bàn */
-@media (min-width: 768px) {
-    .post-detail-image-container.one-image {
-        width: calc(100% - 10px); /* Ảnh chiếm toàn bộ chiều rộng của container với khoảng cách nhỏ */
-    }
-
-    .post-detail-image-container.two-images {
-        width: calc(50% - 10px); /* Mỗi ảnh chiếm một nửa chiều rộng của container với khoảng cách nhỏ */
-    }
-
-    .post-detail-image-container.three-or-more-images {
-        width: calc(33.33% - 10px); /* Mỗi ảnh chiếm một phần ba chiều rộng của container với khoảng cách nhỏ */
-    }
-}
+/* Thêm style cho container của comment */
 .post-comments {
     margin-top: 20px;
 }
@@ -219,4 +50,34 @@
 .post-comments .ant-list-item {
     border-bottom: 1px solid #f0f0f0;
     padding: 10px 0;
+}
+
+/* Thêm style cho nút xem thêm */
+.post-detail-expand-button {
+    margin-top: 10px;
+    display: block;
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.post-detail-expand-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Hiệu ứng hover cho các nút thêm, chỉnh sửa, xóa */
+.post-detail-more-btn:hover {
+    color: #007bff;
+}
+
+/* Điều chỉnh giao diện cho màn hình nhỏ */
+@media (max-width: 576px) {
+    .post-detail-interaction-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

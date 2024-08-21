@@ -1,220 +1,151 @@
-/* Card bài viết */
+/* Post.css */
+
 .post-card {
-    position: relative !important;
-    padding: 10px !important;
+    position: relative; /* Đặt vị trí tương đối cho toàn bộ thẻ bài viết */
+    padding: 10px; /* Thêm khoảng đệm bên trong thẻ bài viết */
 }
 
-/* Tiêu đề bài viết */
 .post-header {
-    display: flex !important;
-    align-items: center !important;
-    position: relative !important;
+    display: flex; /* Sắp xếp các phần tử con theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    position: relative; /* Đặt vị trí tương đối cho phần tiêu đề bài viết */
 }
 
-/* Ảnh đại diện */
 .post-header .ant-avatar {
-    border-radius: 50% !important;
+    border-radius: 50%; /* Làm cho ảnh đại diện có dạng hình tròn */
 }
 
-/* Tên người dùng */
 .post-header .ant-typography {
-    margin-left: 10px !important;
+    margin-left: 10px; /* Khoảng cách từ phần văn bản đến ảnh đại diện */
 }
 
-/* Các ảnh trong bài viết */
-.post-images {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    margin-top: 10px !important;
+.post-stats {
+    display: flex; /* Sắp xếp các thống kê bài viết theo chiều ngang */
+    align-items: center; /* Căn giữa các thống kê theo chiều dọc */
+    margin-top: 10px; /* Khoảng cách phía trên của phần thống kê */
 }
 
-/* Ảnh trong bài viết */
-.post-image {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    transition: transform 0.3s ease !important;
-}
-
-.post-image:hover {
-    transform: scale(1.05) !important;
-}
-
-/* Thống kê lượt thích và bình luận */
-.post-detail-like-count-container {
-    display: flex !important;
-    align-items: center !important;
-    margin-top: 10px !important;
-}
-
-.post-detail-like-count-container .anticon {
-    font-size: 16px !important;
-    margin-right: 5px !important;
-}
-
-.post-detail-like-count-container .like-count {
-    font-size: 14px !important;
-    color: gray !important;
-}
-
-/* Các nút hành động */
 .post-actions {
-    margin-top: 10px !important;
+    margin-top: 10px; /* Khoảng cách phía trên của các nút hành động */
 }
 
 .post-action-button {
-    margin-right: 10px !important;
+    margin-right: 10px; /* Khoảng cách giữa các nút hành động */
 }
 
-/* Nút tuỳ chọn thêm */
-.more-options-button {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    cursor: pointer !important;
-    font-size: 20px !important;
-    font-weight: bold !important;
-    color: #000 !important;
-    margin-left: auto !important;
-}
-
-/* Nút tuỳ chọn thêm - căn giữa biểu tượng */
-.more-options-button .anticon {
-    vertical-align: middle !important;
-}
-
-/* Nội dung bài viết nếu không có ảnh */
-.post-card.no-image .post-content {
-    text-align: left !important;
-}
-
-/* Modal chi tiết bài đăng */
-.ant-modal {
-    width: 800px !important;
-}
-
-/* Bình luận */
-.post-comments {
-    margin-top: 10px !important;
-}
-
-.post-comments .ant-typography {
-    margin-bottom: 10px !important;
-}
-
-.post-comments .ant-input-textarea {
-    margin-top: 10px !important;
-}
-
-/* Các nút bình luận */
 .ant-btn {
-    font-size: 16px !important;
+    font-size: 16px; /* Kích thước chữ trên các nút bấm */
 }
 
-/* Màn hình nhỏ (tối đa 768px) */
+.more-options-button {
+    background: transparent; /* Nền của nút tuỳ chọn thêm là trong suốt */
+    border: none; /* Không có viền cho nút tuỳ chọn thêm */
+    padding: 0; /* Không có khoảng đệm bên trong nút */
+    cursor: pointer; /* Đổi con trỏ chuột thành hình bàn tay khi di chuột qua */
+    font-size: 20px; /* Kích thước chữ của nút tuỳ chọn thêm */
+    font-weight: bold; /* Độ đậm của chữ trên nút */
+    color: #000; /* Màu chữ của nút tuỳ chọn thêm */
+    margin-left: auto; /* Đẩy nút sang bên phải trong phần tiêu đề */
+}
+
+.more-options-button .anticon {
+    vertical-align: middle; /* Căn giữa biểu tượng theo chiều dọc */
+}
+
+/* Căn trái nội dung nếu không có ảnh */
+.post-card.no-image .post-content {
+    text-align: left; /* Căn trái nội dung bài viết */
+}
+
+/* Màn hình cỡ nhỏ (Small devices, tối đa 768px) */
 @media only screen and (max-width: 768px) {
     .post-header {
-        flex-direction: column !important;
-        align-items: flex-start !important;
+        flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+        align-items: flex-start; /* Căn trái các phần tử trong tiêu đề */
     }
 
     .post-header .ant-typography {
-        margin-left: 0 !important;
-        margin-top: 10px !important;
-        text-align: left !important;
-        width: 100% !important;
+        margin-left: 0; /* Xóa khoảng cách trái của văn bản */
+        margin-top: 10px; /* Thêm khoảng cách phía trên cho văn bản */
+        text-align: left; /* Căn trái văn bản */
+        width: 100%; /* Chiều rộng của văn bản chiếm toàn bộ container */
     }
 
     .more-options-button {
-        margin-left: 0 !important;
-        margin-top: 10px !important;
+        margin-left: 0; /* Xóa khoảng cách trái của nút tuỳ chọn thêm */
+        margin-top: 10px; /* Thêm khoảng cách phía trên cho nút */
     }
 
     .post-actions {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
+        display: flex; /* Sắp xếp các nút hành động theo chiều dọc */
+        flex-direction: column; /* Các nút hành động xếp chồng lên nhau */
+        align-items: stretch; /* Các nút kéo dài để chiếm toàn bộ chiều rộng */
     }
 
     .post-action-button {
-        margin-right: 0 !important;
-        margin-bottom: 10px !important;
+        margin-right: 0; /* Xóa khoảng cách phải của các nút hành động */
+        margin-bottom: 10px; /* Thêm khoảng cách phía dưới cho các nút hành động */
     }
 }
 
-/* Màn hình rất nhỏ (tối đa 576px) */
+/* Màn hình điện thoại (Small devices, tối đa 576px) */
 @media only screen and (max-width: 576px) {
     .post-header {
-        flex-direction: column !important;
-        align-items: center !important;
+        flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+        align-items: center; /* Căn giữa các phần tử trong tiêu đề */
     }
 
     .post-image {
-        width: 100% !important;
-        height: auto !important;
+        width: 100%; /* Đặt chiều rộng là 100% trên màn hình nhỏ hơn */
+        height: auto; /* Để chiều cao tự động điều chỉnh */
     }
 
-    .post-detail-like-count-container {
-        justify-content: center !important;
-        margin-top: 5px !important;
+    .post-stats {
+        justify-content: center; /* Căn giữa các thống kê bài viết */
+        margin-top: 5px; /* Khoảng cách phía trên của phần thống kê */
     }
 
     .post-actions {
-        flex-direction: column !important;
-        align-items: center !important;
-        margin-top: 5px !important;
+        flex-direction: column; /* Các nút hành động xếp chồng lên nhau */
+        align-items: center; /* Căn giữa các nút hành động */
+        margin-top: 5px; /* Khoảng cách phía trên của các nút hành động */
     }
 
     .post-action-button {
-        width: 100% !important;
-        margin-bottom: 5px !important;
+        width: 100%; /* Chiều rộng của nút chiếm toàn bộ container */
+        margin-bottom: 5px; /* Thêm khoảng cách phía dưới cho các nút hành động */
     }
 
     .more-options-button {
-        margin-top: 10px !important;
+        margin-top: 10px; /* Thêm khoảng cách phía trên cho nút tuỳ chọn thêm */
     }
 }
 
-/* Bài viết với nhiều ảnh */
-.post-card.single-image .post-images,
-.post-card.double-image .post-images,
-.post-card.triple-image .post-images,
-.post-card.quadriple-image .post-images,
-.post-card.multi-image .post-images {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
+/* Đặt kích thước cố định cho ảnh */
+.post-image {
+    width: 200px; /* Đặt chiều rộng cố định */
+    height: 200px; /* Đặt chiều cao cố định */
+    object-fit: cover; /* Đảm bảo ảnh không bị biến dạng và cắt bớt nếu cần */
+    border-radius: 8px; /* (Tùy chọn) Thêm bo tròn các góc ảnh */
+    cursor: pointer; /* Đổi con trỏ thành hình bàn tay khi di chuột qua ảnh */
+    transition: transform 0.3s ease; /* (Tùy chọn) Thêm hiệu ứng chuyển động */
 }
 
-/* Bài viết với 1 ảnh */
-.post-card.single-image .post-image {
-    width: 100% !important;
-    height: auto !important;
+.post-image:hover {
+    transform: scale(1.05); /* (Tùy chọn) Phóng to ảnh một chút khi di chuột qua */
+}
+/* Post.css */
+.post-detail-like-count-container {
+    display: flex;
+    align-items: center;
 }
 
-/* Bài viết với 2 ảnh */
-.post-card.double-image .post-image {
-    width: calc(50% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
+.post-detail-like-icon {
+    font-size: 16px;
+    margin-right: 5px;
 }
 
-/* Bài viết với 3 ảnh */
-.post-card.triple-image .post-image {
-    width: calc(33.33% - 10px) !important; /* Tính toán chiều rộng với khoảng cách giữa các ảnh */
-}
-
-/* Bài viết với 4 ảnh */
-.post-card.quadriple-image .post-image {
-    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh */
-}
-
-/* Bài viết với 5 ảnh trở lên */
-.post-card.multi-image .post-image {
-    width: calc(25% - 10px) !important; /* Chiều rộng cho 4 ảnh đầu tiên */
-}
-
-.post-card.multi-image .post-image:nth-of-type(n+5) {
-    display: none !important; /* Ẩn các ảnh từ thứ 5 trở đi */
+.post-detail-like-count {
+    font-size: 14px;
+    color: gray;
 }
