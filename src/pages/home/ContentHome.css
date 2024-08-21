@@ -3,3 +3,34 @@
     min-height: 280px;
     /* Các thuộc tính khác có thể được thêm vào đây */
 }
+/* Container chứa Avatar và Button */
+.create-post-container {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5; /* Màu nền nhạt giống như Facebook */
+    padding: 10px;
+    border-radius: 8px; /* Bo góc nhẹ */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    margin-bottom: 20px;
+}
+
+/* Avatar */
+.create-post-container .ant-avatar {
+    margin-right: 10px; /* Khoảng cách giữa avatar và button */
+}
+
+/* Nút "Tạo bài viết" */
+.create-post-button {
+    border: none;
+    color: #ffffff; /* Màu chữ */
+    padding: 8px 16px; /* Padding cho button */
+    border-radius: 20px; /* Bo góc button */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: 500; /* Đậm chữ */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+}
+
+.create-post-button:hover {
+    background-color: #165eab; /* Màu nền khi hover */
+}
