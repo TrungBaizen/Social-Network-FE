@@ -1,6 +1,6 @@
 import React from 'react';
-import {UserOutlined} from '@ant-design/icons';
-import {Layout, Menu} from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
 import './SiderRight.css'; // Import the new CSS file
 
 const { Sider } = Layout;
@@ -15,21 +15,22 @@ const onlineUsers = [
 ];
 
 const SiderRight = () => (
-    <Sider
-        className="sider"
-        width={200}
-    >
+    <Sider className="sider" width={200}>
         <Menu
             mode="inline"
             defaultSelectedKeys={['1']}
-            // theme="dark"
             className="menu"
-            items={onlineUsers.map(user => ({
-                key: user.key,
-                icon: <UserOutlined style={{ color: '#52c41a' }} />,
-                label: user.name,
-            }))}
-        />
+        >
+            {onlineUsers.map(user => (
+                <Menu.Item key={user.key} className="menu-item">
+                    <div className="user-info">
+                        <span className="online-status"/>
+                        <span className="user-name">{user.name}</span>
+
+                    </div>
+                </Menu.Item>
+            ))}
+        </Menu>
     </Sider>
 );
 

@@ -1,12 +1,46 @@
-
 .sider {
-    position: sticky;
-    top: 0;
-    height: auto;
-    overflow: auto;
+    background-color: #ffffff; /* Màu nền của Sider */
 }
 
 .menu {
-    height: 100%;
-    border-right: 0;
+    border: none; /* Bỏ viền của Menu */
+    padding: 0; /* Xóa padding mặc định của Menu */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px; /* Padding bên trong mục menu */
+    /*border-bottom: 1px solid #f0f0f0; !* Đường viền dưới mỗi mục menu *!*/
+    /*transition: background-color 0.3s; !* Hiệu ứng chuyển màu nền khi hover *!*/
+}
+
+.menu-item:hover {
+    background-color: #f5f5f5; /* Màu nền khi hover */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.online-status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #52c41a; /* Màu xanh của chấm trực tuyến */
+    margin-right: 12px; /* Khoảng cách giữa chấm và tên người dùng */
+}
+
+.user-name {
+    flex: 1; /* Đẩy tên người dùng về phía bên trái */
+    color: #000; /* Màu chữ tên người dùng */
+    font-size: 14px; /* Kích thước chữ */
+    font-weight: 500; /* Độ đậm của chữ */
+}
+
+.user-name:hover {
+    color: #1890ff; /* Màu chữ khi hover */
+    text-decoration: underline; /* Gạch chân chữ khi hover */
 }
