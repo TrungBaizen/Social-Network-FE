@@ -88,7 +88,7 @@ const postSlice = createSlice({
                 state.listSearch[indexSearch].likes = state.listSearch[indexSearch].likes.filter(like => like.userId !== payload.userId);
             }
         });
-        builder.addCase(commentPost.fulfilled, (state, { payload }) => {
+        builder.addCase(commentPost.fulfilled, (state, {payload}) => {
             const index = state.list.findIndex(post => post.id === payload.postId);
             if (index !== -1) {
                 if (!state.list[index].comments) {
@@ -149,50 +149,44 @@ const postSlice = createSlice({
                 }
             }
         });
-        builder.addCase(deleteCommentPost.fulfilled,(state,{payload})=>{
-            const index = state.list.findIndex(post =>
-                    post.comments && post.comments.some(comment =>
-                        comment.id === payload ||
-                        (comment.commentChildren && comment.commentChildren.some(child => child.id === payload))
-                    )
-            );
-            if (index !== -1){
-                const indexComment = state.list[index].comments.findIndex(comment => comment.id === payload)
-                if (indexComment !== -1){
-                    state.list[index].comments = state.list[index].comments.filter(comment => comment.id !== payload); // Xóa bài viết khỏi danh sách
-                }else {
-                    state.list[index].comments.commentChildren = state.list[index].comments.commentChildren.filter(comment => comment.id !== payload);
+        builder.addCase(deleteCommentPost.fulfilled, (state, { payload }) => {
+            const updateComments = (postList, payload) => {
+                const index = postList.findIndex(post =>
+                        post.comments && post.comments.some(comment =>
+                            comment.id === payload ||
+                            (comment.commentChildren && comment.commentChildren.some(child => child.id === payload))
+                        )
+                );
+
+                if (index !== -1) {
+                    const comment = postList[index].comments.find(comment => comment.id === payload);
+                    if (comment) {
+                        // Xóa bình luận chính nếu nó khớp với payload
+                        postList[index].comments = postList[index].comments.filter(comment => comment.id !== payload);
+                    } else {
+                        // Tìm bình luận cha có chứa commentChildren cần xóa
+                        const parentComment = postList[index].comments.find(comment =>
+                            comment.commentChildren && comment.commentChildren.some(child => child.id === payload)
+                        );
+
+                        if (parentComment) {
+                            // Lọc ra các commentChildren không khớp với payload
+                            parentComment.commentChildren = parentComment.commentChildren.filter(child => child.id !== payload);
+                        }
+                    }
                 }
-            }
-            const indexHome = state.listPostHome.findIndex(post =>
-                    post.comments && post.comments.some(comment =>
-                        comment.id === payload ||
-                        (comment.commentChildren && comment.commentChildren.some(child => child.id === payload))
-                    )
-            );
-            if (indexHome !== -1){
-                const indexComment = state.listPostHome[indexHome].comments.findIndex(comment => comment.id === payload)
-                if (indexComment !== -1){
-                    state.listPostHome[indexHome].comments = state.listPostHome[indexHome].comments.filter(comment => comment.id !== payload); // Xóa bài viết khỏi danh sách
-                }else {
-                    state.listPostHome[indexHome].comments.commentChildren = state.listPostHome[indexHome].comments.commentChildren.filter(comment => comment.id !== payload);
-                }
-            }
-            const indexSearch = state.listSearch.findIndex(post =>
-                    post.comments && post.comments.some(comment =>
-                        comment.id === payload ||
-                        (comment.commentChildren && comment.commentChildren.some(child => child.id === payload))
-                    )
-            );
-            if (indexSearch !== -1){
-                const indexComment = state.listSearch[indexSearch].comments.findIndex(comment => comment.id === payload)
-                if (indexComment !== -1){
-                    state.listSearch[indexSearch].comments = state.listSearch[indexSearch].comments.filter(comment => comment.id !== payload); // Xóa bài viết khỏi danh sách
-                }else {
-                    state.listSearch[indexSearch].comments.commentChildren = state.listSearch[indexSearch].comments.commentChildren.filter(comment => comment.id !== payload);
-                }
-            }
-        })
+            };
+
+            // Cập nhật danh sách bình luận cho `state.list`
+            updateComments(state.list, payload);
+
+            // Cập nhật danh sách bình luận cho `state.listPostHome`
+            updateComments(state.listPostHome, payload);
+
+            // Cập nhật danh sách bình luận cho `state.listSearch`
+            updateComments(state.listSearch, payload);
+        });
+
     }
 });
 
