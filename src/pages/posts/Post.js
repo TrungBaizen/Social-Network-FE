@@ -236,7 +236,7 @@ const Post = ({post, avatarImage}) => {
         setSelectedReplyImages2(prevImages => [...prevImages, ...files]);
     };
 
-    const handleReplySubmit =async (commentId) => {
+    const handleReplySubmit = async (commentId) => {
         const imageComments = selectedReplyImages ? await Promise.all(selectedReplyImages.map(async (file) => {
             return await compressAndEncodeImageFile(file);
         })) : [];
@@ -244,7 +244,7 @@ const Post = ({post, avatarImage}) => {
         const comment = {
             content: replyContent,
             userId: myId,
-            parentCommentId:commentId,
+            parentCommentId: commentId,
             postId: post.id,
             commentImages: commentImages
         }
@@ -264,7 +264,7 @@ const Post = ({post, avatarImage}) => {
     };
     return (
         <div>
-            <Card className="post-card">
+            <Card className={`post-card ${getImageClassName()}`}>
                 <div className="post-header">
                     <Avatar src={avatarImage}/>
                     <div>
@@ -414,13 +414,16 @@ const Post = ({post, avatarImage}) => {
                                             description={<>
                                                 {item.content}
                                                 {item.commentImages && item.commentImages.length > 0 && (
-                                                    <div style={{ marginTop: 10 }}>
+                                                    <div style={{marginTop: 10}}>
                                                         {item.commentImages.map((imgSrc, index) => (
                                                             <img
                                                                 key={index}
                                                                 src={decodeAndDecompressImageFile(decodeURIComponent(imgSrc.image))}
                                                                 alt={`Description Image ${index}`}
-                                                                style={{ width: '100%', marginBottom: 10 }} // Thay đổi kích thước và khoảng cách tùy chỉnh nếu cần
+                                                                style={{
+                                                                    width: '100%',
+                                                                    marginBottom: 10
+                                                                }} // Thay đổi kích thước và khoảng cách tùy chỉnh nếu cần
                                                             />
                                                         ))}
                                                     </div>
@@ -463,13 +466,16 @@ const Post = ({post, avatarImage}) => {
                                                             description={<>
                                                                 {child.content}
                                                                 {child.commentImages && child.commentImages.length > 0 && (
-                                                                    <div style={{ marginTop: 10 }}>
+                                                                    <div style={{marginTop: 10}}>
                                                                         {child.commentImages.map((imgSrc, index) => (
                                                                             <img
                                                                                 key={index}
                                                                                 src={decodeAndDecompressImageFile(decodeURIComponent(imgSrc.image))}
                                                                                 alt={`Description Image ${index}`}
-                                                                                style={{ width: '100%', marginBottom: 10 }} // Thay đổi kích thước và khoảng cách tùy chỉnh nếu cần
+                                                                                style={{
+                                                                                    width: '100%',
+                                                                                    marginBottom: 10
+                                                                                }} // Thay đổi kích thước và khoảng cách tùy chỉnh nếu cần
                                                                             />
                                                                         ))}
                                                                     </div>
