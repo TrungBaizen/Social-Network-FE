@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProfile, updateAvatar, updateCover} from "../../redux/services/profileService";
 import {CalendarOutlined, EnvironmentOutlined, ManOutlined, ToolOutlined, WomanOutlined} from "@ant-design/icons";
 import {decodeAndDecompressImageFile} from "../../EncodeDecodeImage/decodeAndDecompressImageFile";
+import MyFriendsList from "./MyFriendsPage/MyFriendsList";
 const {Content} = Layout;
 const {Title, Text} = Typography;
 
@@ -180,7 +181,7 @@ const Profile = () => {
                                         onSave={handleSave}
                                     />
                                 </div>
-                                <FriendsList/>
+                                <MyFriendsList/>
                             </div>
                             <div className="right-column">
                                 <PostPage/>

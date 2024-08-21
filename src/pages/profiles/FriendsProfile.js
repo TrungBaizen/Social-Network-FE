@@ -462,8 +462,10 @@ const Profile = () => {
     const [hasReceivedRequest, setHasReceivedRequest] = useState(false);
     const [pendingRequests, setPendingRequests] = useState([]);
 
+
+
     useEffect(() => {
-        if (profileUserId && currentUserId) {
+          if (profileUserId && currentUserId) {
             const checkRequestStatus = async () => {
                 try {
                     const response = await axios.get('http://localhost:8080/friends/has-sent-request', {
@@ -544,7 +546,7 @@ const Profile = () => {
     }, [profileUserId, currentUserId]);
 
     useEffect(() => {
-        const fetchImage = async () => {
+         const fetchImage = async () => {
             try {
                 if (profile.imageCover) {
                     const decodeURL = decodeURIComponent(profile.imageCover);
@@ -848,43 +850,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
