@@ -10,9 +10,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Typography from "@mui/material/Typography";
 
 const pages = [
-    { title: 'Home', icon: <HomeIcon sx={{ color: 'white' }} />, link: '/' },
-    { title: 'Group', icon: <GroupIcon sx={{ color: 'white' }} />, link: '/group' },
-    { title: 'Account', icon: <AccountCircleIcon sx={{ color: 'white' }} />, link: '/account' },
+    { title: 'Trang Chủ', icon: <HomeIcon sx={{ color: 'white' }} />, link: '/' },
+    { title: 'Nhóm', icon: <GroupIcon sx={{ color: 'white' }} />, link: '/group' },
+    { title: 'Ảnh', icon: <AccountCircleIcon sx={{ color: 'white' }} />, link: '/account' },
 ];
 
 function MobileNavMenu({ anchorElNav, handleOpenNavMenu, handleCloseNavMenu }) {

@@ -6,9 +6,9 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import "./NavigationMenu.css"; // Tạo file CSS riêng để tách biệt phần kiểu dáng
 
 const pages = [
-    { title: 'Home', icon: <HomeIcon />, link: '/' },
-    { title: 'Group', icon: <GroupIcon />, link: '/group' },
-    { title: 'Account', icon: <AccountCircleIcon />, link: '/account' },
+    { title: 'Trang Chủ', icon: <HomeIcon />, link: '/' },
+    { title: 'Nhóm', icon: <GroupIcon />, link: '/group' },
+    { title: 'Bạn Bè', icon: <AccountCircleIcon />, link: '/account' },
 ];
 
 const NavigationMenu = () => {
